@@ -365,7 +365,7 @@ func (c *Operator) syncNodeEndpoints() error {
 			return errors.Wrapf(err, "failed to determine hostname for node (%s)", n.Name)
 		}
 		eps.Subsets[0].Addresses = append(eps.Subsets[0].Addresses, v1.EndpointAddress{
-			IP:       address,
+			IP: address,
 			TargetRef: &v1.ObjectReference{
 				Kind:       "Node",
 				Name:       n.Name,

@@ -15,13 +15,14 @@
 package prometheus
 
 import (
+	"reflect"
+	"testing"
+
 	"github.com/coreos/prometheus-operator/pkg/client/monitoring/v1alpha1"
 	"github.com/stretchr/testify/require"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/pkg/api/v1"
 	"k8s.io/client-go/pkg/apis/apps/v1beta1"
-	"reflect"
-	"testing"
 )
 
 var (
@@ -49,6 +50,55 @@ func TestStatefulSetLabelingAndAnnotations(t *testing.T) {
 
 	if !reflect.DeepEqual(labels, sset.Labels) || !reflect.DeepEqual(annotations, sset.Annotations) {
 		t.Fatal("Labels or Annotations are not properly being propagated to the StatefulSet")
+	}
+}
+
+func TestStatefulSetTolerations(t *testing.T) {
+	tolerations := []v1.Toleration{
+		v1.Toleration{
+			Key:   "a-taint-key",
+			Value: "a-taint-value",
+		},
+	}
+
+	sset, err := makeStatefulSet(v1alpha1.Prometheus{
+		Spec: v1alpha1.PrometheusSpec{
+			Tolerations: tolerations,
+		},
+	}, nil, defaultTestConfig, []*v1.ConfigMap{})
+
+	require.NoError(t, err)
+
+	if !reflect.DeepEqual(tolerations, sset.Spec.Template.Spec.Tolerations) {
+		t.Fatal("Tolerations are not properly being propagated to the StatefulSet")
+	}
+}
+
+func TestStatefulSetAffinity(t *testing.T) {
+	affinity := v1.Affinity{
+		PodAffinity: &v1.PodAffinity{
+			RequiredDuringSchedulingIgnoredDuringExecution: []v1.PodAffinityTerm{
+				v1.PodAffinityTerm{
+					LabelSelector: &metav1.LabelSelector{
+						MatchLabels: map[string]string{
+							"a-label-key": "a-label-value",
+						},
+					},
+				},
+			},
+		},
+	}
+
+	sset, err := makeStatefulSet(v1alpha1.Prometheus{
+		Spec: v1alpha1.PrometheusSpec{
+			Affinity: &affinity,
+		},
+	}, nil, defaultTestConfig, []*v1.ConfigMap{})
+
+	require.NoError(t, err)
+
+	if !reflect.DeepEqual(affinity, *sset.Spec.Template.Spec.Affinity) {
+		t.Fatal("Affinity is not properly being propagated to the StatefulSet")
 	}
 }
 
