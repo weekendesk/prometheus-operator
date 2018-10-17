@@ -874,7 +874,12 @@ func (c *Operator) destroyPrometheus(key string) error {
 	return nil
 }
 
-func (c *Operator) loadBasicAuthSecrets(mons map[string]*v1alpha1.ServiceMonitor, s *v1.SecretList) (map[string]BasicAuthCredentials, error) {
+func (c *Operator) loadBasicAuthSecrets(
+	mons map[string]*v1alpha1.ServiceMonitor,
+	remoteReads []v1alpha1.RemoteReadSpec,
+	remoteWrites []v1alpha1.RemoteWriteSpec,
+	s *v1.SecretList,
+) (map[string]BasicAuthCredentials, error) {
 
 	secrets := map[string]BasicAuthCredentials{}
 
@@ -926,7 +931,65 @@ func (c *Operator) loadBasicAuthSecrets(mons map[string]*v1alpha1.ServiceMonitor
 		}
 	}
 
+	for i, remote := range remoteReads {
+		if remote.BasicAuth != nil {
+			credentials, err := loadBasicAuthSecret(remote.BasicAuth, s)
+			if err != nil {
+				return nil, fmt.Errorf("could not generate basicAuth for remote_read config %d. %s", i, err)
+			}
+			secrets[fmt.Sprintf("+remoteRead/%d", i)] = credentials
+		}
+	}
+
+	for i, remote := range remoteWrites {
+		if remote.BasicAuth != nil {
+			credentials, err := loadBasicAuthSecret(remote.BasicAuth, s)
+			if err != nil {
+				return nil, fmt.Errorf("could not generate basicAuth for remote_write config %d. %s", i, err)
+			}
+			secrets[fmt.Sprintf("+remoteWrite/%d", i)] = credentials
+		}
+	}
+
 	return secrets, nil
+
+}
+
+func loadBasicAuthSecret(basicAuth *v1alpha1.BasicAuth, s *v1.SecretList) (BasicAuthCredentials, error) {
+	var username string
+	var password string
+
+	for _, secret := range s.Items {
+
+		if secret.Name == basicAuth.Username.Name {
+
+			if u, ok := secret.Data[basicAuth.Username.Key]; ok {
+				username = string(u)
+			} else {
+				return BasicAuthCredentials{}, fmt.Errorf("secret username key %q in secret %q not found", basicAuth.Username.Key, secret.Name)
+			}
+
+		}
+
+		if secret.Name == basicAuth.Password.Name {
+
+			if p, ok := secret.Data[basicAuth.Password.Key]; ok {
+				password = string(p)
+			} else {
+				return BasicAuthCredentials{}, fmt.Errorf("secret password key %q in secret %q not found", basicAuth.Password.Key, secret.Name)
+			}
+
+		}
+		if username != "" && password != "" {
+			break
+		}
+	}
+
+	if username == "" && password == "" {
+		return BasicAuthCredentials{}, fmt.Errorf("basic auth username and password secret not found")
+	}
+
+	return BasicAuthCredentials{username: username, password: password}, nil
 
 }
 
@@ -944,7 +1007,7 @@ func (c *Operator) createConfig(p *v1alpha1.Prometheus, ruleFileConfigMaps []*v1
 		return err
 	}
 
-	basicAuthSecrets, err := c.loadBasicAuthSecrets(smons, listSecrets)
+	basicAuthSecrets, err := c.loadBasicAuthSecrets(smons, p.Spec.RemoteRead, p.Spec.RemoteWrite, listSecrets)
 
 	if err != nil {
 		return err

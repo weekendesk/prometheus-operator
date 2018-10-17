@@ -109,6 +109,11 @@ type PrometheusSpec struct {
 	Affinity *v1.Affinity `json:"affinity,omitempty"`
 	// If specified, the pod's tolerations.
 	Tolerations []v1.Toleration `json:"tolerations,omitempty"`
+
+	// If specified, the remote_write spec. This is an experimental feature, it may change in any upcoming release in a breaking way.
+	RemoteWrite []RemoteWriteSpec `json:"remoteWrite,omitempty"`
+	// If specified, the remote_read spec. This is an experimental feature, it may change in any upcoming release in a breaking way.
+	RemoteRead []RemoteReadSpec `json:"remoteRead,omitempty"`
 }
 
 // Most recent observed status of the Prometheus cluster. Read-only. Not
@@ -349,4 +354,67 @@ type NamespaceSelector struct {
 	// TODO(fabxc): this should embed metav1.LabelSelector eventually.
 	// Currently the selector is only used for namespaces which require more complex
 	// implementation to support label selections.
+}
+
+// RemoteReadSpec defines the remote_read configuration for prometheus.
+type RemoteReadSpec struct {
+	//The URL of the endpoint to send samples to.
+	URL string `json:"url"`
+	//Timeout for requests to the remote read endpoint.
+	RemoteTimeout string `json:"remoteTimeout,omitempty"`
+	//BasicAuth for the URL.
+	BasicAuth *BasicAuth `json:"basicAuth,omitempty"`
+	// bearer token for remote read.
+	BearerToken string `json:"bearerToken,omitempty"`
+	// File to read bearer token for remote read.
+	BearerTokenFile string `json:"bearerTokenFile,omitempty"`
+	// TLS Config to use for remote read.
+	TLSConfig *TLSConfig `json:"tlsConfig,omitempty"`
+	//Optional ProxyURL
+	ProxyURL string `json:"proxyUrl,omitempty"`
+}
+
+// RemoteWriteSpec defines the remote_write configuration for prometheus.
+type RemoteWriteSpec struct {
+	//The URL of the endpoint to send samples to.
+	URL string `json:"url"`
+	//Timeout for requests to the remote write endpoint.
+	RemoteTimeout string `json:"remoteTimeout,omitempty"`
+	//The list of remote write relabel configurations.
+	WriteRelabelConfigs []RelabelConfig `json:"writeRelabelConfigs,omitempty"`
+	//BasicAuth for the URL.
+	BasicAuth *BasicAuth `json:"basicAuth,omitempty"`
+	// File to read bearer token for remote write.
+	BearerToken string `json:"bearerToken,omitempty"`
+	// File to read bearer token for remote write.
+	BearerTokenFile string `json:"bearerTokenFile,omitempty"`
+	// TLS Config to use for remote write.
+	TLSConfig *TLSConfig `json:"tlsConfig,omitempty"`
+	//Optional ProxyURL
+	ProxyURL string `json:"proxyUrl,omitempty"`
+}
+
+// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion.
+// It defines `<metric_relabel_configs>`-section of Prometheus configuration.
+// More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+// +k8s:openapi-gen=true
+type RelabelConfig struct {
+	//The source labels select values from existing labels. Their content is concatenated
+	//using the configured separator and matched against the configured regular expression
+	//for the replace, keep, and drop actions.
+	SourceLabels []string `json:"sourceLabels,omitempty"`
+	//Separator placed between concatenated source label values. default is ';'.
+	Separator string `json:"separator,omitempty"`
+	//Label to which the resulting value is written in a replace action.
+	//It is mandatory for replace actions. Regex capture groups are available.
+	TargetLabel string `json:"targetLabel,omitempty"`
+	//Regular expression against which the extracted value is matched. defailt is '(.*)'
+	Regex string `json:"regex,omitempty"`
+	// Modulus to take of the hash of the source label values.
+	Modulus uint64 `json:"modulus,omitempty"`
+	//Replacement value against which a regex replace is performed if the
+	//regular expression matches. Regex capture groups are available. Default is '$1'
+	Replacement string `json:"replacement,omitempty"`
+	// Action to perform based on regex matching. Default is 'replace'
+	Action string `json:"action,omitempty"`
 }

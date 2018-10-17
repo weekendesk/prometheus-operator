@@ -90,30 +90,30 @@ func main() {
 	flag.Parse()
 
 	if *watchDir == "" {
-		log.Println("Missing watch-dir\n")
+		log.Println("Missing watch-dir")
 		flag.Usage()
 		os.Exit(1)
 	}
 	if *grafanaUrl == "" {
-		log.Println("Missing grafana-url\n")
+		log.Println("Missing grafana-url")
 		flag.Usage()
 		os.Exit(1)
 	}
 
-	gUrl, err := url.Parse(*grafanaUrl)
+	gURL, err := url.Parse(*grafanaUrl)
 	if err != nil {
-		log.Fatalf("Grafana URL could not be parsed: ", *grafanaUrl)
+		log.Fatalf("Grafana URL could not be parsed: %v", *grafanaUrl)
 	}
 
 	if os.Getenv("GRAFANA_USER") != "" && os.Getenv("GRAFANA_PASSWORD") == "" {
-		gUrl.User = url.User(os.Getenv("GRAFANA_USER"))
+		gURL.User = url.User(os.Getenv("GRAFANA_USER"))
 	}
 
 	if os.Getenv("GRAFANA_USER") != "" && os.Getenv("GRAFANA_PASSWORD") != "" {
-		gUrl.User = url.UserPassword(os.Getenv("GRAFANA_USER"), os.Getenv("GRAFANA_PASSWORD"))
+		gURL.User = url.UserPassword(os.Getenv("GRAFANA_USER"), os.Getenv("GRAFANA_PASSWORD"))
 	}
 
-	g := grafana.New(gUrl)
+	g := grafana.New(gURL)
 
 	for {
 		log.Println("Waiting for Grafana to be available.")
