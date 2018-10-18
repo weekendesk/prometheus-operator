@@ -168,7 +168,7 @@ func generateServiceMonitorConfig(version semver.Version, m *v1alpha1.ServiceMon
 		cfg = append(cfg, yaml.MapItem{Key: "scheme", Value: ep.Scheme})
 	}
 
-	addTLStoYaml(cfg, ep.TLSConfig)
+	cfg = addTLStoYaml(cfg, ep.TLSConfig)
 
 	if ep.BearerTokenFile != "" {
 		cfg = append(cfg, yaml.MapItem{Key: "bearer_token_file", Value: ep.BearerTokenFile})
