@@ -28,7 +28,7 @@ func CreateRoleBinding(kubeClient kubernetes.Interface, ns string, relativePath 
 		return finalizerFn, err
 	}
 
-	_, err = kubeClient.RbacV1().RoleBindings(ns).Create(roleBinding)
+	_, err = kubeClient.RbacV1beta1().RoleBindings(ns).Create(roleBinding)
 	return finalizerFn, err
 }
 
@@ -38,7 +38,7 @@ func DeleteRoleBinding(kubeClient kubernetes.Interface, ns string, relativePath 
 		return err
 	}
 
-	return kubeClient.RbacV1().RoleBindings(ns).Delete(roleBinding.Name, &metav1.DeleteOptions{})
+	return kubeClient.RbacV1beta1().RoleBindings(ns).Delete(roleBinding.Name, &metav1.DeleteOptions{})
 }
 
 func parseRoleBindingYaml(relativePath string) (*rbacv1.RoleBinding, error) {

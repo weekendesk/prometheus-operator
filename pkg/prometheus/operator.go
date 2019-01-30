@@ -31,9 +31,6 @@ import (
 	"github.com/mitchellh/hashstructure"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
-	appsv1 "k8s.io/api/apps/v1beta2"
-	"k8s.io/api/core/v1"
-	extensionsobj "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
@@ -44,6 +41,9 @@ import (
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/kubernetes"
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
+	"k8s.io/client-go/pkg/api/v1"
+	appsv1 "k8s.io/client-go/pkg/apis/apps/v1beta1"
+	extensionsobj "k8s.io/client-go/pkg/apis/extensions/v1beta1"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
@@ -257,7 +257,7 @@ func New(conf Config, logger log.Logger) (*Operator, error) {
 
 	c.ssetInf = cache.NewSharedIndexInformer(
 		listwatch.MultiNamespaceListerWatcher(c.config.Namespaces, func(namespace string) cache.ListerWatcher {
-			return cache.NewListWatchFromClient(c.kclient.AppsV1beta2().RESTClient(), "statefulsets", namespace, fields.Everything())
+			return cache.NewListWatchFromClient(c.kclient.AppsV1beta1().RESTClient(), "statefulsets", namespace, fields.Everything())
 		}),
 		&appsv1.StatefulSet{}, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc},
 	)
@@ -569,6 +569,7 @@ func (c *Operator) syncNodeEndpoints() error {
 	svc := &v1.Service{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: c.kubeletObjectName,
+
 			Labels: c.config.Labels.Merge(map[string]string{
 				"k8s-app": "kubelet",
 			}),
@@ -1002,7 +1003,7 @@ func (c *Operator) sync(key string) error {
 		return errors.Wrap(err, "synchronizing governing service failed")
 	}
 
-	ssetClient := c.kclient.AppsV1beta2().StatefulSets(p.Namespace)
+	ssetClient := c.kclient.AppsV1beta1().StatefulSets(p.Namespace)
 	// Ensure we have a StatefulSet running Prometheus deployed.
 	obj, exists, err = c.ssetInf.GetIndexer().GetByKey(prometheusKeyToStatefulSetKey(key))
 	if err != nil {
@@ -1093,7 +1094,7 @@ func PrometheusStatus(kclient kubernetes.Interface, p *monitoringv1.Prometheus) 
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "retrieving pods of failed")
 	}
-	sset, err := kclient.AppsV1beta2().StatefulSets(p.Namespace).Get(statefulSetNameFromPrometheusName(p.Name), metav1.GetOptions{})
+	sset, err := kclient.AppsV1beta1().StatefulSets(p.Namespace).Get(statefulSetNameFromPrometheusName(p.Name), metav1.GetOptions{})
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "retrieving stateful set failed")
 	}
@@ -1487,4 +1488,45 @@ func (c *Operator) createCRDs() error {
 	}
 
 	return nil
+}
+
+func (c *Operator) createTPRs() error {
+	const tprServiceMonitor = c.config.CrdKinds.ServiceMonitorKindKey + "." + c.config.CrdGroup
+	const tprPrometheus = c.config.CrdKinds.PrometheusKindKey + "." + c.config.CrdGroup
+
+	tprs := []*extensionsobj.ThirdPartyResource{
+		{
+			ObjectMeta: metav1.ObjectMeta{
+				Name: tprServiceMonitor,
+			},
+			Versions: []extensionsobj.APIVersion{
+				{Name: v1alpha1.TPRVersion},
+			},
+			Description: "Prometheus monitoring for a service",
+		},
+		{
+			ObjectMeta: metav1.ObjectMeta{
+				Name: tprPrometheus,
+			},
+			Versions: []extensionsobj.APIVersion{
+				{Name: v1alpha1.TPRVersion},
+			},
+			Description: "Managed Prometheus server",
+		},
+	}
+	tprClient := c.kclient.Extensions().ThirdPartyResources()
+
+	for _, tpr := range tprs {
+		if _, err := tprClient.Create(tpr); err != nil && !apierrors.IsAlreadyExists(err) {
+			return err
+		}
+		c.logger.Log("msg", "TPR created", "tpr", tpr.Name)
+	}
+
+	// We have to wait for the TPRs to be ready. Otherwise the initial watch may fail.
+	err := k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), v1alpha1.TPRGroup, v1alpha1.TPRVersion, v1alpha1.TPRPrometheusName)
+	if err != nil {
+		return err
+	}
+	return k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), v1alpha1.TPRGroup, v1alpha1.TPRVersion, v1alpha1.TPRServiceMonitorName)
 }

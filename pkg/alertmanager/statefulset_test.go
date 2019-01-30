@@ -22,7 +22,7 @@ import (
 
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
 	"github.com/stretchr/testify/require"
-	"k8s.io/api/core/v1"
+	"k8s.io/client-go/pkg/api/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

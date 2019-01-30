@@ -21,15 +21,14 @@ import (
 	"strings"
 	"time"
 
-	"k8s.io/api/core/v1"
+	"github.com/coreos/prometheus-operator/pkg/alertmanager"
+	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
+	"github.com/pkg/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/apimachinery/pkg/util/yaml"
-
-	"github.com/coreos/prometheus-operator/pkg/alertmanager"
-	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
-	"github.com/pkg/errors"
+	"k8s.io/client-go/pkg/api/v1"
 )
 
 var ValidAlertmanagerConfig = `global:

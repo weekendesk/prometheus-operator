@@ -91,7 +91,7 @@ OPENAPI_TARGET := pkg/apis/monitoring/v1/openapi_generated.go
 $(OPENAPI_TARGET): $(K8S_GEN_DEPS)
 	$(OPENAPI_GEN_BINARY) \
 	$(K8S_GEN_ARGS) \
-	-i $(GO_PKG)/pkg/apis/monitoring/v1,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/api/core/v1 \
+	-i $(GO_PKG)/pkg/apis/monitoring/v1,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/client-go/pkg/api/v1 \
 	-p $(GO_PKG)/pkg/apis/monitoring/v1
 
 .PHONY: k8s-gen

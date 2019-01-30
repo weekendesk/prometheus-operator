@@ -60,200 +60,200 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosGCSSpec":         schema_pkg_apis_monitoring_v1_ThanosGCSSpec(ref),
 		"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosS3Spec":          schema_pkg_apis_monitoring_v1_ThanosS3Spec(ref),
 		"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosSpec":            schema_pkg_apis_monitoring_v1_ThanosSpec(ref),
-		"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource":                                schema_k8sio_api_core_v1_AWSElasticBlockStoreVolumeSource(ref),
-		"k8s.io/api/core/v1.Affinity":                                    schema_k8sio_api_core_v1_Affinity(ref),
-		"k8s.io/api/core/v1.AttachedVolume":                              schema_k8sio_api_core_v1_AttachedVolume(ref),
-		"k8s.io/api/core/v1.AvoidPods":                                   schema_k8sio_api_core_v1_AvoidPods(ref),
-		"k8s.io/api/core/v1.AzureDiskVolumeSource":                       schema_k8sio_api_core_v1_AzureDiskVolumeSource(ref),
-		"k8s.io/api/core/v1.AzureFilePersistentVolumeSource":             schema_k8sio_api_core_v1_AzureFilePersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.AzureFileVolumeSource":                       schema_k8sio_api_core_v1_AzureFileVolumeSource(ref),
-		"k8s.io/api/core/v1.Binding":                                     schema_k8sio_api_core_v1_Binding(ref),
-		"k8s.io/api/core/v1.CSIPersistentVolumeSource":                   schema_k8sio_api_core_v1_CSIPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.Capabilities":                                schema_k8sio_api_core_v1_Capabilities(ref),
-		"k8s.io/api/core/v1.CephFSPersistentVolumeSource":                schema_k8sio_api_core_v1_CephFSPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.CephFSVolumeSource":                          schema_k8sio_api_core_v1_CephFSVolumeSource(ref),
-		"k8s.io/api/core/v1.CinderPersistentVolumeSource":                schema_k8sio_api_core_v1_CinderPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.CinderVolumeSource":                          schema_k8sio_api_core_v1_CinderVolumeSource(ref),
-		"k8s.io/api/core/v1.ClientIPConfig":                              schema_k8sio_api_core_v1_ClientIPConfig(ref),
-		"k8s.io/api/core/v1.ComponentCondition":                          schema_k8sio_api_core_v1_ComponentCondition(ref),
-		"k8s.io/api/core/v1.ComponentStatus":                             schema_k8sio_api_core_v1_ComponentStatus(ref),
-		"k8s.io/api/core/v1.ComponentStatusList":                         schema_k8sio_api_core_v1_ComponentStatusList(ref),
-		"k8s.io/api/core/v1.ConfigMap":                                   schema_k8sio_api_core_v1_ConfigMap(ref),
-		"k8s.io/api/core/v1.ConfigMapEnvSource":                          schema_k8sio_api_core_v1_ConfigMapEnvSource(ref),
-		"k8s.io/api/core/v1.ConfigMapKeySelector":                        schema_k8sio_api_core_v1_ConfigMapKeySelector(ref),
-		"k8s.io/api/core/v1.ConfigMapList":                               schema_k8sio_api_core_v1_ConfigMapList(ref),
-		"k8s.io/api/core/v1.ConfigMapNodeConfigSource":                   schema_k8sio_api_core_v1_ConfigMapNodeConfigSource(ref),
-		"k8s.io/api/core/v1.ConfigMapProjection":                         schema_k8sio_api_core_v1_ConfigMapProjection(ref),
-		"k8s.io/api/core/v1.ConfigMapVolumeSource":                       schema_k8sio_api_core_v1_ConfigMapVolumeSource(ref),
-		"k8s.io/api/core/v1.Container":                                   schema_k8sio_api_core_v1_Container(ref),
-		"k8s.io/api/core/v1.ContainerImage":                              schema_k8sio_api_core_v1_ContainerImage(ref),
-		"k8s.io/api/core/v1.ContainerPort":                               schema_k8sio_api_core_v1_ContainerPort(ref),
-		"k8s.io/api/core/v1.ContainerState":                              schema_k8sio_api_core_v1_ContainerState(ref),
-		"k8s.io/api/core/v1.ContainerStateRunning":                       schema_k8sio_api_core_v1_ContainerStateRunning(ref),
-		"k8s.io/api/core/v1.ContainerStateTerminated":                    schema_k8sio_api_core_v1_ContainerStateTerminated(ref),
-		"k8s.io/api/core/v1.ContainerStateWaiting":                       schema_k8sio_api_core_v1_ContainerStateWaiting(ref),
-		"k8s.io/api/core/v1.ContainerStatus":                             schema_k8sio_api_core_v1_ContainerStatus(ref),
-		"k8s.io/api/core/v1.DaemonEndpoint":                              schema_k8sio_api_core_v1_DaemonEndpoint(ref),
-		"k8s.io/api/core/v1.DownwardAPIProjection":                       schema_k8sio_api_core_v1_DownwardAPIProjection(ref),
-		"k8s.io/api/core/v1.DownwardAPIVolumeFile":                       schema_k8sio_api_core_v1_DownwardAPIVolumeFile(ref),
-		"k8s.io/api/core/v1.DownwardAPIVolumeSource":                     schema_k8sio_api_core_v1_DownwardAPIVolumeSource(ref),
-		"k8s.io/api/core/v1.EmptyDirVolumeSource":                        schema_k8sio_api_core_v1_EmptyDirVolumeSource(ref),
-		"k8s.io/api/core/v1.EndpointAddress":                             schema_k8sio_api_core_v1_EndpointAddress(ref),
-		"k8s.io/api/core/v1.EndpointPort":                                schema_k8sio_api_core_v1_EndpointPort(ref),
-		"k8s.io/api/core/v1.EndpointSubset":                              schema_k8sio_api_core_v1_EndpointSubset(ref),
-		"k8s.io/api/core/v1.Endpoints":                                   schema_k8sio_api_core_v1_Endpoints(ref),
-		"k8s.io/api/core/v1.EndpointsList":                               schema_k8sio_api_core_v1_EndpointsList(ref),
-		"k8s.io/api/core/v1.EnvFromSource":                               schema_k8sio_api_core_v1_EnvFromSource(ref),
-		"k8s.io/api/core/v1.EnvVar":                                      schema_k8sio_api_core_v1_EnvVar(ref),
-		"k8s.io/api/core/v1.EnvVarSource":                                schema_k8sio_api_core_v1_EnvVarSource(ref),
-		"k8s.io/api/core/v1.Event":                                       schema_k8sio_api_core_v1_Event(ref),
-		"k8s.io/api/core/v1.EventList":                                   schema_k8sio_api_core_v1_EventList(ref),
-		"k8s.io/api/core/v1.EventSeries":                                 schema_k8sio_api_core_v1_EventSeries(ref),
-		"k8s.io/api/core/v1.EventSource":                                 schema_k8sio_api_core_v1_EventSource(ref),
-		"k8s.io/api/core/v1.ExecAction":                                  schema_k8sio_api_core_v1_ExecAction(ref),
-		"k8s.io/api/core/v1.FCVolumeSource":                              schema_k8sio_api_core_v1_FCVolumeSource(ref),
-		"k8s.io/api/core/v1.FlexPersistentVolumeSource":                  schema_k8sio_api_core_v1_FlexPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.FlexVolumeSource":                            schema_k8sio_api_core_v1_FlexVolumeSource(ref),
-		"k8s.io/api/core/v1.FlockerVolumeSource":                         schema_k8sio_api_core_v1_FlockerVolumeSource(ref),
-		"k8s.io/api/core/v1.GCEPersistentDiskVolumeSource":               schema_k8sio_api_core_v1_GCEPersistentDiskVolumeSource(ref),
-		"k8s.io/api/core/v1.GitRepoVolumeSource":                         schema_k8sio_api_core_v1_GitRepoVolumeSource(ref),
-		"k8s.io/api/core/v1.GlusterfsVolumeSource":                       schema_k8sio_api_core_v1_GlusterfsVolumeSource(ref),
-		"k8s.io/api/core/v1.HTTPGetAction":                               schema_k8sio_api_core_v1_HTTPGetAction(ref),
-		"k8s.io/api/core/v1.HTTPHeader":                                  schema_k8sio_api_core_v1_HTTPHeader(ref),
-		"k8s.io/api/core/v1.Handler":                                     schema_k8sio_api_core_v1_Handler(ref),
-		"k8s.io/api/core/v1.HostAlias":                                   schema_k8sio_api_core_v1_HostAlias(ref),
-		"k8s.io/api/core/v1.HostPathVolumeSource":                        schema_k8sio_api_core_v1_HostPathVolumeSource(ref),
-		"k8s.io/api/core/v1.ISCSIPersistentVolumeSource":                 schema_k8sio_api_core_v1_ISCSIPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.ISCSIVolumeSource":                           schema_k8sio_api_core_v1_ISCSIVolumeSource(ref),
-		"k8s.io/api/core/v1.KeyToPath":                                   schema_k8sio_api_core_v1_KeyToPath(ref),
-		"k8s.io/api/core/v1.Lifecycle":                                   schema_k8sio_api_core_v1_Lifecycle(ref),
-		"k8s.io/api/core/v1.LimitRange":                                  schema_k8sio_api_core_v1_LimitRange(ref),
-		"k8s.io/api/core/v1.LimitRangeItem":                              schema_k8sio_api_core_v1_LimitRangeItem(ref),
-		"k8s.io/api/core/v1.LimitRangeList":                              schema_k8sio_api_core_v1_LimitRangeList(ref),
-		"k8s.io/api/core/v1.LimitRangeSpec":                              schema_k8sio_api_core_v1_LimitRangeSpec(ref),
-		"k8s.io/api/core/v1.List":                                        schema_k8sio_api_core_v1_List(ref),
-		"k8s.io/api/core/v1.LoadBalancerIngress":                         schema_k8sio_api_core_v1_LoadBalancerIngress(ref),
-		"k8s.io/api/core/v1.LoadBalancerStatus":                          schema_k8sio_api_core_v1_LoadBalancerStatus(ref),
-		"k8s.io/api/core/v1.LocalObjectReference":                        schema_k8sio_api_core_v1_LocalObjectReference(ref),
-		"k8s.io/api/core/v1.LocalVolumeSource":                           schema_k8sio_api_core_v1_LocalVolumeSource(ref),
-		"k8s.io/api/core/v1.NFSVolumeSource":                             schema_k8sio_api_core_v1_NFSVolumeSource(ref),
-		"k8s.io/api/core/v1.Namespace":                                   schema_k8sio_api_core_v1_Namespace(ref),
-		"k8s.io/api/core/v1.NamespaceList":                               schema_k8sio_api_core_v1_NamespaceList(ref),
-		"k8s.io/api/core/v1.NamespaceSpec":                               schema_k8sio_api_core_v1_NamespaceSpec(ref),
-		"k8s.io/api/core/v1.NamespaceStatus":                             schema_k8sio_api_core_v1_NamespaceStatus(ref),
-		"k8s.io/api/core/v1.Node":                                        schema_k8sio_api_core_v1_Node(ref),
-		"k8s.io/api/core/v1.NodeAddress":                                 schema_k8sio_api_core_v1_NodeAddress(ref),
-		"k8s.io/api/core/v1.NodeAffinity":                                schema_k8sio_api_core_v1_NodeAffinity(ref),
-		"k8s.io/api/core/v1.NodeCondition":                               schema_k8sio_api_core_v1_NodeCondition(ref),
-		"k8s.io/api/core/v1.NodeConfigSource":                            schema_k8sio_api_core_v1_NodeConfigSource(ref),
-		"k8s.io/api/core/v1.NodeConfigStatus":                            schema_k8sio_api_core_v1_NodeConfigStatus(ref),
-		"k8s.io/api/core/v1.NodeDaemonEndpoints":                         schema_k8sio_api_core_v1_NodeDaemonEndpoints(ref),
-		"k8s.io/api/core/v1.NodeList":                                    schema_k8sio_api_core_v1_NodeList(ref),
-		"k8s.io/api/core/v1.NodeProxyOptions":                            schema_k8sio_api_core_v1_NodeProxyOptions(ref),
-		"k8s.io/api/core/v1.NodeResources":                               schema_k8sio_api_core_v1_NodeResources(ref),
-		"k8s.io/api/core/v1.NodeSelector":                                schema_k8sio_api_core_v1_NodeSelector(ref),
-		"k8s.io/api/core/v1.NodeSelectorRequirement":                     schema_k8sio_api_core_v1_NodeSelectorRequirement(ref),
-		"k8s.io/api/core/v1.NodeSelectorTerm":                            schema_k8sio_api_core_v1_NodeSelectorTerm(ref),
-		"k8s.io/api/core/v1.NodeSpec":                                    schema_k8sio_api_core_v1_NodeSpec(ref),
-		"k8s.io/api/core/v1.NodeStatus":                                  schema_k8sio_api_core_v1_NodeStatus(ref),
-		"k8s.io/api/core/v1.NodeSystemInfo":                              schema_k8sio_api_core_v1_NodeSystemInfo(ref),
-		"k8s.io/api/core/v1.ObjectFieldSelector":                         schema_k8sio_api_core_v1_ObjectFieldSelector(ref),
-		"k8s.io/api/core/v1.ObjectReference":                             schema_k8sio_api_core_v1_ObjectReference(ref),
-		"k8s.io/api/core/v1.PersistentVolume":                            schema_k8sio_api_core_v1_PersistentVolume(ref),
-		"k8s.io/api/core/v1.PersistentVolumeClaim":                       schema_k8sio_api_core_v1_PersistentVolumeClaim(ref),
-		"k8s.io/api/core/v1.PersistentVolumeClaimCondition":              schema_k8sio_api_core_v1_PersistentVolumeClaimCondition(ref),
-		"k8s.io/api/core/v1.PersistentVolumeClaimList":                   schema_k8sio_api_core_v1_PersistentVolumeClaimList(ref),
-		"k8s.io/api/core/v1.PersistentVolumeClaimSpec":                   schema_k8sio_api_core_v1_PersistentVolumeClaimSpec(ref),
-		"k8s.io/api/core/v1.PersistentVolumeClaimStatus":                 schema_k8sio_api_core_v1_PersistentVolumeClaimStatus(ref),
-		"k8s.io/api/core/v1.PersistentVolumeClaimVolumeSource":           schema_k8sio_api_core_v1_PersistentVolumeClaimVolumeSource(ref),
-		"k8s.io/api/core/v1.PersistentVolumeList":                        schema_k8sio_api_core_v1_PersistentVolumeList(ref),
-		"k8s.io/api/core/v1.PersistentVolumeSource":                      schema_k8sio_api_core_v1_PersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.PersistentVolumeSpec":                        schema_k8sio_api_core_v1_PersistentVolumeSpec(ref),
-		"k8s.io/api/core/v1.PersistentVolumeStatus":                      schema_k8sio_api_core_v1_PersistentVolumeStatus(ref),
-		"k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource":            schema_k8sio_api_core_v1_PhotonPersistentDiskVolumeSource(ref),
-		"k8s.io/api/core/v1.Pod":                                         schema_k8sio_api_core_v1_Pod(ref),
-		"k8s.io/api/core/v1.PodAffinity":                                 schema_k8sio_api_core_v1_PodAffinity(ref),
-		"k8s.io/api/core/v1.PodAffinityTerm":                             schema_k8sio_api_core_v1_PodAffinityTerm(ref),
-		"k8s.io/api/core/v1.PodAntiAffinity":                             schema_k8sio_api_core_v1_PodAntiAffinity(ref),
-		"k8s.io/api/core/v1.PodAttachOptions":                            schema_k8sio_api_core_v1_PodAttachOptions(ref),
-		"k8s.io/api/core/v1.PodCondition":                                schema_k8sio_api_core_v1_PodCondition(ref),
-		"k8s.io/api/core/v1.PodDNSConfig":                                schema_k8sio_api_core_v1_PodDNSConfig(ref),
-		"k8s.io/api/core/v1.PodDNSConfigOption":                          schema_k8sio_api_core_v1_PodDNSConfigOption(ref),
-		"k8s.io/api/core/v1.PodExecOptions":                              schema_k8sio_api_core_v1_PodExecOptions(ref),
-		"k8s.io/api/core/v1.PodList":                                     schema_k8sio_api_core_v1_PodList(ref),
-		"k8s.io/api/core/v1.PodLogOptions":                               schema_k8sio_api_core_v1_PodLogOptions(ref),
-		"k8s.io/api/core/v1.PodPortForwardOptions":                       schema_k8sio_api_core_v1_PodPortForwardOptions(ref),
-		"k8s.io/api/core/v1.PodProxyOptions":                             schema_k8sio_api_core_v1_PodProxyOptions(ref),
-		"k8s.io/api/core/v1.PodReadinessGate":                            schema_k8sio_api_core_v1_PodReadinessGate(ref),
-		"k8s.io/api/core/v1.PodSecurityContext":                          schema_k8sio_api_core_v1_PodSecurityContext(ref),
-		"k8s.io/api/core/v1.PodSignature":                                schema_k8sio_api_core_v1_PodSignature(ref),
-		"k8s.io/api/core/v1.PodSpec":                                     schema_k8sio_api_core_v1_PodSpec(ref),
-		"k8s.io/api/core/v1.PodStatus":                                   schema_k8sio_api_core_v1_PodStatus(ref),
-		"k8s.io/api/core/v1.PodStatusResult":                             schema_k8sio_api_core_v1_PodStatusResult(ref),
-		"k8s.io/api/core/v1.PodTemplate":                                 schema_k8sio_api_core_v1_PodTemplate(ref),
-		"k8s.io/api/core/v1.PodTemplateList":                             schema_k8sio_api_core_v1_PodTemplateList(ref),
-		"k8s.io/api/core/v1.PodTemplateSpec":                             schema_k8sio_api_core_v1_PodTemplateSpec(ref),
-		"k8s.io/api/core/v1.PortworxVolumeSource":                        schema_k8sio_api_core_v1_PortworxVolumeSource(ref),
-		"k8s.io/api/core/v1.PreferAvoidPodsEntry":                        schema_k8sio_api_core_v1_PreferAvoidPodsEntry(ref),
-		"k8s.io/api/core/v1.PreferredSchedulingTerm":                     schema_k8sio_api_core_v1_PreferredSchedulingTerm(ref),
-		"k8s.io/api/core/v1.Probe":                                       schema_k8sio_api_core_v1_Probe(ref),
-		"k8s.io/api/core/v1.ProjectedVolumeSource":                       schema_k8sio_api_core_v1_ProjectedVolumeSource(ref),
-		"k8s.io/api/core/v1.QuobyteVolumeSource":                         schema_k8sio_api_core_v1_QuobyteVolumeSource(ref),
-		"k8s.io/api/core/v1.RBDPersistentVolumeSource":                   schema_k8sio_api_core_v1_RBDPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.RBDVolumeSource":                             schema_k8sio_api_core_v1_RBDVolumeSource(ref),
-		"k8s.io/api/core/v1.RangeAllocation":                             schema_k8sio_api_core_v1_RangeAllocation(ref),
-		"k8s.io/api/core/v1.ReplicationController":                       schema_k8sio_api_core_v1_ReplicationController(ref),
-		"k8s.io/api/core/v1.ReplicationControllerCondition":              schema_k8sio_api_core_v1_ReplicationControllerCondition(ref),
-		"k8s.io/api/core/v1.ReplicationControllerList":                   schema_k8sio_api_core_v1_ReplicationControllerList(ref),
-		"k8s.io/api/core/v1.ReplicationControllerSpec":                   schema_k8sio_api_core_v1_ReplicationControllerSpec(ref),
-		"k8s.io/api/core/v1.ReplicationControllerStatus":                 schema_k8sio_api_core_v1_ReplicationControllerStatus(ref),
-		"k8s.io/api/core/v1.ResourceFieldSelector":                       schema_k8sio_api_core_v1_ResourceFieldSelector(ref),
-		"k8s.io/api/core/v1.ResourceQuota":                               schema_k8sio_api_core_v1_ResourceQuota(ref),
-		"k8s.io/api/core/v1.ResourceQuotaList":                           schema_k8sio_api_core_v1_ResourceQuotaList(ref),
-		"k8s.io/api/core/v1.ResourceQuotaSpec":                           schema_k8sio_api_core_v1_ResourceQuotaSpec(ref),
-		"k8s.io/api/core/v1.ResourceQuotaStatus":                         schema_k8sio_api_core_v1_ResourceQuotaStatus(ref),
-		"k8s.io/api/core/v1.ResourceRequirements":                        schema_k8sio_api_core_v1_ResourceRequirements(ref),
-		"k8s.io/api/core/v1.SELinuxOptions":                              schema_k8sio_api_core_v1_SELinuxOptions(ref),
-		"k8s.io/api/core/v1.ScaleIOPersistentVolumeSource":               schema_k8sio_api_core_v1_ScaleIOPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.ScaleIOVolumeSource":                         schema_k8sio_api_core_v1_ScaleIOVolumeSource(ref),
-		"k8s.io/api/core/v1.ScopeSelector":                               schema_k8sio_api_core_v1_ScopeSelector(ref),
-		"k8s.io/api/core/v1.ScopedResourceSelectorRequirement":           schema_k8sio_api_core_v1_ScopedResourceSelectorRequirement(ref),
-		"k8s.io/api/core/v1.Secret":                                      schema_k8sio_api_core_v1_Secret(ref),
-		"k8s.io/api/core/v1.SecretEnvSource":                             schema_k8sio_api_core_v1_SecretEnvSource(ref),
-		"k8s.io/api/core/v1.SecretKeySelector":                           schema_k8sio_api_core_v1_SecretKeySelector(ref),
-		"k8s.io/api/core/v1.SecretList":                                  schema_k8sio_api_core_v1_SecretList(ref),
-		"k8s.io/api/core/v1.SecretProjection":                            schema_k8sio_api_core_v1_SecretProjection(ref),
-		"k8s.io/api/core/v1.SecretReference":                             schema_k8sio_api_core_v1_SecretReference(ref),
-		"k8s.io/api/core/v1.SecretVolumeSource":                          schema_k8sio_api_core_v1_SecretVolumeSource(ref),
-		"k8s.io/api/core/v1.SecurityContext":                             schema_k8sio_api_core_v1_SecurityContext(ref),
-		"k8s.io/api/core/v1.SerializedReference":                         schema_k8sio_api_core_v1_SerializedReference(ref),
-		"k8s.io/api/core/v1.Service":                                     schema_k8sio_api_core_v1_Service(ref),
-		"k8s.io/api/core/v1.ServiceAccount":                              schema_k8sio_api_core_v1_ServiceAccount(ref),
-		"k8s.io/api/core/v1.ServiceAccountList":                          schema_k8sio_api_core_v1_ServiceAccountList(ref),
-		"k8s.io/api/core/v1.ServiceAccountTokenProjection":               schema_k8sio_api_core_v1_ServiceAccountTokenProjection(ref),
-		"k8s.io/api/core/v1.ServiceList":                                 schema_k8sio_api_core_v1_ServiceList(ref),
-		"k8s.io/api/core/v1.ServicePort":                                 schema_k8sio_api_core_v1_ServicePort(ref),
-		"k8s.io/api/core/v1.ServiceProxyOptions":                         schema_k8sio_api_core_v1_ServiceProxyOptions(ref),
-		"k8s.io/api/core/v1.ServiceSpec":                                 schema_k8sio_api_core_v1_ServiceSpec(ref),
-		"k8s.io/api/core/v1.ServiceStatus":                               schema_k8sio_api_core_v1_ServiceStatus(ref),
-		"k8s.io/api/core/v1.SessionAffinityConfig":                       schema_k8sio_api_core_v1_SessionAffinityConfig(ref),
-		"k8s.io/api/core/v1.StorageOSPersistentVolumeSource":             schema_k8sio_api_core_v1_StorageOSPersistentVolumeSource(ref),
-		"k8s.io/api/core/v1.StorageOSVolumeSource":                       schema_k8sio_api_core_v1_StorageOSVolumeSource(ref),
-		"k8s.io/api/core/v1.Sysctl":                                      schema_k8sio_api_core_v1_Sysctl(ref),
-		"k8s.io/api/core/v1.TCPSocketAction":                             schema_k8sio_api_core_v1_TCPSocketAction(ref),
-		"k8s.io/api/core/v1.Taint":                                       schema_k8sio_api_core_v1_Taint(ref),
-		"k8s.io/api/core/v1.Toleration":                                  schema_k8sio_api_core_v1_Toleration(ref),
-		"k8s.io/api/core/v1.TopologySelectorLabelRequirement":            schema_k8sio_api_core_v1_TopologySelectorLabelRequirement(ref),
-		"k8s.io/api/core/v1.TopologySelectorTerm":                        schema_k8sio_api_core_v1_TopologySelectorTerm(ref),
-		"k8s.io/api/core/v1.TypedLocalObjectReference":                   schema_k8sio_api_core_v1_TypedLocalObjectReference(ref),
-		"k8s.io/api/core/v1.Volume":                                      schema_k8sio_api_core_v1_Volume(ref),
-		"k8s.io/api/core/v1.VolumeDevice":                                schema_k8sio_api_core_v1_VolumeDevice(ref),
-		"k8s.io/api/core/v1.VolumeMount":                                 schema_k8sio_api_core_v1_VolumeMount(ref),
-		"k8s.io/api/core/v1.VolumeNodeAffinity":                          schema_k8sio_api_core_v1_VolumeNodeAffinity(ref),
-		"k8s.io/api/core/v1.VolumeProjection":                            schema_k8sio_api_core_v1_VolumeProjection(ref),
-		"k8s.io/api/core/v1.VolumeSource":                                schema_k8sio_api_core_v1_VolumeSource(ref),
-		"k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource":              schema_k8sio_api_core_v1_VsphereVirtualDiskVolumeSource(ref),
-		"k8s.io/api/core/v1.WeightedPodAffinityTerm":                     schema_k8sio_api_core_v1_WeightedPodAffinityTerm(ref),
+		"k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource":                                schema_k8sio_api_core_v1_AWSElasticBlockStoreVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Affinity":                                    schema_k8sio_api_core_v1_Affinity(ref),
+		"k8s.io/client-go/pkg/api/v1.AttachedVolume":                              schema_k8sio_api_core_v1_AttachedVolume(ref),
+		"k8s.io/client-go/pkg/api/v1.AvoidPods":                                   schema_k8sio_api_core_v1_AvoidPods(ref),
+		"k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource":                       schema_k8sio_api_core_v1_AzureDiskVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.AzureFilePersistentVolumeSource":             schema_k8sio_api_core_v1_AzureFilePersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.AzureFileVolumeSource":                       schema_k8sio_api_core_v1_AzureFileVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Binding":                                     schema_k8sio_api_core_v1_Binding(ref),
+		"k8s.io/client-go/pkg/api/v1.CSIPersistentVolumeSource":                   schema_k8sio_api_core_v1_CSIPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Capabilities":                                schema_k8sio_api_core_v1_Capabilities(ref),
+		"k8s.io/client-go/pkg/api/v1.CephFSPersistentVolumeSource":                schema_k8sio_api_core_v1_CephFSPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.CephFSVolumeSource":                          schema_k8sio_api_core_v1_CephFSVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.CinderPersistentVolumeSource":                schema_k8sio_api_core_v1_CinderPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.CinderVolumeSource":                          schema_k8sio_api_core_v1_CinderVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ClientIPConfig":                              schema_k8sio_api_core_v1_ClientIPConfig(ref),
+		"k8s.io/client-go/pkg/api/v1.ComponentCondition":                          schema_k8sio_api_core_v1_ComponentCondition(ref),
+		"k8s.io/client-go/pkg/api/v1.ComponentStatus":                             schema_k8sio_api_core_v1_ComponentStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.ComponentStatusList":                         schema_k8sio_api_core_v1_ComponentStatusList(ref),
+		"k8s.io/client-go/pkg/api/v1.ConfigMap":                                   schema_k8sio_api_core_v1_ConfigMap(ref),
+		"k8s.io/client-go/pkg/api/v1.ConfigMapEnvSource":                          schema_k8sio_api_core_v1_ConfigMapEnvSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ConfigMapKeySelector":                        schema_k8sio_api_core_v1_ConfigMapKeySelector(ref),
+		"k8s.io/client-go/pkg/api/v1.ConfigMapList":                               schema_k8sio_api_core_v1_ConfigMapList(ref),
+		"k8s.io/client-go/pkg/api/v1.ConfigMapNodeConfigSource":                   schema_k8sio_api_core_v1_ConfigMapNodeConfigSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ConfigMapProjection":                         schema_k8sio_api_core_v1_ConfigMapProjection(ref),
+		"k8s.io/client-go/pkg/api/v1.ConfigMapVolumeSource":                       schema_k8sio_api_core_v1_ConfigMapVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Container":                                   schema_k8sio_api_core_v1_Container(ref),
+		"k8s.io/client-go/pkg/api/v1.ContainerImage":                              schema_k8sio_api_core_v1_ContainerImage(ref),
+		"k8s.io/client-go/pkg/api/v1.ContainerPort":                               schema_k8sio_api_core_v1_ContainerPort(ref),
+		"k8s.io/client-go/pkg/api/v1.ContainerState":                              schema_k8sio_api_core_v1_ContainerState(ref),
+		"k8s.io/client-go/pkg/api/v1.ContainerStateRunning":                       schema_k8sio_api_core_v1_ContainerStateRunning(ref),
+		"k8s.io/client-go/pkg/api/v1.ContainerStateTerminated":                    schema_k8sio_api_core_v1_ContainerStateTerminated(ref),
+		"k8s.io/client-go/pkg/api/v1.ContainerStateWaiting":                       schema_k8sio_api_core_v1_ContainerStateWaiting(ref),
+		"k8s.io/client-go/pkg/api/v1.ContainerStatus":                             schema_k8sio_api_core_v1_ContainerStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.DaemonEndpoint":                              schema_k8sio_api_core_v1_DaemonEndpoint(ref),
+		"k8s.io/client-go/pkg/api/v1.DownwardAPIProjection":                       schema_k8sio_api_core_v1_DownwardAPIProjection(ref),
+		"k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeFile":                       schema_k8sio_api_core_v1_DownwardAPIVolumeFile(ref),
+		"k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeSource":                     schema_k8sio_api_core_v1_DownwardAPIVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.EmptyDirVolumeSource":                        schema_k8sio_api_core_v1_EmptyDirVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.EndpointAddress":                             schema_k8sio_api_core_v1_EndpointAddress(ref),
+		"k8s.io/client-go/pkg/api/v1.EndpointPort":                                schema_k8sio_api_core_v1_EndpointPort(ref),
+		"k8s.io/client-go/pkg/api/v1.EndpointSubset":                              schema_k8sio_api_core_v1_EndpointSubset(ref),
+		"k8s.io/client-go/pkg/api/v1.Endpoints":                                   schema_k8sio_api_core_v1_Endpoints(ref),
+		"k8s.io/client-go/pkg/api/v1.EndpointsList":                               schema_k8sio_api_core_v1_EndpointsList(ref),
+		"k8s.io/client-go/pkg/api/v1.EnvFromSource":                               schema_k8sio_api_core_v1_EnvFromSource(ref),
+		"k8s.io/client-go/pkg/api/v1.EnvVar":                                      schema_k8sio_api_core_v1_EnvVar(ref),
+		"k8s.io/client-go/pkg/api/v1.EnvVarSource":                                schema_k8sio_api_core_v1_EnvVarSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Event":                                       schema_k8sio_api_core_v1_Event(ref),
+		"k8s.io/client-go/pkg/api/v1.EventList":                                   schema_k8sio_api_core_v1_EventList(ref),
+		"k8s.io/client-go/pkg/api/v1.EventSeries":                                 schema_k8sio_api_core_v1_EventSeries(ref),
+		"k8s.io/client-go/pkg/api/v1.EventSource":                                 schema_k8sio_api_core_v1_EventSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ExecAction":                                  schema_k8sio_api_core_v1_ExecAction(ref),
+		"k8s.io/client-go/pkg/api/v1.FCVolumeSource":                              schema_k8sio_api_core_v1_FCVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.FlexPersistentVolumeSource":                  schema_k8sio_api_core_v1_FlexPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.FlexVolumeSource":                            schema_k8sio_api_core_v1_FlexVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.FlockerVolumeSource":                         schema_k8sio_api_core_v1_FlockerVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource":               schema_k8sio_api_core_v1_GCEPersistentDiskVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.GitRepoVolumeSource":                         schema_k8sio_api_core_v1_GitRepoVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource":                       schema_k8sio_api_core_v1_GlusterfsVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.HTTPGetAction":                               schema_k8sio_api_core_v1_HTTPGetAction(ref),
+		"k8s.io/client-go/pkg/api/v1.HTTPHeader":                                  schema_k8sio_api_core_v1_HTTPHeader(ref),
+		"k8s.io/client-go/pkg/api/v1.Handler":                                     schema_k8sio_api_core_v1_Handler(ref),
+		"k8s.io/client-go/pkg/api/v1.HostAlias":                                   schema_k8sio_api_core_v1_HostAlias(ref),
+		"k8s.io/client-go/pkg/api/v1.HostPathVolumeSource":                        schema_k8sio_api_core_v1_HostPathVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ISCSIPersistentVolumeSource":                 schema_k8sio_api_core_v1_ISCSIPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ISCSIVolumeSource":                           schema_k8sio_api_core_v1_ISCSIVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.KeyToPath":                                   schema_k8sio_api_core_v1_KeyToPath(ref),
+		"k8s.io/client-go/pkg/api/v1.Lifecycle":                                   schema_k8sio_api_core_v1_Lifecycle(ref),
+		"k8s.io/client-go/pkg/api/v1.LimitRange":                                  schema_k8sio_api_core_v1_LimitRange(ref),
+		"k8s.io/client-go/pkg/api/v1.LimitRangeItem":                              schema_k8sio_api_core_v1_LimitRangeItem(ref),
+		"k8s.io/client-go/pkg/api/v1.LimitRangeList":                              schema_k8sio_api_core_v1_LimitRangeList(ref),
+		"k8s.io/client-go/pkg/api/v1.LimitRangeSpec":                              schema_k8sio_api_core_v1_LimitRangeSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.List":                                        schema_k8sio_api_core_v1_List(ref),
+		"k8s.io/client-go/pkg/api/v1.LoadBalancerIngress":                         schema_k8sio_api_core_v1_LoadBalancerIngress(ref),
+		"k8s.io/client-go/pkg/api/v1.LoadBalancerStatus":                          schema_k8sio_api_core_v1_LoadBalancerStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.LocalObjectReference":                        schema_k8sio_api_core_v1_LocalObjectReference(ref),
+		"k8s.io/client-go/pkg/api/v1.LocalVolumeSource":                           schema_k8sio_api_core_v1_LocalVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.NFSVolumeSource":                             schema_k8sio_api_core_v1_NFSVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Namespace":                                   schema_k8sio_api_core_v1_Namespace(ref),
+		"k8s.io/client-go/pkg/api/v1.NamespaceList":                               schema_k8sio_api_core_v1_NamespaceList(ref),
+		"k8s.io/client-go/pkg/api/v1.NamespaceSpec":                               schema_k8sio_api_core_v1_NamespaceSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.NamespaceStatus":                             schema_k8sio_api_core_v1_NamespaceStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.Node":                                        schema_k8sio_api_core_v1_Node(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeAddress":                                 schema_k8sio_api_core_v1_NodeAddress(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeAffinity":                                schema_k8sio_api_core_v1_NodeAffinity(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeCondition":                               schema_k8sio_api_core_v1_NodeCondition(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeConfigSource":                            schema_k8sio_api_core_v1_NodeConfigSource(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeConfigStatus":                            schema_k8sio_api_core_v1_NodeConfigStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeDaemonEndpoints":                         schema_k8sio_api_core_v1_NodeDaemonEndpoints(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeList":                                    schema_k8sio_api_core_v1_NodeList(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeProxyOptions":                            schema_k8sio_api_core_v1_NodeProxyOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeResources":                               schema_k8sio_api_core_v1_NodeResources(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeSelector":                                schema_k8sio_api_core_v1_NodeSelector(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeSelectorRequirement":                     schema_k8sio_api_core_v1_NodeSelectorRequirement(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeSelectorTerm":                            schema_k8sio_api_core_v1_NodeSelectorTerm(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeSpec":                                    schema_k8sio_api_core_v1_NodeSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeStatus":                                  schema_k8sio_api_core_v1_NodeStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.NodeSystemInfo":                              schema_k8sio_api_core_v1_NodeSystemInfo(ref),
+		"k8s.io/client-go/pkg/api/v1.ObjectFieldSelector":                         schema_k8sio_api_core_v1_ObjectFieldSelector(ref),
+		"k8s.io/client-go/pkg/api/v1.ObjectReference":                             schema_k8sio_api_core_v1_ObjectReference(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolume":                            schema_k8sio_api_core_v1_PersistentVolume(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaim":                       schema_k8sio_api_core_v1_PersistentVolumeClaim(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimCondition":              schema_k8sio_api_core_v1_PersistentVolumeClaimCondition(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimList":                   schema_k8sio_api_core_v1_PersistentVolumeClaimList(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimSpec":                   schema_k8sio_api_core_v1_PersistentVolumeClaimSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimStatus":                 schema_k8sio_api_core_v1_PersistentVolumeClaimStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimVolumeSource":           schema_k8sio_api_core_v1_PersistentVolumeClaimVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeList":                        schema_k8sio_api_core_v1_PersistentVolumeList(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeSource":                      schema_k8sio_api_core_v1_PersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeSpec":                        schema_k8sio_api_core_v1_PersistentVolumeSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.PersistentVolumeStatus":                      schema_k8sio_api_core_v1_PersistentVolumeStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource":            schema_k8sio_api_core_v1_PhotonPersistentDiskVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Pod":                                         schema_k8sio_api_core_v1_Pod(ref),
+		"k8s.io/client-go/pkg/api/v1.PodAffinity":                                 schema_k8sio_api_core_v1_PodAffinity(ref),
+		"k8s.io/client-go/pkg/api/v1.PodAffinityTerm":                             schema_k8sio_api_core_v1_PodAffinityTerm(ref),
+		"k8s.io/client-go/pkg/api/v1.PodAntiAffinity":                             schema_k8sio_api_core_v1_PodAntiAffinity(ref),
+		"k8s.io/client-go/pkg/api/v1.PodAttachOptions":                            schema_k8sio_api_core_v1_PodAttachOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.PodCondition":                                schema_k8sio_api_core_v1_PodCondition(ref),
+		"k8s.io/client-go/pkg/api/v1.PodDNSConfig":                                schema_k8sio_api_core_v1_PodDNSConfig(ref),
+		"k8s.io/client-go/pkg/api/v1.PodDNSConfigOption":                          schema_k8sio_api_core_v1_PodDNSConfigOption(ref),
+		"k8s.io/client-go/pkg/api/v1.PodExecOptions":                              schema_k8sio_api_core_v1_PodExecOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.PodList":                                     schema_k8sio_api_core_v1_PodList(ref),
+		"k8s.io/client-go/pkg/api/v1.PodLogOptions":                               schema_k8sio_api_core_v1_PodLogOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.PodPortForwardOptions":                       schema_k8sio_api_core_v1_PodPortForwardOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.PodProxyOptions":                             schema_k8sio_api_core_v1_PodProxyOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.PodReadinessGate":                            schema_k8sio_api_core_v1_PodReadinessGate(ref),
+		"k8s.io/client-go/pkg/api/v1.PodSecurityContext":                          schema_k8sio_api_core_v1_PodSecurityContext(ref),
+		"k8s.io/client-go/pkg/api/v1.PodSignature":                                schema_k8sio_api_core_v1_PodSignature(ref),
+		"k8s.io/client-go/pkg/api/v1.PodSpec":                                     schema_k8sio_api_core_v1_PodSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.PodStatus":                                   schema_k8sio_api_core_v1_PodStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.PodStatusResult":                             schema_k8sio_api_core_v1_PodStatusResult(ref),
+		"k8s.io/client-go/pkg/api/v1.PodTemplate":                                 schema_k8sio_api_core_v1_PodTemplate(ref),
+		"k8s.io/client-go/pkg/api/v1.PodTemplateList":                             schema_k8sio_api_core_v1_PodTemplateList(ref),
+		"k8s.io/client-go/pkg/api/v1.PodTemplateSpec":                             schema_k8sio_api_core_v1_PodTemplateSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.PortworxVolumeSource":                        schema_k8sio_api_core_v1_PortworxVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.PreferAvoidPodsEntry":                        schema_k8sio_api_core_v1_PreferAvoidPodsEntry(ref),
+		"k8s.io/client-go/pkg/api/v1.PreferredSchedulingTerm":                     schema_k8sio_api_core_v1_PreferredSchedulingTerm(ref),
+		"k8s.io/client-go/pkg/api/v1.Probe":                                       schema_k8sio_api_core_v1_Probe(ref),
+		"k8s.io/client-go/pkg/api/v1.ProjectedVolumeSource":                       schema_k8sio_api_core_v1_ProjectedVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource":                         schema_k8sio_api_core_v1_QuobyteVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.RBDPersistentVolumeSource":                   schema_k8sio_api_core_v1_RBDPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.RBDVolumeSource":                             schema_k8sio_api_core_v1_RBDVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.RangeAllocation":                             schema_k8sio_api_core_v1_RangeAllocation(ref),
+		"k8s.io/client-go/pkg/api/v1.ReplicationController":                       schema_k8sio_api_core_v1_ReplicationController(ref),
+		"k8s.io/client-go/pkg/api/v1.ReplicationControllerCondition":              schema_k8sio_api_core_v1_ReplicationControllerCondition(ref),
+		"k8s.io/client-go/pkg/api/v1.ReplicationControllerList":                   schema_k8sio_api_core_v1_ReplicationControllerList(ref),
+		"k8s.io/client-go/pkg/api/v1.ReplicationControllerSpec":                   schema_k8sio_api_core_v1_ReplicationControllerSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.ReplicationControllerStatus":                 schema_k8sio_api_core_v1_ReplicationControllerStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.ResourceFieldSelector":                       schema_k8sio_api_core_v1_ResourceFieldSelector(ref),
+		"k8s.io/client-go/pkg/api/v1.ResourceQuota":                               schema_k8sio_api_core_v1_ResourceQuota(ref),
+		"k8s.io/client-go/pkg/api/v1.ResourceQuotaList":                           schema_k8sio_api_core_v1_ResourceQuotaList(ref),
+		"k8s.io/client-go/pkg/api/v1.ResourceQuotaSpec":                           schema_k8sio_api_core_v1_ResourceQuotaSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.ResourceQuotaStatus":                         schema_k8sio_api_core_v1_ResourceQuotaStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.ResourceRequirements":                        schema_k8sio_api_core_v1_ResourceRequirements(ref),
+		"k8s.io/client-go/pkg/api/v1.SELinuxOptions":                              schema_k8sio_api_core_v1_SELinuxOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.ScaleIOPersistentVolumeSource":               schema_k8sio_api_core_v1_ScaleIOPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ScaleIOVolumeSource":                         schema_k8sio_api_core_v1_ScaleIOVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.ScopeSelector":                               schema_k8sio_api_core_v1_ScopeSelector(ref),
+		"k8s.io/client-go/pkg/api/v1.ScopedResourceSelectorRequirement":           schema_k8sio_api_core_v1_ScopedResourceSelectorRequirement(ref),
+		"k8s.io/client-go/pkg/api/v1.Secret":                                      schema_k8sio_api_core_v1_Secret(ref),
+		"k8s.io/client-go/pkg/api/v1.SecretEnvSource":                             schema_k8sio_api_core_v1_SecretEnvSource(ref),
+		"k8s.io/client-go/pkg/api/v1.SecretKeySelector":                           schema_k8sio_api_core_v1_SecretKeySelector(ref),
+		"k8s.io/client-go/pkg/api/v1.SecretList":                                  schema_k8sio_api_core_v1_SecretList(ref),
+		"k8s.io/client-go/pkg/api/v1.SecretProjection":                            schema_k8sio_api_core_v1_SecretProjection(ref),
+		"k8s.io/client-go/pkg/api/v1.SecretReference":                             schema_k8sio_api_core_v1_SecretReference(ref),
+		"k8s.io/client-go/pkg/api/v1.SecretVolumeSource":                          schema_k8sio_api_core_v1_SecretVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.SecurityContext":                             schema_k8sio_api_core_v1_SecurityContext(ref),
+		"k8s.io/client-go/pkg/api/v1.SerializedReference":                         schema_k8sio_api_core_v1_SerializedReference(ref),
+		"k8s.io/client-go/pkg/api/v1.Service":                                     schema_k8sio_api_core_v1_Service(ref),
+		"k8s.io/client-go/pkg/api/v1.ServiceAccount":                              schema_k8sio_api_core_v1_ServiceAccount(ref),
+		"k8s.io/client-go/pkg/api/v1.ServiceAccountList":                          schema_k8sio_api_core_v1_ServiceAccountList(ref),
+		"k8s.io/client-go/pkg/api/v1.ServiceAccountTokenProjection":               schema_k8sio_api_core_v1_ServiceAccountTokenProjection(ref),
+		"k8s.io/client-go/pkg/api/v1.ServiceList":                                 schema_k8sio_api_core_v1_ServiceList(ref),
+		"k8s.io/client-go/pkg/api/v1.ServicePort":                                 schema_k8sio_api_core_v1_ServicePort(ref),
+		"k8s.io/client-go/pkg/api/v1.ServiceProxyOptions":                         schema_k8sio_api_core_v1_ServiceProxyOptions(ref),
+		"k8s.io/client-go/pkg/api/v1.ServiceSpec":                                 schema_k8sio_api_core_v1_ServiceSpec(ref),
+		"k8s.io/client-go/pkg/api/v1.ServiceStatus":                               schema_k8sio_api_core_v1_ServiceStatus(ref),
+		"k8s.io/client-go/pkg/api/v1.SessionAffinityConfig":                       schema_k8sio_api_core_v1_SessionAffinityConfig(ref),
+		"k8s.io/client-go/pkg/api/v1.StorageOSPersistentVolumeSource":             schema_k8sio_api_core_v1_StorageOSPersistentVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.StorageOSVolumeSource":                       schema_k8sio_api_core_v1_StorageOSVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.Sysctl":                                      schema_k8sio_api_core_v1_Sysctl(ref),
+		"k8s.io/client-go/pkg/api/v1.TCPSocketAction":                             schema_k8sio_api_core_v1_TCPSocketAction(ref),
+		"k8s.io/client-go/pkg/api/v1.Taint":                                       schema_k8sio_api_core_v1_Taint(ref),
+		"k8s.io/client-go/pkg/api/v1.Toleration":                                  schema_k8sio_api_core_v1_Toleration(ref),
+		"k8s.io/client-go/pkg/api/v1.TopologySelectorLabelRequirement":            schema_k8sio_api_core_v1_TopologySelectorLabelRequirement(ref),
+		"k8s.io/client-go/pkg/api/v1.TopologySelectorTerm":                        schema_k8sio_api_core_v1_TopologySelectorTerm(ref),
+		"k8s.io/client-go/pkg/api/v1.TypedLocalObjectReference":                   schema_k8sio_api_core_v1_TypedLocalObjectReference(ref),
+		"k8s.io/client-go/pkg/api/v1.Volume":                                      schema_k8sio_api_core_v1_Volume(ref),
+		"k8s.io/client-go/pkg/api/v1.VolumeDevice":                                schema_k8sio_api_core_v1_VolumeDevice(ref),
+		"k8s.io/client-go/pkg/api/v1.VolumeMount":                                 schema_k8sio_api_core_v1_VolumeMount(ref),
+		"k8s.io/client-go/pkg/api/v1.VolumeNodeAffinity":                          schema_k8sio_api_core_v1_VolumeNodeAffinity(ref),
+		"k8s.io/client-go/pkg/api/v1.VolumeProjection":                            schema_k8sio_api_core_v1_VolumeProjection(ref),
+		"k8s.io/client-go/pkg/api/v1.VolumeSource":                                schema_k8sio_api_core_v1_VolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource":              schema_k8sio_api_core_v1_VsphereVirtualDiskVolumeSource(ref),
+		"k8s.io/client-go/pkg/api/v1.WeightedPodAffinityTerm":                     schema_k8sio_api_core_v1_WeightedPodAffinityTerm(ref),
 		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroup":                  schema_pkg_apis_meta_v1_APIGroup(ref),
 		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroupList":              schema_pkg_apis_meta_v1_APIGroupList(ref),
 		"k8s.io/apimachinery/pkg/apis/meta/v1.APIResource":               schema_pkg_apis_meta_v1_APIResource(ref),
@@ -577,7 +577,7 @@ func schema_pkg_apis_monitoring_v1_AlertmanagerSpec(ref common.ReferenceCallback
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 									},
 								},
 							},
@@ -676,13 +676,13 @@ func schema_pkg_apis_monitoring_v1_AlertmanagerSpec(ref common.ReferenceCallback
 					"resources": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Define resources requests and limits for single Pods.",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceRequirements"),
 						},
 					},
 					"affinity": {
 						SchemaProps: spec.SchemaProps{
 							Description: "If specified, the pod's scheduling constraints.",
-							Ref:         ref("k8s.io/api/core/v1.Affinity"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Affinity"),
 						},
 					},
 					"tolerations": {
@@ -692,7 +692,7 @@ func schema_pkg_apis_monitoring_v1_AlertmanagerSpec(ref common.ReferenceCallback
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Toleration"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Toleration"),
 									},
 								},
 							},
@@ -701,7 +701,7 @@ func schema_pkg_apis_monitoring_v1_AlertmanagerSpec(ref common.ReferenceCallback
 					"securityContext": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecurityContext holds pod-level security attributes and common container settings. This defaults to non root user with uid 1000 and gid 2000.",
-							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodSecurityContext"),
 						},
 					},
 					"serviceAccountName": {
@@ -725,7 +725,7 @@ func schema_pkg_apis_monitoring_v1_AlertmanagerSpec(ref common.ReferenceCallback
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Container"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Container"),
 									},
 								},
 							},
@@ -756,7 +756,7 @@ func schema_pkg_apis_monitoring_v1_AlertmanagerSpec(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.StorageSpec", "k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.Container", "k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.Toleration", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.StorageSpec", "k8s.io/client-go/pkg/api/v1.Affinity", "k8s.io/client-go/pkg/api/v1.Container", "k8s.io/client-go/pkg/api/v1.LocalObjectReference", "k8s.io/client-go/pkg/api/v1.PodSecurityContext", "k8s.io/client-go/pkg/api/v1.ResourceRequirements", "k8s.io/client-go/pkg/api/v1.Toleration", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -818,20 +818,20 @@ func schema_pkg_apis_monitoring_v1_BasicAuth(ref common.ReferenceCallback) commo
 					"username": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The secret that contains the username for authenticate",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 					"password": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The secret that contains the password for authenticate",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretKeySelector"},
+			"k8s.io/client-go/pkg/api/v1.SecretKeySelector"},
 	}
 }
 
@@ -1282,7 +1282,7 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 									},
 								},
 							},
@@ -1384,7 +1384,7 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 					"resources": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Define resources requests and limits for single Pods.",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceRequirements"),
 						},
 					},
 					"nodeSelector": {
@@ -1439,7 +1439,7 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 					"affinity": {
 						SchemaProps: spec.SchemaProps{
 							Description: "If specified, the pod's scheduling constraints.",
-							Ref:         ref("k8s.io/api/core/v1.Affinity"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Affinity"),
 						},
 					},
 					"tolerations": {
@@ -1449,7 +1449,7 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Toleration"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Toleration"),
 									},
 								},
 							},
@@ -1484,7 +1484,7 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 					"securityContext": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecurityContext holds pod-level security attributes and common container settings. This defaults to non root user with uid 1000 and gid 2000 for Prometheus >v2.0 and default PodSecurityContext for other versions.",
-							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodSecurityContext"),
 						},
 					},
 					"listenLocal": {
@@ -1501,7 +1501,7 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Container"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Container"),
 									},
 								},
 							},
@@ -1510,19 +1510,19 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 					"additionalScrapeConfigs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AdditionalScrapeConfigs allows specifying a key of a Secret containing additional Prometheus scrape configurations. Scrape configurations specified are appended to the configurations generated by the Prometheus Operator. Job configurations specified must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#<scrape_config>. As scrape configs are appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible scrape configs are going to break Prometheus after the upgrade.",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 					"additionalAlertRelabelConfigs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AdditionalAlertRelabelConfigs allows specifying a key of a Secret containing additional Prometheus alert relabel configurations. Alert relabel configurations specified are appended to the configurations generated by the Prometheus Operator. Alert relabel configurations specified must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#alert_relabel_configs. As alert relabel configs are appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible alert relabel configs are going to break Prometheus after the upgrade.",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 					"additionalAlertManagerConfigs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AdditionalAlertManagerConfigs allows specifying a key of a Secret containing additional Prometheus AlertManager configurations. AlertManager configurations specified are appended to the configurations generated by the Prometheus Operator. Job configurations specified must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#<alertmanager_config>. As AlertManager configs are appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible AlertManager configs are going to break Prometheus after the upgrade.",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 					"apiserverConfig": {
@@ -1548,7 +1548,7 @@ func schema_pkg_apis_monitoring_v1_PrometheusSpec(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.APIServerConfig", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.AlertingSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.QuerySpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.RemoteReadSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.RemoteWriteSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.StorageSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosSpec", "k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.Container", "k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.SecretKeySelector", "k8s.io/api/core/v1.Toleration", "k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.APIServerConfig", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.AlertingSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.QuerySpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.RemoteReadSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.RemoteWriteSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.StorageSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosSpec", "k8s.io/client-go/pkg/api/v1.Affinity", "k8s.io/client-go/pkg/api/v1.Container", "k8s.io/client-go/pkg/api/v1.LocalObjectReference", "k8s.io/client-go/pkg/api/v1.PodSecurityContext", "k8s.io/client-go/pkg/api/v1.ResourceRequirements", "k8s.io/client-go/pkg/api/v1.SecretKeySelector", "k8s.io/client-go/pkg/api/v1.Toleration", "k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -2207,20 +2207,20 @@ func schema_pkg_apis_monitoring_v1_StorageSpec(ref common.ReferenceCallback) com
 					"emptyDir": {
 						SchemaProps: spec.SchemaProps{
 							Description: "EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir",
-							Ref:         ref("k8s.io/api/core/v1.EmptyDirVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.EmptyDirVolumeSource"),
 						},
 					},
 					"volumeClaimTemplate": {
 						SchemaProps: spec.SchemaProps{
 							Description: "A PVC spec to be used by the Prometheus StatefulSets.",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaim"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeClaim"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.EmptyDirVolumeSource", "k8s.io/api/core/v1.PersistentVolumeClaim"},
+			"k8s.io/client-go/pkg/api/v1.EmptyDirVolumeSource", "k8s.io/client-go/pkg/api/v1.PersistentVolumeClaim"},
 	}
 }
 
@@ -2288,14 +2288,14 @@ func schema_pkg_apis_monitoring_v1_ThanosGCSSpec(ref common.ReferenceCallback) c
 					"credentials": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Secret to access our Bucket.",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretKeySelector"},
+			"k8s.io/client-go/pkg/api/v1.SecretKeySelector"},
 	}
 }
 
@@ -2322,13 +2322,13 @@ func schema_pkg_apis_monitoring_v1_ThanosS3Spec(ref common.ReferenceCallback) co
 					"accessKey": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AccessKey for an S3-Compatible API.",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 					"secretKey": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecretKey for an S3-Compatible API.",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 					"insecure": {
@@ -2356,7 +2356,7 @@ func schema_pkg_apis_monitoring_v1_ThanosS3Spec(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretKeySelector"},
+			"k8s.io/client-go/pkg/api/v1.SecretKeySelector"},
 	}
 }
 
@@ -2411,7 +2411,7 @@ func schema_pkg_apis_monitoring_v1_ThanosSpec(ref common.ReferenceCallback) comm
 					"resources": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Resources defines the resource requirements for the Thanos sidecar. If not provided, no requests/limits will be set",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceRequirements"),
 						},
 					},
 					"gcs": {
@@ -2430,7 +2430,7 @@ func schema_pkg_apis_monitoring_v1_ThanosSpec(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosGCSSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosS3Spec", "k8s.io/api/core/v1.ResourceRequirements"},
+			"github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosGCSSpec", "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1.ThanosS3Spec", "k8s.io/client-go/pkg/api/v1.ResourceRequirements"},
 	}
 }
 
@@ -2485,26 +2485,26 @@ func schema_k8sio_api_core_v1_Affinity(ref common.ReferenceCallback) common.Open
 					"nodeAffinity": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Describes node affinity scheduling rules for the pod.",
-							Ref:         ref("k8s.io/api/core/v1.NodeAffinity"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeAffinity"),
 						},
 					},
 					"podAffinity": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).",
-							Ref:         ref("k8s.io/api/core/v1.PodAffinity"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodAffinity"),
 						},
 					},
 					"podAntiAffinity": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).",
-							Ref:         ref("k8s.io/api/core/v1.PodAntiAffinity"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodAntiAffinity"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeAffinity", "k8s.io/api/core/v1.PodAffinity", "k8s.io/api/core/v1.PodAntiAffinity"},
+			"k8s.io/client-go/pkg/api/v1.NodeAffinity", "k8s.io/client-go/pkg/api/v1.PodAffinity", "k8s.io/client-go/pkg/api/v1.PodAntiAffinity"},
 	}
 }
 
@@ -2549,7 +2549,7 @@ func schema_k8sio_api_core_v1_AvoidPods(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PreferAvoidPodsEntry"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PreferAvoidPodsEntry"),
 									},
 								},
 							},
@@ -2559,7 +2559,7 @@ func schema_k8sio_api_core_v1_AvoidPods(ref common.ReferenceCallback) common.Ope
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PreferAvoidPodsEntry"},
+			"k8s.io/client-go/pkg/api/v1.PreferAvoidPodsEntry"},
 	}
 }
 
@@ -2725,7 +2725,7 @@ func schema_k8sio_api_core_v1_Binding(ref common.ReferenceCallback) common.OpenA
 					"target": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The target object that you want to bind to the standard object.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 						},
 					},
 				},
@@ -2733,7 +2733,7 @@ func schema_k8sio_api_core_v1_Binding(ref common.ReferenceCallback) common.OpenA
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.ObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -2788,19 +2788,19 @@ func schema_k8sio_api_core_v1_CSIPersistentVolumeSource(ref common.ReferenceCall
 					"controllerPublishSecretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 					"nodeStageSecretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 					"nodePublishSecretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 				},
@@ -2808,7 +2808,7 @@ func schema_k8sio_api_core_v1_CSIPersistentVolumeSource(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretReference"},
+			"k8s.io/client-go/pkg/api/v1.SecretReference"},
 	}
 }
 
@@ -2897,7 +2897,7 @@ func schema_k8sio_api_core_v1_CephFSPersistentVolumeSource(ref common.ReferenceC
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 					"readOnly": {
@@ -2912,7 +2912,7 @@ func schema_k8sio_api_core_v1_CephFSPersistentVolumeSource(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretReference"},
+			"k8s.io/client-go/pkg/api/v1.SecretReference"},
 	}
 }
 
@@ -2960,7 +2960,7 @@ func schema_k8sio_api_core_v1_CephFSVolumeSource(ref common.ReferenceCallback) c
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 						},
 					},
 					"readOnly": {
@@ -2975,7 +2975,7 @@ func schema_k8sio_api_core_v1_CephFSVolumeSource(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference"},
 	}
 }
 
@@ -3009,7 +3009,7 @@ func schema_k8sio_api_core_v1_CinderPersistentVolumeSource(ref common.ReferenceC
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional: points to a secret object containing parameters used to connect to OpenStack.",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 				},
@@ -3017,7 +3017,7 @@ func schema_k8sio_api_core_v1_CinderPersistentVolumeSource(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretReference"},
+			"k8s.io/client-go/pkg/api/v1.SecretReference"},
 	}
 }
 
@@ -3051,7 +3051,7 @@ func schema_k8sio_api_core_v1_CinderVolumeSource(ref common.ReferenceCallback) c
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional: points to a secret object containing parameters used to connect to OpenStack.",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 						},
 					},
 				},
@@ -3059,7 +3059,7 @@ func schema_k8sio_api_core_v1_CinderVolumeSource(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference"},
 	}
 }
 
@@ -3164,7 +3164,7 @@ func schema_k8sio_api_core_v1_ComponentStatus(ref common.ReferenceCallback) comm
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ComponentCondition"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ComponentCondition"),
 									},
 								},
 							},
@@ -3174,7 +3174,7 @@ func schema_k8sio_api_core_v1_ComponentStatus(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ComponentCondition", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.ComponentCondition", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -3211,7 +3211,7 @@ func schema_k8sio_api_core_v1_ComponentStatusList(ref common.ReferenceCallback) 
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ComponentStatus"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ComponentStatus"),
 									},
 								},
 							},
@@ -3222,7 +3222,7 @@ func schema_k8sio_api_core_v1_ComponentStatusList(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ComponentStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.ComponentStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -3383,7 +3383,7 @@ func schema_k8sio_api_core_v1_ConfigMapList(ref common.ReferenceCallback) common
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ConfigMap"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ConfigMap"),
 									},
 								},
 							},
@@ -3394,7 +3394,7 @@ func schema_k8sio_api_core_v1_ConfigMapList(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ConfigMap", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.ConfigMap", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -3467,7 +3467,7 @@ func schema_k8sio_api_core_v1_ConfigMapProjection(ref common.ReferenceCallback) 
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.KeyToPath"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.KeyToPath"),
 									},
 								},
 							},
@@ -3484,7 +3484,7 @@ func schema_k8sio_api_core_v1_ConfigMapProjection(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.KeyToPath"},
+			"k8s.io/client-go/pkg/api/v1.KeyToPath"},
 	}
 }
 
@@ -3508,7 +3508,7 @@ func schema_k8sio_api_core_v1_ConfigMapVolumeSource(ref common.ReferenceCallback
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.KeyToPath"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.KeyToPath"),
 									},
 								},
 							},
@@ -3532,7 +3532,7 @@ func schema_k8sio_api_core_v1_ConfigMapVolumeSource(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.KeyToPath"},
+			"k8s.io/client-go/pkg/api/v1.KeyToPath"},
 	}
 }
 
@@ -3604,7 +3604,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ContainerPort"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ContainerPort"),
 									},
 								},
 							},
@@ -3617,7 +3617,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.EnvFromSource"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.EnvFromSource"),
 									},
 								},
 							},
@@ -3636,7 +3636,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.EnvVar"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.EnvVar"),
 									},
 								},
 							},
@@ -3645,7 +3645,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 					"resources": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceRequirements"),
 						},
 					},
 					"volumeMounts": {
@@ -3661,7 +3661,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.VolumeMount"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.VolumeMount"),
 									},
 								},
 							},
@@ -3680,7 +3680,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.VolumeDevice"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.VolumeDevice"),
 									},
 								},
 							},
@@ -3689,19 +3689,19 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 					"livenessProbe": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes",
-							Ref:         ref("k8s.io/api/core/v1.Probe"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Probe"),
 						},
 					},
 					"readinessProbe": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes",
-							Ref:         ref("k8s.io/api/core/v1.Probe"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Probe"),
 						},
 					},
 					"lifecycle": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Actions that the management system should take in response to container lifecycle events. Cannot be updated.",
-							Ref:         ref("k8s.io/api/core/v1.Lifecycle"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Lifecycle"),
 						},
 					},
 					"terminationMessagePath": {
@@ -3728,7 +3728,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 					"securityContext": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/",
-							Ref:         ref("k8s.io/api/core/v1.SecurityContext"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecurityContext"),
 						},
 					},
 					"stdin": {
@@ -3757,7 +3757,7 @@ func schema_k8sio_api_core_v1_Container(ref common.ReferenceCallback) common.Ope
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ContainerPort", "k8s.io/api/core/v1.EnvFromSource", "k8s.io/api/core/v1.EnvVar", "k8s.io/api/core/v1.Lifecycle", "k8s.io/api/core/v1.Probe", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.SecurityContext", "k8s.io/api/core/v1.VolumeDevice", "k8s.io/api/core/v1.VolumeMount"},
+			"k8s.io/client-go/pkg/api/v1.ContainerPort", "k8s.io/client-go/pkg/api/v1.EnvFromSource", "k8s.io/client-go/pkg/api/v1.EnvVar", "k8s.io/client-go/pkg/api/v1.Lifecycle", "k8s.io/client-go/pkg/api/v1.Probe", "k8s.io/client-go/pkg/api/v1.ResourceRequirements", "k8s.io/client-go/pkg/api/v1.SecurityContext", "k8s.io/client-go/pkg/api/v1.VolumeDevice", "k8s.io/client-go/pkg/api/v1.VolumeMount"},
 	}
 }
 
@@ -3854,26 +3854,26 @@ func schema_k8sio_api_core_v1_ContainerState(ref common.ReferenceCallback) commo
 					"waiting": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Details about a waiting container",
-							Ref:         ref("k8s.io/api/core/v1.ContainerStateWaiting"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ContainerStateWaiting"),
 						},
 					},
 					"running": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Details about a running container",
-							Ref:         ref("k8s.io/api/core/v1.ContainerStateRunning"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ContainerStateRunning"),
 						},
 					},
 					"terminated": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Details about a terminated container",
-							Ref:         ref("k8s.io/api/core/v1.ContainerStateTerminated"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ContainerStateTerminated"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ContainerStateRunning", "k8s.io/api/core/v1.ContainerStateTerminated", "k8s.io/api/core/v1.ContainerStateWaiting"},
+			"k8s.io/client-go/pkg/api/v1.ContainerStateRunning", "k8s.io/client-go/pkg/api/v1.ContainerStateTerminated", "k8s.io/client-go/pkg/api/v1.ContainerStateWaiting"},
 	}
 }
 
@@ -4002,13 +4002,13 @@ func schema_k8sio_api_core_v1_ContainerStatus(ref common.ReferenceCallback) comm
 					"state": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Details about the container's current condition.",
-							Ref:         ref("k8s.io/api/core/v1.ContainerState"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ContainerState"),
 						},
 					},
 					"lastState": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Details about the container's last termination condition.",
-							Ref:         ref("k8s.io/api/core/v1.ContainerState"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ContainerState"),
 						},
 					},
 					"ready": {
@@ -4051,7 +4051,7 @@ func schema_k8sio_api_core_v1_ContainerStatus(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ContainerState"},
+			"k8s.io/client-go/pkg/api/v1.ContainerState"},
 	}
 }
 
@@ -4089,7 +4089,7 @@ func schema_k8sio_api_core_v1_DownwardAPIProjection(ref common.ReferenceCallback
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.DownwardAPIVolumeFile"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeFile"),
 									},
 								},
 							},
@@ -4099,7 +4099,7 @@ func schema_k8sio_api_core_v1_DownwardAPIProjection(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.DownwardAPIVolumeFile"},
+			"k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeFile"},
 	}
 }
 
@@ -4119,13 +4119,13 @@ func schema_k8sio_api_core_v1_DownwardAPIVolumeFile(ref common.ReferenceCallback
 					"fieldRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectFieldSelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectFieldSelector"),
 						},
 					},
 					"resourceFieldRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.",
-							Ref:         ref("k8s.io/api/core/v1.ResourceFieldSelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceFieldSelector"),
 						},
 					},
 					"mode": {
@@ -4140,7 +4140,7 @@ func schema_k8sio_api_core_v1_DownwardAPIVolumeFile(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ObjectFieldSelector", "k8s.io/api/core/v1.ResourceFieldSelector"},
+			"k8s.io/client-go/pkg/api/v1.ObjectFieldSelector", "k8s.io/client-go/pkg/api/v1.ResourceFieldSelector"},
 	}
 }
 
@@ -4157,7 +4157,7 @@ func schema_k8sio_api_core_v1_DownwardAPIVolumeSource(ref common.ReferenceCallba
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.DownwardAPIVolumeFile"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeFile"),
 									},
 								},
 							},
@@ -4174,7 +4174,7 @@ func schema_k8sio_api_core_v1_DownwardAPIVolumeSource(ref common.ReferenceCallba
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.DownwardAPIVolumeFile"},
+			"k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeFile"},
 	}
 }
 
@@ -4235,7 +4235,7 @@ func schema_k8sio_api_core_v1_EndpointAddress(ref common.ReferenceCallback) comm
 					"targetRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Reference to object providing the endpoint.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 						},
 					},
 				},
@@ -4243,7 +4243,7 @@ func schema_k8sio_api_core_v1_EndpointAddress(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.ObjectReference"},
 	}
 }
 
@@ -4295,7 +4295,7 @@ func schema_k8sio_api_core_v1_EndpointSubset(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.EndpointAddress"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.EndpointAddress"),
 									},
 								},
 							},
@@ -4308,7 +4308,7 @@ func schema_k8sio_api_core_v1_EndpointSubset(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.EndpointAddress"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.EndpointAddress"),
 									},
 								},
 							},
@@ -4321,7 +4321,7 @@ func schema_k8sio_api_core_v1_EndpointSubset(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.EndpointPort"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.EndpointPort"),
 									},
 								},
 							},
@@ -4331,7 +4331,7 @@ func schema_k8sio_api_core_v1_EndpointSubset(ref common.ReferenceCallback) commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.EndpointAddress", "k8s.io/api/core/v1.EndpointPort"},
+			"k8s.io/client-go/pkg/api/v1.EndpointAddress", "k8s.io/client-go/pkg/api/v1.EndpointPort"},
 	}
 }
 
@@ -4368,7 +4368,7 @@ func schema_k8sio_api_core_v1_Endpoints(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.EndpointSubset"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.EndpointSubset"),
 									},
 								},
 							},
@@ -4378,7 +4378,7 @@ func schema_k8sio_api_core_v1_Endpoints(ref common.ReferenceCallback) common.Ope
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.EndpointSubset", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.EndpointSubset", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -4415,7 +4415,7 @@ func schema_k8sio_api_core_v1_EndpointsList(ref common.ReferenceCallback) common
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Endpoints"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Endpoints"),
 									},
 								},
 							},
@@ -4426,7 +4426,7 @@ func schema_k8sio_api_core_v1_EndpointsList(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Endpoints", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.Endpoints", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -4446,20 +4446,20 @@ func schema_k8sio_api_core_v1_EnvFromSource(ref common.ReferenceCallback) common
 					"configMapRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The ConfigMap to select from",
-							Ref:         ref("k8s.io/api/core/v1.ConfigMapEnvSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ConfigMapEnvSource"),
 						},
 					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The Secret to select from",
-							Ref:         ref("k8s.io/api/core/v1.SecretEnvSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretEnvSource"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ConfigMapEnvSource", "k8s.io/api/core/v1.SecretEnvSource"},
+			"k8s.io/client-go/pkg/api/v1.ConfigMapEnvSource", "k8s.io/client-go/pkg/api/v1.SecretEnvSource"},
 	}
 }
 
@@ -4486,7 +4486,7 @@ func schema_k8sio_api_core_v1_EnvVar(ref common.ReferenceCallback) common.OpenAP
 					"valueFrom": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Source for the environment variable's value. Cannot be used if value is not empty.",
-							Ref:         ref("k8s.io/api/core/v1.EnvVarSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.EnvVarSource"),
 						},
 					},
 				},
@@ -4494,7 +4494,7 @@ func schema_k8sio_api_core_v1_EnvVar(ref common.ReferenceCallback) common.OpenAP
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.EnvVarSource"},
+			"k8s.io/client-go/pkg/api/v1.EnvVarSource"},
 	}
 }
 
@@ -4507,32 +4507,32 @@ func schema_k8sio_api_core_v1_EnvVarSource(ref common.ReferenceCallback) common.
 					"fieldRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectFieldSelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectFieldSelector"),
 						},
 					},
 					"resourceFieldRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.",
-							Ref:         ref("k8s.io/api/core/v1.ResourceFieldSelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceFieldSelector"),
 						},
 					},
 					"configMapKeyRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Selects a key of a ConfigMap.",
-							Ref:         ref("k8s.io/api/core/v1.ConfigMapKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ConfigMapKeySelector"),
 						},
 					},
 					"secretKeyRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Selects a key of a secret in the pod's namespace",
-							Ref:         ref("k8s.io/api/core/v1.SecretKeySelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretKeySelector"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ConfigMapKeySelector", "k8s.io/api/core/v1.ObjectFieldSelector", "k8s.io/api/core/v1.ResourceFieldSelector", "k8s.io/api/core/v1.SecretKeySelector"},
+			"k8s.io/client-go/pkg/api/v1.ConfigMapKeySelector", "k8s.io/client-go/pkg/api/v1.ObjectFieldSelector", "k8s.io/client-go/pkg/api/v1.ResourceFieldSelector", "k8s.io/client-go/pkg/api/v1.SecretKeySelector"},
 	}
 }
 
@@ -4565,7 +4565,7 @@ func schema_k8sio_api_core_v1_Event(ref common.ReferenceCallback) common.OpenAPI
 					"involvedObject": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The object that this event is about.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 						},
 					},
 					"reason": {
@@ -4585,7 +4585,7 @@ func schema_k8sio_api_core_v1_Event(ref common.ReferenceCallback) common.OpenAPI
 					"source": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The component reporting this event. Should be a short machine understandable string.",
-							Ref:         ref("k8s.io/api/core/v1.EventSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.EventSource"),
 						},
 					},
 					"firstTimestamp": {
@@ -4623,7 +4623,7 @@ func schema_k8sio_api_core_v1_Event(ref common.ReferenceCallback) common.OpenAPI
 					"series": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Data about the Event series this event represents or nil if it's a singleton Event.",
-							Ref:         ref("k8s.io/api/core/v1.EventSeries"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.EventSeries"),
 						},
 					},
 					"action": {
@@ -4636,7 +4636,7 @@ func schema_k8sio_api_core_v1_Event(ref common.ReferenceCallback) common.OpenAPI
 					"related": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional secondary object for more complex actions.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 						},
 					},
 					"reportingComponent": {
@@ -4658,7 +4658,7 @@ func schema_k8sio_api_core_v1_Event(ref common.ReferenceCallback) common.OpenAPI
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.EventSeries", "k8s.io/api/core/v1.EventSource", "k8s.io/api/core/v1.ObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.MicroTime", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+			"k8s.io/client-go/pkg/api/v1.EventSeries", "k8s.io/client-go/pkg/api/v1.EventSource", "k8s.io/client-go/pkg/api/v1.ObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.MicroTime", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
@@ -4695,7 +4695,7 @@ func schema_k8sio_api_core_v1_EventList(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Event"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Event"),
 									},
 								},
 							},
@@ -4706,7 +4706,7 @@ func schema_k8sio_api_core_v1_EventList(ref common.ReferenceCallback) common.Ope
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Event", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.Event", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -4883,7 +4883,7 @@ func schema_k8sio_api_core_v1_FlexPersistentVolumeSource(ref common.ReferenceCal
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 					"readOnly": {
@@ -4912,7 +4912,7 @@ func schema_k8sio_api_core_v1_FlexPersistentVolumeSource(ref common.ReferenceCal
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretReference"},
+			"k8s.io/client-go/pkg/api/v1.SecretReference"},
 	}
 }
 
@@ -4939,7 +4939,7 @@ func schema_k8sio_api_core_v1_FlexVolumeSource(ref common.ReferenceCallback) com
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 						},
 					},
 					"readOnly": {
@@ -4968,7 +4968,7 @@ func schema_k8sio_api_core_v1_FlexVolumeSource(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference"},
 	}
 }
 
@@ -5151,7 +5151,7 @@ func schema_k8sio_api_core_v1_HTTPGetAction(ref common.ReferenceCallback) common
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.HTTPHeader"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.HTTPHeader"),
 									},
 								},
 							},
@@ -5162,7 +5162,7 @@ func schema_k8sio_api_core_v1_HTTPGetAction(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.HTTPHeader", "k8s.io/apimachinery/pkg/util/intstr.IntOrString"},
+			"k8s.io/client-go/pkg/api/v1.HTTPHeader", "k8s.io/apimachinery/pkg/util/intstr.IntOrString"},
 	}
 }
 
@@ -5203,26 +5203,26 @@ func schema_k8sio_api_core_v1_Handler(ref common.ReferenceCallback) common.OpenA
 					"exec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "One and only one of the following should be specified. Exec specifies the action to take.",
-							Ref:         ref("k8s.io/api/core/v1.ExecAction"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ExecAction"),
 						},
 					},
 					"httpGet": {
 						SchemaProps: spec.SchemaProps{
 							Description: "HTTPGet specifies the http request to perform.",
-							Ref:         ref("k8s.io/api/core/v1.HTTPGetAction"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.HTTPGetAction"),
 						},
 					},
 					"tcpSocket": {
 						SchemaProps: spec.SchemaProps{
 							Description: "TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported",
-							Ref:         ref("k8s.io/api/core/v1.TCPSocketAction"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.TCPSocketAction"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ExecAction", "k8s.io/api/core/v1.HTTPGetAction", "k8s.io/api/core/v1.TCPSocketAction"},
+			"k8s.io/client-go/pkg/api/v1.ExecAction", "k8s.io/client-go/pkg/api/v1.HTTPGetAction", "k8s.io/client-go/pkg/api/v1.TCPSocketAction"},
 	}
 }
 
@@ -5367,7 +5367,7 @@ func schema_k8sio_api_core_v1_ISCSIPersistentVolumeSource(ref common.ReferenceCa
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CHAP Secret for iSCSI target and initiator authentication",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 					"initiatorName": {
@@ -5382,7 +5382,7 @@ func schema_k8sio_api_core_v1_ISCSIPersistentVolumeSource(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretReference"},
+			"k8s.io/client-go/pkg/api/v1.SecretReference"},
 	}
 }
 
@@ -5465,7 +5465,7 @@ func schema_k8sio_api_core_v1_ISCSIVolumeSource(ref common.ReferenceCallback) co
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CHAP Secret for iSCSI target and initiator authentication",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 						},
 					},
 					"initiatorName": {
@@ -5480,7 +5480,7 @@ func schema_k8sio_api_core_v1_ISCSIVolumeSource(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference"},
 	}
 }
 
@@ -5528,20 +5528,20 @@ func schema_k8sio_api_core_v1_Lifecycle(ref common.ReferenceCallback) common.Ope
 					"postStart": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks",
-							Ref:         ref("k8s.io/api/core/v1.Handler"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Handler"),
 						},
 					},
 					"preStop": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PreStop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks",
-							Ref:         ref("k8s.io/api/core/v1.Handler"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Handler"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Handler"},
+			"k8s.io/client-go/pkg/api/v1.Handler"},
 	}
 }
 
@@ -5574,14 +5574,14 @@ func schema_k8sio_api_core_v1_LimitRange(ref common.ReferenceCallback) common.Op
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.LimitRangeSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LimitRangeSpec"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LimitRangeSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.LimitRangeSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -5704,7 +5704,7 @@ func schema_k8sio_api_core_v1_LimitRangeList(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.LimitRange"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.LimitRange"),
 									},
 								},
 							},
@@ -5715,7 +5715,7 @@ func schema_k8sio_api_core_v1_LimitRangeList(ref common.ReferenceCallback) commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LimitRange", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.LimitRange", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -5732,7 +5732,7 @@ func schema_k8sio_api_core_v1_LimitRangeSpec(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.LimitRangeItem"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.LimitRangeItem"),
 									},
 								},
 							},
@@ -5743,7 +5743,7 @@ func schema_k8sio_api_core_v1_LimitRangeSpec(ref common.ReferenceCallback) commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LimitRangeItem"},
+			"k8s.io/client-go/pkg/api/v1.LimitRangeItem"},
 	}
 }
 
@@ -5835,7 +5835,7 @@ func schema_k8sio_api_core_v1_LoadBalancerStatus(ref common.ReferenceCallback) c
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.LoadBalancerIngress"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.LoadBalancerIngress"),
 									},
 								},
 							},
@@ -5845,7 +5845,7 @@ func schema_k8sio_api_core_v1_LoadBalancerStatus(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LoadBalancerIngress"},
+			"k8s.io/client-go/pkg/api/v1.LoadBalancerIngress"},
 	}
 }
 
@@ -5961,20 +5961,20 @@ func schema_k8sio_api_core_v1_Namespace(ref common.ReferenceCallback) common.Ope
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.NamespaceSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NamespaceSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.NamespaceStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NamespaceStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NamespaceSpec", "k8s.io/api/core/v1.NamespaceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.NamespaceSpec", "k8s.io/client-go/pkg/api/v1.NamespaceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -6011,7 +6011,7 @@ func schema_k8sio_api_core_v1_NamespaceList(ref common.ReferenceCallback) common
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Namespace"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Namespace"),
 									},
 								},
 							},
@@ -6022,7 +6022,7 @@ func schema_k8sio_api_core_v1_NamespaceList(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Namespace", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.Namespace", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -6102,20 +6102,20 @@ func schema_k8sio_api_core_v1_Node(ref common.ReferenceCallback) common.OpenAPID
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.NodeSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.NodeStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeSpec", "k8s.io/api/core/v1.NodeStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.NodeSpec", "k8s.io/client-go/pkg/api/v1.NodeStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -6156,7 +6156,7 @@ func schema_k8sio_api_core_v1_NodeAffinity(ref common.ReferenceCallback) common.
 					"requiredDuringSchedulingIgnoredDuringExecution": {
 						SchemaProps: spec.SchemaProps{
 							Description: "If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.",
-							Ref:         ref("k8s.io/api/core/v1.NodeSelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeSelector"),
 						},
 					},
 					"preferredDuringSchedulingIgnoredDuringExecution": {
@@ -6166,7 +6166,7 @@ func schema_k8sio_api_core_v1_NodeAffinity(ref common.ReferenceCallback) common.
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PreferredSchedulingTerm"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PreferredSchedulingTerm"),
 									},
 								},
 							},
@@ -6176,7 +6176,7 @@ func schema_k8sio_api_core_v1_NodeAffinity(ref common.ReferenceCallback) common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeSelector", "k8s.io/api/core/v1.PreferredSchedulingTerm"},
+			"k8s.io/client-go/pkg/api/v1.NodeSelector", "k8s.io/client-go/pkg/api/v1.PreferredSchedulingTerm"},
 	}
 }
 
@@ -6244,14 +6244,14 @@ func schema_k8sio_api_core_v1_NodeConfigSource(ref common.ReferenceCallback) com
 					"configMap": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConfigMap is a reference to a Node's ConfigMap",
-							Ref:         ref("k8s.io/api/core/v1.ConfigMapNodeConfigSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ConfigMapNodeConfigSource"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ConfigMapNodeConfigSource"},
+			"k8s.io/client-go/pkg/api/v1.ConfigMapNodeConfigSource"},
 	}
 }
 
@@ -6264,19 +6264,19 @@ func schema_k8sio_api_core_v1_NodeConfigStatus(ref common.ReferenceCallback) com
 					"assigned": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.",
-							Ref:         ref("k8s.io/api/core/v1.NodeConfigSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeConfigSource"),
 						},
 					},
 					"active": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.",
-							Ref:         ref("k8s.io/api/core/v1.NodeConfigSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeConfigSource"),
 						},
 					},
 					"lastKnownGood": {
 						SchemaProps: spec.SchemaProps{
 							Description: "LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.",
-							Ref:         ref("k8s.io/api/core/v1.NodeConfigSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeConfigSource"),
 						},
 					},
 					"error": {
@@ -6290,7 +6290,7 @@ func schema_k8sio_api_core_v1_NodeConfigStatus(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeConfigSource"},
+			"k8s.io/client-go/pkg/api/v1.NodeConfigSource"},
 	}
 }
 
@@ -6303,14 +6303,14 @@ func schema_k8sio_api_core_v1_NodeDaemonEndpoints(ref common.ReferenceCallback) 
 					"kubeletEndpoint": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Endpoint on which Kubelet is listening.",
-							Ref:         ref("k8s.io/api/core/v1.DaemonEndpoint"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.DaemonEndpoint"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.DaemonEndpoint"},
+			"k8s.io/client-go/pkg/api/v1.DaemonEndpoint"},
 	}
 }
 
@@ -6347,7 +6347,7 @@ func schema_k8sio_api_core_v1_NodeList(ref common.ReferenceCallback) common.Open
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Node"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Node"),
 									},
 								},
 							},
@@ -6358,7 +6358,7 @@ func schema_k8sio_api_core_v1_NodeList(ref common.ReferenceCallback) common.Open
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Node", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.Node", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -6437,7 +6437,7 @@ func schema_k8sio_api_core_v1_NodeSelector(ref common.ReferenceCallback) common.
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.NodeSelectorTerm"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.NodeSelectorTerm"),
 									},
 								},
 							},
@@ -6448,7 +6448,7 @@ func schema_k8sio_api_core_v1_NodeSelector(ref common.ReferenceCallback) common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeSelectorTerm"},
+			"k8s.io/client-go/pkg/api/v1.NodeSelectorTerm"},
 	}
 }
 
@@ -6507,7 +6507,7 @@ func schema_k8sio_api_core_v1_NodeSelectorTerm(ref common.ReferenceCallback) com
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.NodeSelectorRequirement"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.NodeSelectorRequirement"),
 									},
 								},
 							},
@@ -6520,7 +6520,7 @@ func schema_k8sio_api_core_v1_NodeSelectorTerm(ref common.ReferenceCallback) com
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.NodeSelectorRequirement"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.NodeSelectorRequirement"),
 									},
 								},
 							},
@@ -6530,7 +6530,7 @@ func schema_k8sio_api_core_v1_NodeSelectorTerm(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeSelectorRequirement"},
+			"k8s.io/client-go/pkg/api/v1.NodeSelectorRequirement"},
 	}
 }
 
@@ -6568,7 +6568,7 @@ func schema_k8sio_api_core_v1_NodeSpec(ref common.ReferenceCallback) common.Open
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Taint"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Taint"),
 									},
 								},
 							},
@@ -6577,7 +6577,7 @@ func schema_k8sio_api_core_v1_NodeSpec(ref common.ReferenceCallback) common.Open
 					"configSource": {
 						SchemaProps: spec.SchemaProps{
 							Description: "If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field",
-							Ref:         ref("k8s.io/api/core/v1.NodeConfigSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeConfigSource"),
 						},
 					},
 					"externalID": {
@@ -6591,7 +6591,7 @@ func schema_k8sio_api_core_v1_NodeSpec(ref common.ReferenceCallback) common.Open
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeConfigSource", "k8s.io/api/core/v1.Taint"},
+			"k8s.io/client-go/pkg/api/v1.NodeConfigSource", "k8s.io/client-go/pkg/api/v1.Taint"},
 	}
 }
 
@@ -6647,7 +6647,7 @@ func schema_k8sio_api_core_v1_NodeStatus(ref common.ReferenceCallback) common.Op
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.NodeCondition"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.NodeCondition"),
 									},
 								},
 							},
@@ -6666,7 +6666,7 @@ func schema_k8sio_api_core_v1_NodeStatus(ref common.ReferenceCallback) common.Op
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.NodeAddress"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.NodeAddress"),
 									},
 								},
 							},
@@ -6675,13 +6675,13 @@ func schema_k8sio_api_core_v1_NodeStatus(ref common.ReferenceCallback) common.Op
 					"daemonEndpoints": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Endpoints of daemons running on the Node.",
-							Ref:         ref("k8s.io/api/core/v1.NodeDaemonEndpoints"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeDaemonEndpoints"),
 						},
 					},
 					"nodeInfo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info",
-							Ref:         ref("k8s.io/api/core/v1.NodeSystemInfo"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeSystemInfo"),
 						},
 					},
 					"images": {
@@ -6691,7 +6691,7 @@ func schema_k8sio_api_core_v1_NodeStatus(ref common.ReferenceCallback) common.Op
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ContainerImage"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ContainerImage"),
 									},
 								},
 							},
@@ -6718,7 +6718,7 @@ func schema_k8sio_api_core_v1_NodeStatus(ref common.ReferenceCallback) common.Op
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.AttachedVolume"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.AttachedVolume"),
 									},
 								},
 							},
@@ -6727,14 +6727,14 @@ func schema_k8sio_api_core_v1_NodeStatus(ref common.ReferenceCallback) common.Op
 					"config": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status of the config assigned to the node via the dynamic Kubelet config feature.",
-							Ref:         ref("k8s.io/api/core/v1.NodeConfigStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeConfigStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.AttachedVolume", "k8s.io/api/core/v1.ContainerImage", "k8s.io/api/core/v1.NodeAddress", "k8s.io/api/core/v1.NodeCondition", "k8s.io/api/core/v1.NodeConfigStatus", "k8s.io/api/core/v1.NodeDaemonEndpoints", "k8s.io/api/core/v1.NodeSystemInfo", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
+			"k8s.io/client-go/pkg/api/v1.AttachedVolume", "k8s.io/client-go/pkg/api/v1.ContainerImage", "k8s.io/client-go/pkg/api/v1.NodeAddress", "k8s.io/client-go/pkg/api/v1.NodeCondition", "k8s.io/client-go/pkg/api/v1.NodeConfigStatus", "k8s.io/client-go/pkg/api/v1.NodeDaemonEndpoints", "k8s.io/client-go/pkg/api/v1.NodeSystemInfo", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
 	}
 }
 
@@ -6941,20 +6941,20 @@ func schema_k8sio_api_core_v1_PersistentVolume(ref common.ReferenceCallback) com
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeSpec", "k8s.io/api/core/v1.PersistentVolumeStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.PersistentVolumeSpec", "k8s.io/client-go/pkg/api/v1.PersistentVolumeStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -6987,20 +6987,20 @@ func schema_k8sio_api_core_v1_PersistentVolumeClaim(ref common.ReferenceCallback
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "k8s.io/api/core/v1.PersistentVolumeClaimStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimSpec", "k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -7090,7 +7090,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeClaimList(ref common.ReferenceCall
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PersistentVolumeClaim"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeClaim"),
 									},
 								},
 							},
@@ -7101,7 +7101,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeClaimList(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaim", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaim", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -7134,7 +7134,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeClaimSpec(ref common.ReferenceCall
 					"resources": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceRequirements"),
 						},
 					},
 					"volumeName": {
@@ -7161,14 +7161,14 @@ func schema_k8sio_api_core_v1_PersistentVolumeClaimSpec(ref common.ReferenceCall
 					"dataSource": {
 						SchemaProps: spec.SchemaProps{
 							Description: "This field requires the VolumeSnapshotDataSource alpha feature gate to be enabled and currently VolumeSnapshot is the only supported data source. If the provisioner can support VolumeSnapshot data source, it will create a new volume and data will be restored to the volume at the same time. If the provisioner does not support VolumeSnapshot data source, volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.",
-							Ref:         ref("k8s.io/api/core/v1.TypedLocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.TypedLocalObjectReference"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.TypedLocalObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector"},
+			"k8s.io/client-go/pkg/api/v1.ResourceRequirements", "k8s.io/client-go/pkg/api/v1.TypedLocalObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector"},
 	}
 }
 
@@ -7225,7 +7225,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeClaimStatus(ref common.ReferenceCa
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PersistentVolumeClaimCondition"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimCondition"),
 									},
 								},
 							},
@@ -7235,7 +7235,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeClaimStatus(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimCondition", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
+			"k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimCondition", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
 	}
 }
 
@@ -7300,7 +7300,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeList(ref common.ReferenceCallback)
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PersistentVolume"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PersistentVolume"),
 									},
 								},
 							},
@@ -7311,7 +7311,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeList(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolume", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.PersistentVolume", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -7324,140 +7324,140 @@ func schema_k8sio_api_core_v1_PersistentVolumeSource(ref common.ReferenceCallbac
 					"gcePersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk",
-							Ref:         ref("k8s.io/api/core/v1.GCEPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource"),
 						},
 					},
 					"awsElasticBlockStore": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore",
-							Ref:         ref("k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource"),
 						},
 					},
 					"hostPath": {
 						SchemaProps: spec.SchemaProps{
 							Description: "HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath",
-							Ref:         ref("k8s.io/api/core/v1.HostPathVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.HostPathVolumeSource"),
 						},
 					},
 					"glusterfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md",
-							Ref:         ref("k8s.io/api/core/v1.GlusterfsVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource"),
 						},
 					},
 					"nfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs",
-							Ref:         ref("k8s.io/api/core/v1.NFSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NFSVolumeSource"),
 						},
 					},
 					"rbd": {
 						SchemaProps: spec.SchemaProps{
 							Description: "RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.RBDPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.RBDPersistentVolumeSource"),
 						},
 					},
 					"iscsi": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.",
-							Ref:         ref("k8s.io/api/core/v1.ISCSIPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ISCSIPersistentVolumeSource"),
 						},
 					},
 					"cinder": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Cinder represents a cinder volume attached and mounted on kubelets host machine More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.CinderPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CinderPersistentVolumeSource"),
 						},
 					},
 					"cephfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CephFS represents a Ceph FS mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.CephFSPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CephFSPersistentVolumeSource"),
 						},
 					},
 					"fc": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.FCVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FCVolumeSource"),
 						},
 					},
 					"flocker": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running",
-							Ref:         ref("k8s.io/api/core/v1.FlockerVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlockerVolumeSource"),
 						},
 					},
 					"flexVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.",
-							Ref:         ref("k8s.io/api/core/v1.FlexPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlexPersistentVolumeSource"),
 						},
 					},
 					"azureFile": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureFile represents an Azure File Service mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureFilePersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureFilePersistentVolumeSource"),
 						},
 					},
 					"vsphereVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource"),
 						},
 					},
 					"quobyte": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Quobyte represents a Quobyte mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.QuobyteVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource"),
 						},
 					},
 					"azureDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource"),
 						},
 					},
 					"photonPersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource"),
 						},
 					},
 					"portworxVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PortworxVolume represents a portworx volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PortworxVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PortworxVolumeSource"),
 						},
 					},
 					"scaleIO": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.",
-							Ref:         ref("k8s.io/api/core/v1.ScaleIOPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ScaleIOPersistentVolumeSource"),
 						},
 					},
 					"local": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Local represents directly-attached storage with node affinity",
-							Ref:         ref("k8s.io/api/core/v1.LocalVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalVolumeSource"),
 						},
 					},
 					"storageos": {
 						SchemaProps: spec.SchemaProps{
 							Description: "StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://releases.k8s.io/HEAD/examples/volumes/storageos/README.md",
-							Ref:         ref("k8s.io/api/core/v1.StorageOSPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.StorageOSPersistentVolumeSource"),
 						},
 					},
 					"csi": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CSI represents storage that handled by an external CSI driver (Beta feature).",
-							Ref:         ref("k8s.io/api/core/v1.CSIPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CSIPersistentVolumeSource"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/api/core/v1.AzureDiskVolumeSource", "k8s.io/api/core/v1.AzureFilePersistentVolumeSource", "k8s.io/api/core/v1.CSIPersistentVolumeSource", "k8s.io/api/core/v1.CephFSPersistentVolumeSource", "k8s.io/api/core/v1.CinderPersistentVolumeSource", "k8s.io/api/core/v1.FCVolumeSource", "k8s.io/api/core/v1.FlexPersistentVolumeSource", "k8s.io/api/core/v1.FlockerVolumeSource", "k8s.io/api/core/v1.GCEPersistentDiskVolumeSource", "k8s.io/api/core/v1.GlusterfsVolumeSource", "k8s.io/api/core/v1.HostPathVolumeSource", "k8s.io/api/core/v1.ISCSIPersistentVolumeSource", "k8s.io/api/core/v1.LocalVolumeSource", "k8s.io/api/core/v1.NFSVolumeSource", "k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource", "k8s.io/api/core/v1.PortworxVolumeSource", "k8s.io/api/core/v1.QuobyteVolumeSource", "k8s.io/api/core/v1.RBDPersistentVolumeSource", "k8s.io/api/core/v1.ScaleIOPersistentVolumeSource", "k8s.io/api/core/v1.StorageOSPersistentVolumeSource", "k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource"},
+			"k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureFilePersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.CSIPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.CephFSPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.CinderPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.FCVolumeSource", "k8s.io/client-go/pkg/api/v1.FlexPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.FlockerVolumeSource", "k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource", "k8s.io/client-go/pkg/api/v1.HostPathVolumeSource", "k8s.io/client-go/pkg/api/v1.ISCSIPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.LocalVolumeSource", "k8s.io/client-go/pkg/api/v1.NFSVolumeSource", "k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.PortworxVolumeSource", "k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource", "k8s.io/client-go/pkg/api/v1.RBDPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.ScaleIOPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.StorageOSPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource"},
 	}
 }
 
@@ -7483,133 +7483,133 @@ func schema_k8sio_api_core_v1_PersistentVolumeSpec(ref common.ReferenceCallback)
 					"gcePersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk",
-							Ref:         ref("k8s.io/api/core/v1.GCEPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource"),
 						},
 					},
 					"awsElasticBlockStore": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore",
-							Ref:         ref("k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource"),
 						},
 					},
 					"hostPath": {
 						SchemaProps: spec.SchemaProps{
 							Description: "HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath",
-							Ref:         ref("k8s.io/api/core/v1.HostPathVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.HostPathVolumeSource"),
 						},
 					},
 					"glusterfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md",
-							Ref:         ref("k8s.io/api/core/v1.GlusterfsVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource"),
 						},
 					},
 					"nfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs",
-							Ref:         ref("k8s.io/api/core/v1.NFSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NFSVolumeSource"),
 						},
 					},
 					"rbd": {
 						SchemaProps: spec.SchemaProps{
 							Description: "RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.RBDPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.RBDPersistentVolumeSource"),
 						},
 					},
 					"iscsi": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.",
-							Ref:         ref("k8s.io/api/core/v1.ISCSIPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ISCSIPersistentVolumeSource"),
 						},
 					},
 					"cinder": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Cinder represents a cinder volume attached and mounted on kubelets host machine More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.CinderPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CinderPersistentVolumeSource"),
 						},
 					},
 					"cephfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CephFS represents a Ceph FS mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.CephFSPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CephFSPersistentVolumeSource"),
 						},
 					},
 					"fc": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.FCVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FCVolumeSource"),
 						},
 					},
 					"flocker": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running",
-							Ref:         ref("k8s.io/api/core/v1.FlockerVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlockerVolumeSource"),
 						},
 					},
 					"flexVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.",
-							Ref:         ref("k8s.io/api/core/v1.FlexPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlexPersistentVolumeSource"),
 						},
 					},
 					"azureFile": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureFile represents an Azure File Service mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureFilePersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureFilePersistentVolumeSource"),
 						},
 					},
 					"vsphereVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource"),
 						},
 					},
 					"quobyte": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Quobyte represents a Quobyte mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.QuobyteVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource"),
 						},
 					},
 					"azureDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource"),
 						},
 					},
 					"photonPersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource"),
 						},
 					},
 					"portworxVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PortworxVolume represents a portworx volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PortworxVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PortworxVolumeSource"),
 						},
 					},
 					"scaleIO": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.",
-							Ref:         ref("k8s.io/api/core/v1.ScaleIOPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ScaleIOPersistentVolumeSource"),
 						},
 					},
 					"local": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Local represents directly-attached storage with node affinity",
-							Ref:         ref("k8s.io/api/core/v1.LocalVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalVolumeSource"),
 						},
 					},
 					"storageos": {
 						SchemaProps: spec.SchemaProps{
 							Description: "StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://releases.k8s.io/HEAD/examples/volumes/storageos/README.md",
-							Ref:         ref("k8s.io/api/core/v1.StorageOSPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.StorageOSPersistentVolumeSource"),
 						},
 					},
 					"csi": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CSI represents storage that handled by an external CSI driver (Beta feature).",
-							Ref:         ref("k8s.io/api/core/v1.CSIPersistentVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CSIPersistentVolumeSource"),
 						},
 					},
 					"accessModes": {
@@ -7629,7 +7629,7 @@ func schema_k8sio_api_core_v1_PersistentVolumeSpec(ref common.ReferenceCallback)
 					"claimRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding",
-							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 						},
 					},
 					"persistentVolumeReclaimPolicy": {
@@ -7670,14 +7670,14 @@ func schema_k8sio_api_core_v1_PersistentVolumeSpec(ref common.ReferenceCallback)
 					"nodeAffinity": {
 						SchemaProps: spec.SchemaProps{
 							Description: "NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.",
-							Ref:         ref("k8s.io/api/core/v1.VolumeNodeAffinity"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.VolumeNodeAffinity"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/api/core/v1.AzureDiskVolumeSource", "k8s.io/api/core/v1.AzureFilePersistentVolumeSource", "k8s.io/api/core/v1.CSIPersistentVolumeSource", "k8s.io/api/core/v1.CephFSPersistentVolumeSource", "k8s.io/api/core/v1.CinderPersistentVolumeSource", "k8s.io/api/core/v1.FCVolumeSource", "k8s.io/api/core/v1.FlexPersistentVolumeSource", "k8s.io/api/core/v1.FlockerVolumeSource", "k8s.io/api/core/v1.GCEPersistentDiskVolumeSource", "k8s.io/api/core/v1.GlusterfsVolumeSource", "k8s.io/api/core/v1.HostPathVolumeSource", "k8s.io/api/core/v1.ISCSIPersistentVolumeSource", "k8s.io/api/core/v1.LocalVolumeSource", "k8s.io/api/core/v1.NFSVolumeSource", "k8s.io/api/core/v1.ObjectReference", "k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource", "k8s.io/api/core/v1.PortworxVolumeSource", "k8s.io/api/core/v1.QuobyteVolumeSource", "k8s.io/api/core/v1.RBDPersistentVolumeSource", "k8s.io/api/core/v1.ScaleIOPersistentVolumeSource", "k8s.io/api/core/v1.StorageOSPersistentVolumeSource", "k8s.io/api/core/v1.VolumeNodeAffinity", "k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
+			"k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureFilePersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.CSIPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.CephFSPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.CinderPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.FCVolumeSource", "k8s.io/client-go/pkg/api/v1.FlexPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.FlockerVolumeSource", "k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource", "k8s.io/client-go/pkg/api/v1.HostPathVolumeSource", "k8s.io/client-go/pkg/api/v1.ISCSIPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.LocalVolumeSource", "k8s.io/client-go/pkg/api/v1.NFSVolumeSource", "k8s.io/client-go/pkg/api/v1.ObjectReference", "k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.PortworxVolumeSource", "k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource", "k8s.io/client-go/pkg/api/v1.RBDPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.ScaleIOPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.StorageOSPersistentVolumeSource", "k8s.io/client-go/pkg/api/v1.VolumeNodeAffinity", "k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
 	}
 }
 
@@ -7772,20 +7772,20 @@ func schema_k8sio_api_core_v1_Pod(ref common.ReferenceCallback) common.OpenAPIDe
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.PodSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.PodStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodSpec", "k8s.io/api/core/v1.PodStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.PodSpec", "k8s.io/client-go/pkg/api/v1.PodStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -7802,7 +7802,7 @@ func schema_k8sio_api_core_v1_PodAffinity(ref common.ReferenceCallback) common.O
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PodAffinityTerm"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PodAffinityTerm"),
 									},
 								},
 							},
@@ -7815,7 +7815,7 @@ func schema_k8sio_api_core_v1_PodAffinity(ref common.ReferenceCallback) common.O
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.WeightedPodAffinityTerm"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.WeightedPodAffinityTerm"),
 									},
 								},
 							},
@@ -7825,7 +7825,7 @@ func schema_k8sio_api_core_v1_PodAffinity(ref common.ReferenceCallback) common.O
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodAffinityTerm", "k8s.io/api/core/v1.WeightedPodAffinityTerm"},
+			"k8s.io/client-go/pkg/api/v1.PodAffinityTerm", "k8s.io/client-go/pkg/api/v1.WeightedPodAffinityTerm"},
 	}
 }
 
@@ -7884,7 +7884,7 @@ func schema_k8sio_api_core_v1_PodAntiAffinity(ref common.ReferenceCallback) comm
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PodAffinityTerm"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PodAffinityTerm"),
 									},
 								},
 							},
@@ -7897,7 +7897,7 @@ func schema_k8sio_api_core_v1_PodAntiAffinity(ref common.ReferenceCallback) comm
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.WeightedPodAffinityTerm"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.WeightedPodAffinityTerm"),
 									},
 								},
 							},
@@ -7907,7 +7907,7 @@ func schema_k8sio_api_core_v1_PodAntiAffinity(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodAffinityTerm", "k8s.io/api/core/v1.WeightedPodAffinityTerm"},
+			"k8s.io/client-go/pkg/api/v1.PodAffinityTerm", "k8s.io/client-go/pkg/api/v1.WeightedPodAffinityTerm"},
 	}
 }
 
@@ -8069,7 +8069,7 @@ func schema_k8sio_api_core_v1_PodDNSConfig(ref common.ReferenceCallback) common.
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PodDNSConfigOption"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PodDNSConfigOption"),
 									},
 								},
 							},
@@ -8079,7 +8079,7 @@ func schema_k8sio_api_core_v1_PodDNSConfig(ref common.ReferenceCallback) common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodDNSConfigOption"},
+			"k8s.io/client-go/pkg/api/v1.PodDNSConfigOption"},
 	}
 }
 
@@ -8219,7 +8219,7 @@ func schema_k8sio_api_core_v1_PodList(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Pod"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Pod"),
 									},
 								},
 							},
@@ -8230,7 +8230,7 @@ func schema_k8sio_api_core_v1_PodList(ref common.ReferenceCallback) common.OpenA
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Pod", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.Pod", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -8422,7 +8422,7 @@ func schema_k8sio_api_core_v1_PodSecurityContext(ref common.ReferenceCallback) c
 					"seLinuxOptions": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.",
-							Ref:         ref("k8s.io/api/core/v1.SELinuxOptions"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SELinuxOptions"),
 						},
 					},
 					"runAsUser": {
@@ -8474,7 +8474,7 @@ func schema_k8sio_api_core_v1_PodSecurityContext(ref common.ReferenceCallback) c
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Sysctl"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Sysctl"),
 									},
 								},
 							},
@@ -8484,7 +8484,7 @@ func schema_k8sio_api_core_v1_PodSecurityContext(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SELinuxOptions", "k8s.io/api/core/v1.Sysctl"},
+			"k8s.io/client-go/pkg/api/v1.SELinuxOptions", "k8s.io/client-go/pkg/api/v1.Sysctl"},
 	}
 }
 
@@ -8527,7 +8527,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Volume"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Volume"),
 									},
 								},
 							},
@@ -8546,7 +8546,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Container"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Container"),
 									},
 								},
 							},
@@ -8565,7 +8565,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Container"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Container"),
 									},
 								},
 							},
@@ -8672,7 +8672,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 					"securityContext": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.",
-							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodSecurityContext"),
 						},
 					},
 					"imagePullSecrets": {
@@ -8688,7 +8688,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 									},
 								},
 							},
@@ -8711,7 +8711,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 					"affinity": {
 						SchemaProps: spec.SchemaProps{
 							Description: "If specified, the pod's scheduling constraints",
-							Ref:         ref("k8s.io/api/core/v1.Affinity"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Affinity"),
 						},
 					},
 					"schedulerName": {
@@ -8728,7 +8728,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Toleration"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Toleration"),
 									},
 								},
 							},
@@ -8747,7 +8747,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.HostAlias"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.HostAlias"),
 									},
 								},
 							},
@@ -8770,7 +8770,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 					"dnsConfig": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.",
-							Ref:         ref("k8s.io/api/core/v1.PodDNSConfig"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodDNSConfig"),
 						},
 					},
 					"readinessGates": {
@@ -8780,7 +8780,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PodReadinessGate"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PodReadinessGate"),
 									},
 								},
 							},
@@ -8798,7 +8798,7 @@ func schema_k8sio_api_core_v1_PodSpec(ref common.ReferenceCallback) common.OpenA
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.Container", "k8s.io/api/core/v1.HostAlias", "k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PodDNSConfig", "k8s.io/api/core/v1.PodReadinessGate", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "k8s.io/api/core/v1.Volume"},
+			"k8s.io/client-go/pkg/api/v1.Affinity", "k8s.io/client-go/pkg/api/v1.Container", "k8s.io/client-go/pkg/api/v1.HostAlias", "k8s.io/client-go/pkg/api/v1.LocalObjectReference", "k8s.io/client-go/pkg/api/v1.PodDNSConfig", "k8s.io/client-go/pkg/api/v1.PodReadinessGate", "k8s.io/client-go/pkg/api/v1.PodSecurityContext", "k8s.io/client-go/pkg/api/v1.Toleration", "k8s.io/client-go/pkg/api/v1.Volume"},
 	}
 }
 
@@ -8828,7 +8828,7 @@ func schema_k8sio_api_core_v1_PodStatus(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PodCondition"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PodCondition"),
 									},
 								},
 							},
@@ -8882,7 +8882,7 @@ func schema_k8sio_api_core_v1_PodStatus(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ContainerStatus"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ContainerStatus"),
 									},
 								},
 							},
@@ -8895,7 +8895,7 @@ func schema_k8sio_api_core_v1_PodStatus(ref common.ReferenceCallback) common.Ope
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ContainerStatus"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ContainerStatus"),
 									},
 								},
 							},
@@ -8912,7 +8912,7 @@ func schema_k8sio_api_core_v1_PodStatus(ref common.ReferenceCallback) common.Ope
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ContainerStatus", "k8s.io/api/core/v1.PodCondition", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+			"k8s.io/client-go/pkg/api/v1.ContainerStatus", "k8s.io/client-go/pkg/api/v1.PodCondition", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
@@ -8945,14 +8945,14 @@ func schema_k8sio_api_core_v1_PodStatusResult(ref common.ReferenceCallback) comm
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.PodStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.PodStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -8985,14 +8985,14 @@ func schema_k8sio_api_core_v1_PodTemplate(ref common.ReferenceCallback) common.O
 					"template": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.PodTemplateSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodTemplateSpec"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodTemplateSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.PodTemplateSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -9029,7 +9029,7 @@ func schema_k8sio_api_core_v1_PodTemplateList(ref common.ReferenceCallback) comm
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.PodTemplate"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.PodTemplate"),
 									},
 								},
 							},
@@ -9040,7 +9040,7 @@ func schema_k8sio_api_core_v1_PodTemplateList(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.PodTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -9059,14 +9059,14 @@ func schema_k8sio_api_core_v1_PodTemplateSpec(ref common.ReferenceCallback) comm
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.PodSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodSpec"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.PodSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -9114,7 +9114,7 @@ func schema_k8sio_api_core_v1_PreferAvoidPodsEntry(ref common.ReferenceCallback)
 					"podSignature": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The class of pods.",
-							Ref:         ref("k8s.io/api/core/v1.PodSignature"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodSignature"),
 						},
 					},
 					"evictionTime": {
@@ -9142,7 +9142,7 @@ func schema_k8sio_api_core_v1_PreferAvoidPodsEntry(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodSignature", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+			"k8s.io/client-go/pkg/api/v1.PodSignature", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
@@ -9162,7 +9162,7 @@ func schema_k8sio_api_core_v1_PreferredSchedulingTerm(ref common.ReferenceCallba
 					"preference": {
 						SchemaProps: spec.SchemaProps{
 							Description: "A node selector term, associated with the corresponding weight.",
-							Ref:         ref("k8s.io/api/core/v1.NodeSelectorTerm"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeSelectorTerm"),
 						},
 					},
 				},
@@ -9170,7 +9170,7 @@ func schema_k8sio_api_core_v1_PreferredSchedulingTerm(ref common.ReferenceCallba
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeSelectorTerm"},
+			"k8s.io/client-go/pkg/api/v1.NodeSelectorTerm"},
 	}
 }
 
@@ -9183,19 +9183,19 @@ func schema_k8sio_api_core_v1_Probe(ref common.ReferenceCallback) common.OpenAPI
 					"exec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "One and only one of the following should be specified. Exec specifies the action to take.",
-							Ref:         ref("k8s.io/api/core/v1.ExecAction"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ExecAction"),
 						},
 					},
 					"httpGet": {
 						SchemaProps: spec.SchemaProps{
 							Description: "HTTPGet specifies the http request to perform.",
-							Ref:         ref("k8s.io/api/core/v1.HTTPGetAction"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.HTTPGetAction"),
 						},
 					},
 					"tcpSocket": {
 						SchemaProps: spec.SchemaProps{
 							Description: "TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported",
-							Ref:         ref("k8s.io/api/core/v1.TCPSocketAction"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.TCPSocketAction"),
 						},
 					},
 					"initialDelaySeconds": {
@@ -9237,7 +9237,7 @@ func schema_k8sio_api_core_v1_Probe(ref common.ReferenceCallback) common.OpenAPI
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ExecAction", "k8s.io/api/core/v1.HTTPGetAction", "k8s.io/api/core/v1.TCPSocketAction"},
+			"k8s.io/client-go/pkg/api/v1.ExecAction", "k8s.io/client-go/pkg/api/v1.HTTPGetAction", "k8s.io/client-go/pkg/api/v1.TCPSocketAction"},
 	}
 }
 
@@ -9254,7 +9254,7 @@ func schema_k8sio_api_core_v1_ProjectedVolumeSource(ref common.ReferenceCallback
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.VolumeProjection"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.VolumeProjection"),
 									},
 								},
 							},
@@ -9272,7 +9272,7 @@ func schema_k8sio_api_core_v1_ProjectedVolumeSource(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.VolumeProjection"},
+			"k8s.io/client-go/pkg/api/v1.VolumeProjection"},
 	}
 }
 
@@ -9383,7 +9383,7 @@ func schema_k8sio_api_core_v1_RBDPersistentVolumeSource(ref common.ReferenceCall
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 					"readOnly": {
@@ -9398,7 +9398,7 @@ func schema_k8sio_api_core_v1_RBDPersistentVolumeSource(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretReference"},
+			"k8s.io/client-go/pkg/api/v1.SecretReference"},
 	}
 }
 
@@ -9460,7 +9460,7 @@ func schema_k8sio_api_core_v1_RBDVolumeSource(ref common.ReferenceCallback) comm
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 						},
 					},
 					"readOnly": {
@@ -9475,7 +9475,7 @@ func schema_k8sio_api_core_v1_RBDVolumeSource(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference"},
 	}
 }
 
@@ -9557,20 +9557,20 @@ func schema_k8sio_api_core_v1_ReplicationController(ref common.ReferenceCallback
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.ReplicationControllerSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ReplicationControllerSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.ReplicationControllerStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ReplicationControllerStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ReplicationControllerSpec", "k8s.io/api/core/v1.ReplicationControllerStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.ReplicationControllerSpec", "k8s.io/client-go/pkg/api/v1.ReplicationControllerStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -9656,7 +9656,7 @@ func schema_k8sio_api_core_v1_ReplicationControllerList(ref common.ReferenceCall
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ReplicationController"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ReplicationController"),
 									},
 								},
 							},
@@ -9667,7 +9667,7 @@ func schema_k8sio_api_core_v1_ReplicationControllerList(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ReplicationController", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.ReplicationController", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -9708,14 +9708,14 @@ func schema_k8sio_api_core_v1_ReplicationControllerSpec(ref common.ReferenceCall
 					"template": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template",
-							Ref:         ref("k8s.io/api/core/v1.PodTemplateSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodTemplateSpec"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodTemplateSpec"},
+			"k8s.io/client-go/pkg/api/v1.PodTemplateSpec"},
 	}
 }
 
@@ -9773,7 +9773,7 @@ func schema_k8sio_api_core_v1_ReplicationControllerStatus(ref common.ReferenceCa
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ReplicationControllerCondition"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ReplicationControllerCondition"),
 									},
 								},
 							},
@@ -9784,7 +9784,7 @@ func schema_k8sio_api_core_v1_ReplicationControllerStatus(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ReplicationControllerCondition"},
+			"k8s.io/client-go/pkg/api/v1.ReplicationControllerCondition"},
 	}
 }
 
@@ -9852,20 +9852,20 @@ func schema_k8sio_api_core_v1_ResourceQuota(ref common.ReferenceCallback) common
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.ResourceQuotaSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceQuotaSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.ResourceQuotaStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ResourceQuotaStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ResourceQuotaSpec", "k8s.io/api/core/v1.ResourceQuotaStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.ResourceQuotaSpec", "k8s.io/client-go/pkg/api/v1.ResourceQuotaStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -9902,7 +9902,7 @@ func schema_k8sio_api_core_v1_ResourceQuotaList(ref common.ReferenceCallback) co
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ResourceQuota"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ResourceQuota"),
 									},
 								},
 							},
@@ -9913,7 +9913,7 @@ func schema_k8sio_api_core_v1_ResourceQuotaList(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ResourceQuota", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.ResourceQuota", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -9953,14 +9953,14 @@ func schema_k8sio_api_core_v1_ResourceQuotaSpec(ref common.ReferenceCallback) co
 					"scopeSelector": {
 						SchemaProps: spec.SchemaProps{
 							Description: "scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.",
-							Ref:         ref("k8s.io/api/core/v1.ScopeSelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ScopeSelector"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ScopeSelector", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
+			"k8s.io/client-go/pkg/api/v1.ScopeSelector", "k8s.io/apimachinery/pkg/api/resource.Quantity"},
 	}
 }
 
@@ -10108,7 +10108,7 @@ func schema_k8sio_api_core_v1_ScaleIOPersistentVolumeSource(ref common.Reference
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.",
-							Ref:         ref("k8s.io/api/core/v1.SecretReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretReference"),
 						},
 					},
 					"sslEnabled": {
@@ -10165,7 +10165,7 @@ func schema_k8sio_api_core_v1_ScaleIOPersistentVolumeSource(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.SecretReference"},
+			"k8s.io/client-go/pkg/api/v1.SecretReference"},
 	}
 }
 
@@ -10192,7 +10192,7 @@ func schema_k8sio_api_core_v1_ScaleIOVolumeSource(ref common.ReferenceCallback) 
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 						},
 					},
 					"sslEnabled": {
@@ -10249,7 +10249,7 @@ func schema_k8sio_api_core_v1_ScaleIOVolumeSource(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference"},
 	}
 }
 
@@ -10266,7 +10266,7 @@ func schema_k8sio_api_core_v1_ScopeSelector(ref common.ReferenceCallback) common
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ScopedResourceSelectorRequirement"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ScopedResourceSelectorRequirement"),
 									},
 								},
 							},
@@ -10276,7 +10276,7 @@ func schema_k8sio_api_core_v1_ScopeSelector(ref common.ReferenceCallback) common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ScopedResourceSelectorRequirement"},
+			"k8s.io/client-go/pkg/api/v1.ScopedResourceSelectorRequirement"},
 	}
 }
 
@@ -10486,7 +10486,7 @@ func schema_k8sio_api_core_v1_SecretList(ref common.ReferenceCallback) common.Op
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Secret"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Secret"),
 									},
 								},
 							},
@@ -10497,7 +10497,7 @@ func schema_k8sio_api_core_v1_SecretList(ref common.ReferenceCallback) common.Op
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Secret", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.Secret", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -10521,7 +10521,7 @@ func schema_k8sio_api_core_v1_SecretProjection(ref common.ReferenceCallback) com
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.KeyToPath"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.KeyToPath"),
 									},
 								},
 							},
@@ -10538,7 +10538,7 @@ func schema_k8sio_api_core_v1_SecretProjection(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.KeyToPath"},
+			"k8s.io/client-go/pkg/api/v1.KeyToPath"},
 	}
 }
 
@@ -10589,7 +10589,7 @@ func schema_k8sio_api_core_v1_SecretVolumeSource(ref common.ReferenceCallback) c
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.KeyToPath"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.KeyToPath"),
 									},
 								},
 							},
@@ -10613,7 +10613,7 @@ func schema_k8sio_api_core_v1_SecretVolumeSource(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.KeyToPath"},
+			"k8s.io/client-go/pkg/api/v1.KeyToPath"},
 	}
 }
 
@@ -10626,7 +10626,7 @@ func schema_k8sio_api_core_v1_SecurityContext(ref common.ReferenceCallback) comm
 					"capabilities": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.",
-							Ref:         ref("k8s.io/api/core/v1.Capabilities"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.Capabilities"),
 						},
 					},
 					"privileged": {
@@ -10639,7 +10639,7 @@ func schema_k8sio_api_core_v1_SecurityContext(ref common.ReferenceCallback) comm
 					"seLinuxOptions": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.",
-							Ref:         ref("k8s.io/api/core/v1.SELinuxOptions"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SELinuxOptions"),
 						},
 					},
 					"runAsUser": {
@@ -10688,7 +10688,7 @@ func schema_k8sio_api_core_v1_SecurityContext(ref common.ReferenceCallback) comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Capabilities", "k8s.io/api/core/v1.SELinuxOptions"},
+			"k8s.io/client-go/pkg/api/v1.Capabilities", "k8s.io/client-go/pkg/api/v1.SELinuxOptions"},
 	}
 }
 
@@ -10715,14 +10715,14 @@ func schema_k8sio_api_core_v1_SerializedReference(ref common.ReferenceCallback) 
 					"reference": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The reference to an object in the system.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.ObjectReference"},
 	}
 }
 
@@ -10755,20 +10755,20 @@ func schema_k8sio_api_core_v1_Service(ref common.ReferenceCallback) common.OpenA
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.ServiceSpec"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ServiceSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-							Ref:         ref("k8s.io/api/core/v1.ServiceStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ServiceStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ServiceSpec", "k8s.io/api/core/v1.ServiceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.ServiceSpec", "k8s.io/client-go/pkg/api/v1.ServiceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -10811,7 +10811,7 @@ func schema_k8sio_api_core_v1_ServiceAccount(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ObjectReference"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 									},
 								},
 							},
@@ -10824,7 +10824,7 @@ func schema_k8sio_api_core_v1_ServiceAccount(ref common.ReferenceCallback) commo
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 									},
 								},
 							},
@@ -10841,7 +10841,7 @@ func schema_k8sio_api_core_v1_ServiceAccount(ref common.ReferenceCallback) commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.ObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference", "k8s.io/client-go/pkg/api/v1.ObjectReference", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -10878,7 +10878,7 @@ func schema_k8sio_api_core_v1_ServiceAccountList(ref common.ReferenceCallback) c
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ServiceAccount"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ServiceAccount"),
 									},
 								},
 							},
@@ -10889,7 +10889,7 @@ func schema_k8sio_api_core_v1_ServiceAccountList(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ServiceAccount", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.ServiceAccount", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -10961,7 +10961,7 @@ func schema_k8sio_api_core_v1_ServiceList(ref common.ReferenceCallback) common.O
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.Service"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.Service"),
 									},
 								},
 							},
@@ -10972,7 +10972,7 @@ func schema_k8sio_api_core_v1_ServiceList(ref common.ReferenceCallback) common.O
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Service", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"k8s.io/client-go/pkg/api/v1.Service", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -11078,7 +11078,7 @@ func schema_k8sio_api_core_v1_ServiceSpec(ref common.ReferenceCallback) common.O
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.ServicePort"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.ServicePort"),
 									},
 								},
 							},
@@ -11185,14 +11185,14 @@ func schema_k8sio_api_core_v1_ServiceSpec(ref common.ReferenceCallback) common.O
 					"sessionAffinityConfig": {
 						SchemaProps: spec.SchemaProps{
 							Description: "sessionAffinityConfig contains the configurations of session affinity.",
-							Ref:         ref("k8s.io/api/core/v1.SessionAffinityConfig"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SessionAffinityConfig"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ServicePort", "k8s.io/api/core/v1.SessionAffinityConfig"},
+			"k8s.io/client-go/pkg/api/v1.ServicePort", "k8s.io/client-go/pkg/api/v1.SessionAffinityConfig"},
 	}
 }
 
@@ -11205,14 +11205,14 @@ func schema_k8sio_api_core_v1_ServiceStatus(ref common.ReferenceCallback) common
 					"loadBalancer": {
 						SchemaProps: spec.SchemaProps{
 							Description: "LoadBalancer contains the current status of the load-balancer, if one is present.",
-							Ref:         ref("k8s.io/api/core/v1.LoadBalancerStatus"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LoadBalancerStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LoadBalancerStatus"},
+			"k8s.io/client-go/pkg/api/v1.LoadBalancerStatus"},
 	}
 }
 
@@ -11225,14 +11225,14 @@ func schema_k8sio_api_core_v1_SessionAffinityConfig(ref common.ReferenceCallback
 					"clientIP": {
 						SchemaProps: spec.SchemaProps{
 							Description: "clientIP contains the configurations of Client IP based session affinity.",
-							Ref:         ref("k8s.io/api/core/v1.ClientIPConfig"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ClientIPConfig"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ClientIPConfig"},
+			"k8s.io/client-go/pkg/api/v1.ClientIPConfig"},
 	}
 }
 
@@ -11273,14 +11273,14 @@ func schema_k8sio_api_core_v1_StorageOSPersistentVolumeSource(ref common.Referen
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.",
-							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ObjectReference"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.ObjectReference"},
 	}
 }
 
@@ -11321,14 +11321,14 @@ func schema_k8sio_api_core_v1_StorageOSVolumeSource(ref common.ReferenceCallback
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.LocalObjectReference"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/client-go/pkg/api/v1.LocalObjectReference"},
 	}
 }
 
@@ -11526,7 +11526,7 @@ func schema_k8sio_api_core_v1_TopologySelectorTerm(ref common.ReferenceCallback)
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("k8s.io/api/core/v1.TopologySelectorLabelRequirement"),
+										Ref: ref("k8s.io/client-go/pkg/api/v1.TopologySelectorLabelRequirement"),
 									},
 								},
 							},
@@ -11536,7 +11536,7 @@ func schema_k8sio_api_core_v1_TopologySelectorTerm(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.TopologySelectorLabelRequirement"},
+			"k8s.io/client-go/pkg/api/v1.TopologySelectorLabelRequirement"},
 	}
 }
 
@@ -11591,163 +11591,163 @@ func schema_k8sio_api_core_v1_Volume(ref common.ReferenceCallback) common.OpenAP
 					"hostPath": {
 						SchemaProps: spec.SchemaProps{
 							Description: "HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath",
-							Ref:         ref("k8s.io/api/core/v1.HostPathVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.HostPathVolumeSource"),
 						},
 					},
 					"emptyDir": {
 						SchemaProps: spec.SchemaProps{
 							Description: "EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir",
-							Ref:         ref("k8s.io/api/core/v1.EmptyDirVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.EmptyDirVolumeSource"),
 						},
 					},
 					"gcePersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk",
-							Ref:         ref("k8s.io/api/core/v1.GCEPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource"),
 						},
 					},
 					"awsElasticBlockStore": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore",
-							Ref:         ref("k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource"),
 						},
 					},
 					"gitRepo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.",
-							Ref:         ref("k8s.io/api/core/v1.GitRepoVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GitRepoVolumeSource"),
 						},
 					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret",
-							Ref:         ref("k8s.io/api/core/v1.SecretVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretVolumeSource"),
 						},
 					},
 					"nfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs",
-							Ref:         ref("k8s.io/api/core/v1.NFSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NFSVolumeSource"),
 						},
 					},
 					"iscsi": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://releases.k8s.io/HEAD/examples/volumes/iscsi/README.md",
-							Ref:         ref("k8s.io/api/core/v1.ISCSIVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ISCSIVolumeSource"),
 						},
 					},
 					"glusterfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md",
-							Ref:         ref("k8s.io/api/core/v1.GlusterfsVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource"),
 						},
 					},
 					"persistentVolumeClaim": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimVolumeSource"),
 						},
 					},
 					"rbd": {
 						SchemaProps: spec.SchemaProps{
 							Description: "RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.RBDVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.RBDVolumeSource"),
 						},
 					},
 					"flexVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.",
-							Ref:         ref("k8s.io/api/core/v1.FlexVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlexVolumeSource"),
 						},
 					},
 					"cinder": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Cinder represents a cinder volume attached and mounted on kubelets host machine More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.CinderVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CinderVolumeSource"),
 						},
 					},
 					"cephfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CephFS represents a Ceph FS mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.CephFSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CephFSVolumeSource"),
 						},
 					},
 					"flocker": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running",
-							Ref:         ref("k8s.io/api/core/v1.FlockerVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlockerVolumeSource"),
 						},
 					},
 					"downwardAPI": {
 						SchemaProps: spec.SchemaProps{
 							Description: "DownwardAPI represents downward API about the pod that should populate this volume",
-							Ref:         ref("k8s.io/api/core/v1.DownwardAPIVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeSource"),
 						},
 					},
 					"fc": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.FCVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FCVolumeSource"),
 						},
 					},
 					"azureFile": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureFile represents an Azure File Service mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureFileVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureFileVolumeSource"),
 						},
 					},
 					"configMap": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConfigMap represents a configMap that should populate this volume",
-							Ref:         ref("k8s.io/api/core/v1.ConfigMapVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ConfigMapVolumeSource"),
 						},
 					},
 					"vsphereVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource"),
 						},
 					},
 					"quobyte": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Quobyte represents a Quobyte mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.QuobyteVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource"),
 						},
 					},
 					"azureDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource"),
 						},
 					},
 					"photonPersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource"),
 						},
 					},
 					"projected": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Items for all in one resources secrets, configmaps, and downward API",
-							Ref:         ref("k8s.io/api/core/v1.ProjectedVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ProjectedVolumeSource"),
 						},
 					},
 					"portworxVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PortworxVolume represents a portworx volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PortworxVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PortworxVolumeSource"),
 						},
 					},
 					"scaleIO": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.",
-							Ref:         ref("k8s.io/api/core/v1.ScaleIOVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ScaleIOVolumeSource"),
 						},
 					},
 					"storageos": {
 						SchemaProps: spec.SchemaProps{
 							Description: "StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.",
-							Ref:         ref("k8s.io/api/core/v1.StorageOSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.StorageOSVolumeSource"),
 						},
 					},
 				},
@@ -11755,7 +11755,7 @@ func schema_k8sio_api_core_v1_Volume(ref common.ReferenceCallback) common.OpenAP
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/api/core/v1.AzureDiskVolumeSource", "k8s.io/api/core/v1.AzureFileVolumeSource", "k8s.io/api/core/v1.CephFSVolumeSource", "k8s.io/api/core/v1.CinderVolumeSource", "k8s.io/api/core/v1.ConfigMapVolumeSource", "k8s.io/api/core/v1.DownwardAPIVolumeSource", "k8s.io/api/core/v1.EmptyDirVolumeSource", "k8s.io/api/core/v1.FCVolumeSource", "k8s.io/api/core/v1.FlexVolumeSource", "k8s.io/api/core/v1.FlockerVolumeSource", "k8s.io/api/core/v1.GCEPersistentDiskVolumeSource", "k8s.io/api/core/v1.GitRepoVolumeSource", "k8s.io/api/core/v1.GlusterfsVolumeSource", "k8s.io/api/core/v1.HostPathVolumeSource", "k8s.io/api/core/v1.ISCSIVolumeSource", "k8s.io/api/core/v1.NFSVolumeSource", "k8s.io/api/core/v1.PersistentVolumeClaimVolumeSource", "k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource", "k8s.io/api/core/v1.PortworxVolumeSource", "k8s.io/api/core/v1.ProjectedVolumeSource", "k8s.io/api/core/v1.QuobyteVolumeSource", "k8s.io/api/core/v1.RBDVolumeSource", "k8s.io/api/core/v1.ScaleIOVolumeSource", "k8s.io/api/core/v1.SecretVolumeSource", "k8s.io/api/core/v1.StorageOSVolumeSource", "k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource"},
+			"k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureFileVolumeSource", "k8s.io/client-go/pkg/api/v1.CephFSVolumeSource", "k8s.io/client-go/pkg/api/v1.CinderVolumeSource", "k8s.io/client-go/pkg/api/v1.ConfigMapVolumeSource", "k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeSource", "k8s.io/client-go/pkg/api/v1.EmptyDirVolumeSource", "k8s.io/client-go/pkg/api/v1.FCVolumeSource", "k8s.io/client-go/pkg/api/v1.FlexVolumeSource", "k8s.io/client-go/pkg/api/v1.FlockerVolumeSource", "k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.GitRepoVolumeSource", "k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource", "k8s.io/client-go/pkg/api/v1.HostPathVolumeSource", "k8s.io/client-go/pkg/api/v1.ISCSIVolumeSource", "k8s.io/client-go/pkg/api/v1.NFSVolumeSource", "k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimVolumeSource", "k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.PortworxVolumeSource", "k8s.io/client-go/pkg/api/v1.ProjectedVolumeSource", "k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource", "k8s.io/client-go/pkg/api/v1.RBDVolumeSource", "k8s.io/client-go/pkg/api/v1.ScaleIOVolumeSource", "k8s.io/client-go/pkg/api/v1.SecretVolumeSource", "k8s.io/client-go/pkg/api/v1.StorageOSVolumeSource", "k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource"},
 	}
 }
 
@@ -11845,14 +11845,14 @@ func schema_k8sio_api_core_v1_VolumeNodeAffinity(ref common.ReferenceCallback) c
 					"required": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Required specifies hard node constraints that must be met.",
-							Ref:         ref("k8s.io/api/core/v1.NodeSelector"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NodeSelector"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.NodeSelector"},
+			"k8s.io/client-go/pkg/api/v1.NodeSelector"},
 	}
 }
 
@@ -11865,32 +11865,32 @@ func schema_k8sio_api_core_v1_VolumeProjection(ref common.ReferenceCallback) com
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Description: "information about the secret data to project",
-							Ref:         ref("k8s.io/api/core/v1.SecretProjection"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretProjection"),
 						},
 					},
 					"downwardAPI": {
 						SchemaProps: spec.SchemaProps{
 							Description: "information about the downwardAPI data to project",
-							Ref:         ref("k8s.io/api/core/v1.DownwardAPIProjection"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.DownwardAPIProjection"),
 						},
 					},
 					"configMap": {
 						SchemaProps: spec.SchemaProps{
 							Description: "information about the configMap data to project",
-							Ref:         ref("k8s.io/api/core/v1.ConfigMapProjection"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ConfigMapProjection"),
 						},
 					},
 					"serviceAccountToken": {
 						SchemaProps: spec.SchemaProps{
 							Description: "information about the serviceAccountToken data to project",
-							Ref:         ref("k8s.io/api/core/v1.ServiceAccountTokenProjection"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ServiceAccountTokenProjection"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.ConfigMapProjection", "k8s.io/api/core/v1.DownwardAPIProjection", "k8s.io/api/core/v1.SecretProjection", "k8s.io/api/core/v1.ServiceAccountTokenProjection"},
+			"k8s.io/client-go/pkg/api/v1.ConfigMapProjection", "k8s.io/client-go/pkg/api/v1.DownwardAPIProjection", "k8s.io/client-go/pkg/api/v1.SecretProjection", "k8s.io/client-go/pkg/api/v1.ServiceAccountTokenProjection"},
 	}
 }
 
@@ -11903,170 +11903,170 @@ func schema_k8sio_api_core_v1_VolumeSource(ref common.ReferenceCallback) common.
 					"hostPath": {
 						SchemaProps: spec.SchemaProps{
 							Description: "HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath",
-							Ref:         ref("k8s.io/api/core/v1.HostPathVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.HostPathVolumeSource"),
 						},
 					},
 					"emptyDir": {
 						SchemaProps: spec.SchemaProps{
 							Description: "EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir",
-							Ref:         ref("k8s.io/api/core/v1.EmptyDirVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.EmptyDirVolumeSource"),
 						},
 					},
 					"gcePersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk",
-							Ref:         ref("k8s.io/api/core/v1.GCEPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource"),
 						},
 					},
 					"awsElasticBlockStore": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore",
-							Ref:         ref("k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource"),
 						},
 					},
 					"gitRepo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.",
-							Ref:         ref("k8s.io/api/core/v1.GitRepoVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GitRepoVolumeSource"),
 						},
 					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret",
-							Ref:         ref("k8s.io/api/core/v1.SecretVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.SecretVolumeSource"),
 						},
 					},
 					"nfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs",
-							Ref:         ref("k8s.io/api/core/v1.NFSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.NFSVolumeSource"),
 						},
 					},
 					"iscsi": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://releases.k8s.io/HEAD/examples/volumes/iscsi/README.md",
-							Ref:         ref("k8s.io/api/core/v1.ISCSIVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ISCSIVolumeSource"),
 						},
 					},
 					"glusterfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md",
-							Ref:         ref("k8s.io/api/core/v1.GlusterfsVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource"),
 						},
 					},
 					"persistentVolumeClaim": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimVolumeSource"),
 						},
 					},
 					"rbd": {
 						SchemaProps: spec.SchemaProps{
 							Description: "RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.RBDVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.RBDVolumeSource"),
 						},
 					},
 					"flexVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.",
-							Ref:         ref("k8s.io/api/core/v1.FlexVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlexVolumeSource"),
 						},
 					},
 					"cinder": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Cinder represents a cinder volume attached and mounted on kubelets host machine More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
-							Ref:         ref("k8s.io/api/core/v1.CinderVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CinderVolumeSource"),
 						},
 					},
 					"cephfs": {
 						SchemaProps: spec.SchemaProps{
 							Description: "CephFS represents a Ceph FS mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.CephFSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.CephFSVolumeSource"),
 						},
 					},
 					"flocker": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running",
-							Ref:         ref("k8s.io/api/core/v1.FlockerVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FlockerVolumeSource"),
 						},
 					},
 					"downwardAPI": {
 						SchemaProps: spec.SchemaProps{
 							Description: "DownwardAPI represents downward API about the pod that should populate this volume",
-							Ref:         ref("k8s.io/api/core/v1.DownwardAPIVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeSource"),
 						},
 					},
 					"fc": {
 						SchemaProps: spec.SchemaProps{
 							Description: "FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.FCVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.FCVolumeSource"),
 						},
 					},
 					"azureFile": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureFile represents an Azure File Service mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureFileVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureFileVolumeSource"),
 						},
 					},
 					"configMap": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConfigMap represents a configMap that should populate this volume",
-							Ref:         ref("k8s.io/api/core/v1.ConfigMapVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ConfigMapVolumeSource"),
 						},
 					},
 					"vsphereVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource"),
 						},
 					},
 					"quobyte": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Quobyte represents a Quobyte mount on the host that shares a pod's lifetime",
-							Ref:         ref("k8s.io/api/core/v1.QuobyteVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource"),
 						},
 					},
 					"azureDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.",
-							Ref:         ref("k8s.io/api/core/v1.AzureDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource"),
 						},
 					},
 					"photonPersistentDisk": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource"),
 						},
 					},
 					"projected": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Items for all in one resources secrets, configmaps, and downward API",
-							Ref:         ref("k8s.io/api/core/v1.ProjectedVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ProjectedVolumeSource"),
 						},
 					},
 					"portworxVolume": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PortworxVolume represents a portworx volume attached and mounted on kubelets host machine",
-							Ref:         ref("k8s.io/api/core/v1.PortworxVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PortworxVolumeSource"),
 						},
 					},
 					"scaleIO": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.",
-							Ref:         ref("k8s.io/api/core/v1.ScaleIOVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.ScaleIOVolumeSource"),
 						},
 					},
 					"storageos": {
 						SchemaProps: spec.SchemaProps{
 							Description: "StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.",
-							Ref:         ref("k8s.io/api/core/v1.StorageOSVolumeSource"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.StorageOSVolumeSource"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/api/core/v1.AzureDiskVolumeSource", "k8s.io/api/core/v1.AzureFileVolumeSource", "k8s.io/api/core/v1.CephFSVolumeSource", "k8s.io/api/core/v1.CinderVolumeSource", "k8s.io/api/core/v1.ConfigMapVolumeSource", "k8s.io/api/core/v1.DownwardAPIVolumeSource", "k8s.io/api/core/v1.EmptyDirVolumeSource", "k8s.io/api/core/v1.FCVolumeSource", "k8s.io/api/core/v1.FlexVolumeSource", "k8s.io/api/core/v1.FlockerVolumeSource", "k8s.io/api/core/v1.GCEPersistentDiskVolumeSource", "k8s.io/api/core/v1.GitRepoVolumeSource", "k8s.io/api/core/v1.GlusterfsVolumeSource", "k8s.io/api/core/v1.HostPathVolumeSource", "k8s.io/api/core/v1.ISCSIVolumeSource", "k8s.io/api/core/v1.NFSVolumeSource", "k8s.io/api/core/v1.PersistentVolumeClaimVolumeSource", "k8s.io/api/core/v1.PhotonPersistentDiskVolumeSource", "k8s.io/api/core/v1.PortworxVolumeSource", "k8s.io/api/core/v1.ProjectedVolumeSource", "k8s.io/api/core/v1.QuobyteVolumeSource", "k8s.io/api/core/v1.RBDVolumeSource", "k8s.io/api/core/v1.ScaleIOVolumeSource", "k8s.io/api/core/v1.SecretVolumeSource", "k8s.io/api/core/v1.StorageOSVolumeSource", "k8s.io/api/core/v1.VsphereVirtualDiskVolumeSource"},
+			"k8s.io/client-go/pkg/api/v1.AWSElasticBlockStoreVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.AzureFileVolumeSource", "k8s.io/client-go/pkg/api/v1.CephFSVolumeSource", "k8s.io/client-go/pkg/api/v1.CinderVolumeSource", "k8s.io/client-go/pkg/api/v1.ConfigMapVolumeSource", "k8s.io/client-go/pkg/api/v1.DownwardAPIVolumeSource", "k8s.io/client-go/pkg/api/v1.EmptyDirVolumeSource", "k8s.io/client-go/pkg/api/v1.FCVolumeSource", "k8s.io/client-go/pkg/api/v1.FlexVolumeSource", "k8s.io/client-go/pkg/api/v1.FlockerVolumeSource", "k8s.io/client-go/pkg/api/v1.GCEPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.GitRepoVolumeSource", "k8s.io/client-go/pkg/api/v1.GlusterfsVolumeSource", "k8s.io/client-go/pkg/api/v1.HostPathVolumeSource", "k8s.io/client-go/pkg/api/v1.ISCSIVolumeSource", "k8s.io/client-go/pkg/api/v1.NFSVolumeSource", "k8s.io/client-go/pkg/api/v1.PersistentVolumeClaimVolumeSource", "k8s.io/client-go/pkg/api/v1.PhotonPersistentDiskVolumeSource", "k8s.io/client-go/pkg/api/v1.PortworxVolumeSource", "k8s.io/client-go/pkg/api/v1.ProjectedVolumeSource", "k8s.io/client-go/pkg/api/v1.QuobyteVolumeSource", "k8s.io/client-go/pkg/api/v1.RBDVolumeSource", "k8s.io/client-go/pkg/api/v1.ScaleIOVolumeSource", "k8s.io/client-go/pkg/api/v1.SecretVolumeSource", "k8s.io/client-go/pkg/api/v1.StorageOSVolumeSource", "k8s.io/client-go/pkg/api/v1.VsphereVirtualDiskVolumeSource"},
 	}
 }
 
@@ -12128,7 +12128,7 @@ func schema_k8sio_api_core_v1_WeightedPodAffinityTerm(ref common.ReferenceCallba
 					"podAffinityTerm": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Required. A pod affinity term, associated with the corresponding weight.",
-							Ref:         ref("k8s.io/api/core/v1.PodAffinityTerm"),
+							Ref:         ref("k8s.io/client-go/pkg/api/v1.PodAffinityTerm"),
 						},
 					},
 				},
@@ -12136,7 +12136,7 @@ func schema_k8sio_api_core_v1_WeightedPodAffinityTerm(ref common.ReferenceCallba
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PodAffinityTerm"},
+			"k8s.io/client-go/pkg/api/v1.PodAffinityTerm"},
 	}
 }
 

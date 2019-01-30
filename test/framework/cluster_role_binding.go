@@ -30,17 +30,17 @@ func CreateClusterRoleBinding(kubeClient kubernetes.Interface, ns string, relati
 
 	clusterRoleBinding.Subjects[0].Namespace = ns
 
-	_, err = kubeClient.RbacV1().ClusterRoleBindings().Get(clusterRoleBinding.Name, metav1.GetOptions{})
+	_, err = kubeClient.RbacV1beta1().ClusterRoleBindings().Get(clusterRoleBinding.Name, metav1.GetOptions{})
 
 	if err == nil {
 		// ClusterRoleBinding already exists -> Update
-		_, err = kubeClient.RbacV1().ClusterRoleBindings().Update(clusterRoleBinding)
+		_, err = kubeClient.RbacV1beta1().ClusterRoleBindings().Update(clusterRoleBinding)
 		if err != nil {
 			return finalizerFn, err
 		}
 	} else {
 		// ClusterRoleBinding doesn't exists -> Create
-		_, err = kubeClient.RbacV1().ClusterRoleBindings().Create(clusterRoleBinding)
+		_, err = kubeClient.RbacV1beta1().ClusterRoleBindings().Create(clusterRoleBinding)
 		if err != nil {
 			return finalizerFn, err
 		}
@@ -55,7 +55,7 @@ func DeleteClusterRoleBinding(kubeClient kubernetes.Interface, relativePath stri
 		return err
 	}
 
-	return kubeClient.RbacV1().ClusterRoleBindings().Delete(clusterRoleBinding.Name, &metav1.DeleteOptions{})
+	return kubeClient.RbacV1beta1().ClusterRoleBindings().Delete(clusterRoleBinding.Name, &metav1.DeleteOptions{})
 }
 
 func parseClusterRoleBindingYaml(relativePath string) (*rbacv1.ClusterRoleBinding, error) {
