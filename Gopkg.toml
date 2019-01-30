@@ -21,36 +21,24 @@
 
 
 [[constraint]]
-  branch = "master"
-  name = "github.com/ant31/crd-validation"
-
-[[constraint]]
   name = "github.com/blang/semver"
   version = "3.5.1"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/go-openapi/spec"
+  revision = "2433d2f0fc794728337e0c5d65716e79e163f04d"
 
 [[constraint]]
   name = "k8s.io/api"
   version = "kubernetes-1.12.0"
 
 [[constraint]]
-  name = "k8s.io/apiextensions-apiserver"
-  version = "kubernetes-1.12.0"
-
-[[constraint]]
   name = "k8s.io/apimachinery"
-  version = "kubernetes-1.12.0"
+  revision = "75b8dd260ef0469d96d578705a87cffd0e09dab8"
 
 [[constraint]]
   name = "k8s.io/client-go"
-  version = "=v9.0.0"
-
-[[constraint]]
-  name = "k8s.io/kube-openapi"
-  revision = "0cf8f7e6ed1d2e3d47d02e3b6e559369af24d803"
+  revision = "3627aeb7d4f6ade38f995d2c923e459146493c7e"
 
 [[override]]
   name = "github.com/ericchiang/k8s"
