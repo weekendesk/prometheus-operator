@@ -19,6 +19,7 @@ package fake
 import (
 	monitoring_v1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -54,7 +55,18 @@ func (c *FakeServiceMonitors) List(opts v1.ListOptions) (result *monitoring_v1.S
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*monitoring_v1.ServiceMonitorList), err
+
+	label, _, _ := testing.ExtractFromListOptions(opts)
+	if label == nil {
+		label = labels.Everything()
+	}
+	list := &monitoring_v1.ServiceMonitorList{ListMeta: obj.(*monitoring_v1.ServiceMonitorList).ListMeta}
+	for _, item := range obj.(*monitoring_v1.ServiceMonitorList).Items {
+		if label.Matches(labels.Set(item.Labels)) {
+			list.Items = append(list.Items, item)
+		}
+	}
+	return list, err
 }
 
 // Watch returns a watch.Interface that watches the requested serviceMonitors.
