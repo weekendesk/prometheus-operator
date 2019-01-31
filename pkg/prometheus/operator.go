@@ -31,7 +31,6 @@ import (
 	"github.com/mitchellh/hashstructure"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
-	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -41,6 +40,7 @@ import (
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/kubernetes"
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
+	"k8s.io/client-go/pkg/api"
 	"k8s.io/client-go/pkg/api/v1"
 	appsv1 "k8s.io/client-go/pkg/apis/apps/v1beta1"
 	extensionsobj "k8s.io/client-go/pkg/apis/extensions/v1beta1"
@@ -56,10 +56,9 @@ const (
 // Operator manages life cycle of Prometheus deployments and
 // monitoring configurations.
 type Operator struct {
-	kclient   kubernetes.Interface
-	mclient   monitoringclient.Interface
-	crdclient apiextensionsclient.Interface
-	logger    log.Logger
+	kclient kubernetes.Interface
+	mclient monitoringclient.Interface
+	logger  log.Logger
 
 	promInf cache.SharedIndexInformer
 	smonInf cache.SharedIndexInformer
@@ -167,11 +166,6 @@ func New(conf Config, logger log.Logger) (*Operator, error) {
 		return nil, errors.Wrap(err, "instantiating kubernetes client failed")
 	}
 
-	crdclient, err := apiextensionsclient.NewForConfig(cfg)
-	if err != nil {
-		return nil, errors.Wrap(err, "instantiating apiextensions client failed")
-	}
-
 	mclient, err := monitoringclient.NewForConfig(cfg)
 	if err != nil {
 		return nil, errors.Wrap(err, "instantiating monitoring client failed")
@@ -194,7 +188,6 @@ func New(conf Config, logger log.Logger) (*Operator, error) {
 	c := &Operator{
 		kclient:                client,
 		mclient:                mclient,
-		crdclient:              crdclient,
 		logger:                 logger,
 		queue:                  workqueue.NewNamedRateLimitingQueue(workqueue.DefaultControllerRateLimiter(), "prometheus"),
 		host:                   cfg.Host,
@@ -495,6 +488,12 @@ func nodeAddress(node v1.Node) (string, map[v1.NodeAddressType][]string, error) 
 		return addresses[0], m, nil
 	}
 	if addresses, ok := m[v1.NodeExternalIP]; ok {
+		return addresses[0], m, nil
+	}
+	if addresses, ok := m[v1.NodeAddressType(api.NodeLegacyHostIP)]; ok {
+		return addresses[0], m, nil
+	}
+	if addresses, ok := m[v1.NodeHostName]; ok {
 		return addresses[0], m, nil
 	}
 	return "", m, fmt.Errorf("host address unknown")
@@ -1291,6 +1290,7 @@ func (c *Operator) createOrUpdateConfigurationSecret(p *monitoringv1.Prometheus,
 	SecretsInPromNS, err := sClient.List(metav1.ListOptions{})
 	if err != nil {
 		return err
+
 	}
 
 	basicAuthSecrets, err := c.loadBasicAuthSecrets(smons, p.Spec.RemoteRead, p.Spec.RemoteWrite, p.Spec.APIServerConfig, SecretsInPromNS)
@@ -1416,102 +1416,33 @@ func (c *Operator) listMatchingNamespaces(selector labels.Selector) ([]string, e
 }
 
 func (c *Operator) createCRDs() error {
-	crds := []*extensionsobj.CustomResourceDefinition{
-		k8sutil.NewCustomResourceDefinition(c.config.CrdKinds.Prometheus, c.config.CrdGroup, c.config.Labels.LabelsMap, c.config.EnableValidation),
-		k8sutil.NewCustomResourceDefinition(c.config.CrdKinds.ServiceMonitor, c.config.CrdGroup, c.config.Labels.LabelsMap, c.config.EnableValidation),
-		k8sutil.NewCustomResourceDefinition(c.config.CrdKinds.PrometheusRule, c.config.CrdGroup, c.config.Labels.LabelsMap, c.config.EnableValidation),
-	}
-
-	crdClient := c.crdclient.ApiextensionsV1beta1().CustomResourceDefinitions()
-
-	for _, crd := range crds {
-		oldCRD, err := crdClient.Get(crd.Name, metav1.GetOptions{})
-		if err != nil && !apierrors.IsNotFound(err) {
-			return errors.Wrapf(err, "getting CRD: %s", crd.Spec.Names.Kind)
-		}
-		if apierrors.IsNotFound(err) {
-			if _, err := crdClient.Create(crd); err != nil {
-				return errors.Wrapf(err, "creating CRD: %s", crd.Spec.Names.Kind)
-			}
-			level.Info(c.logger).Log("msg", "CRD created", "crd", crd.Spec.Names.Kind)
-		}
-		if err == nil {
-			crd.ResourceVersion = oldCRD.ResourceVersion
-			if _, err := crdClient.Update(crd); err != nil {
-				return errors.Wrapf(err, "creating CRD: %s", crd.Spec.Names.Kind)
-			}
-			level.Info(c.logger).Log("msg", "CRD updated", "crd", crd.Spec.Names.Kind)
-		}
-	}
-
-	crdListFuncs := []struct {
-		name     string
-		listFunc func(opts metav1.ListOptions) (runtime.Object, error)
-	}{
-		{
-			monitoringv1.PrometheusesKind,
-			listwatch.MultiNamespaceListerWatcher(c.config.Namespaces, func(namespace string) cache.ListerWatcher {
-				return &cache.ListWatch{
-					ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-						return c.mclient.MonitoringV1().Prometheuses(namespace).List(options)
-					},
-				}
-			}).List,
-		},
-		{
-			monitoringv1.ServiceMonitorsKind,
-			listwatch.MultiNamespaceListerWatcher(c.config.Namespaces, func(namespace string) cache.ListerWatcher {
-				return &cache.ListWatch{
-					ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-						return c.mclient.MonitoringV1().ServiceMonitors(namespace).List(options)
-					},
-				}
-			}).List,
-		},
-		{
-			monitoringv1.PrometheusRuleKind,
-			listwatch.MultiNamespaceListerWatcher(c.config.Namespaces, func(namespace string) cache.ListerWatcher {
-				return &cache.ListWatch{
-					ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-						return c.mclient.MonitoringV1().PrometheusRules(namespace).List(options)
-					},
-				}
-			}).List,
-		},
-	}
-
-	for _, crdListFunc := range crdListFuncs {
-		err := k8sutil.WaitForCRDReady(crdListFunc.listFunc)
-		if err != nil {
-			return errors.Wrapf(err, "waiting for %v crd failed", crdListFunc.name)
-		}
-	}
-
-	return nil
-}
-
-func (c *Operator) createTPRs() error {
-	const tprServiceMonitor = c.config.CrdKinds.ServiceMonitorKindKey + "." + c.config.CrdGroup
-	const tprPrometheus = c.config.CrdKinds.PrometheusKindKey + "." + c.config.CrdGroup
-
 	tprs := []*extensionsobj.ThirdPartyResource{
 		{
 			ObjectMeta: metav1.ObjectMeta{
-				Name: tprServiceMonitor,
+				Name: monitoringv1.PrometheusKindKey + "." + c.config.CrdGroup,
 			},
 			Versions: []extensionsobj.APIVersion{
-				{Name: v1alpha1.TPRVersion},
+				{Name: monitoringv1.Version},
+			},
+			Description: "Managed Prometheus server",
+		},
+		{
+			ObjectMeta: metav1.ObjectMeta{
+				Name: monitoringv1.ServiceMonitorKindKey + "." + c.config.CrdGroup,
+			},
+			Versions: []extensionsobj.APIVersion{
+				{Name: monitoringv1.Version},
 			},
 			Description: "Prometheus monitoring for a service",
 		},
 		{
 			ObjectMeta: metav1.ObjectMeta{
-				Name: tprPrometheus,
+				Name: monitoringv1.PrometheusRuleKindKey + "." + c.config.CrdGroup,
 			},
 			Versions: []extensionsobj.APIVersion{
-				{Name: v1alpha1.TPRVersion},
+				{Name: monitoringv1.Version},
 			},
-			Description: "Managed Prometheus server",
+			Description: "Prometheus rules",
 		},
 	}
 	tprClient := c.kclient.Extensions().ThirdPartyResources()
@@ -1524,9 +1455,12 @@ func (c *Operator) createTPRs() error {
 	}
 
 	// We have to wait for the TPRs to be ready. Otherwise the initial watch may fail.
-	err := k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), v1alpha1.TPRGroup, v1alpha1.TPRVersion, v1alpha1.TPRPrometheusName)
-	if err != nil {
+	if err := k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), c.config.CrdGroup, monitoringv1.Version, c.config.CrdKinds.Prometheus.Plural); err != nil {
 		return err
 	}
-	return k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), v1alpha1.TPRGroup, v1alpha1.TPRVersion, v1alpha1.TPRServiceMonitorName)
+
+	if err := k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), c.config.CrdGroup, monitoringv1.Version, c.config.CrdKinds.ServiceMonitor.Plural); err != nil {
+		return err
+	}
+	return k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), c.config.CrdGroup, monitoringv1.Version, c.config.CrdKinds.PrometheusRule.Plural)
 }

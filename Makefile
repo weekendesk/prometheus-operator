@@ -12,7 +12,7 @@ EMBEDMD_BINARY:=$(FIRST_GOPATH)/bin/embedmd
 
 TYPES_V1_TARGET:=pkg/apis/monitoring/v1/types.go
 
-K8S_GEN_VERSION:=release-1.11
+K8S_GEN_VERSION:=release-1.8
 K8S_GEN_BINARIES:=deepcopy-gen informer-gen lister-gen client-gen
 K8S_GEN_ARGS:=--go-header-file $(FIRST_GOPATH)/src/$(GO_PKG)/.header
 
@@ -113,11 +113,7 @@ hack/prometheus-config-reloader-image: cmd/prometheus-config-reloader/Dockerfile
 ##############
 
 .PHONY: generate
-generate: $(DEEPCOPY_TARGET) bundle.yaml kube-prometheus $(shell find Documentation -type f)
-
-.PHONY: kube-prometheus
-kube-prometheus:
-	cd contrib/kube-prometheus && $(MAKE) $(MFLAGS) generate
+generate: $(DEEPCOPY_TARGET) $(shell find Documentation -type f)
 
 FULLY_GENERATED_DOCS = Documentation/api.md Documentation/compatibility.md
 TO_BE_EXTENDED_DOCS = $(filter-out $(FULLY_GENERATED_DOCS), $(wildcard Documentation/*.md))
@@ -128,7 +124,7 @@ Documentation/api.md: $(PO_DOCGEN_BINARY) $(TYPES_V1_TARGET)
 Documentation/compatibility.md: $(PO_DOCGEN_BINARY) pkg/prometheus/statefulset.go
 	$(PO_DOCGEN_BINARY) compatibility > $@
 
-$(TO_BE_EXTENDED_DOCS): $(EMBEDMD_BINARY) kube-prometheus
+$(TO_BE_EXTENDED_DOCS): $(EMBEDMD_BINARY)
 	$(EMBEDMD_BINARY) -w `find Documentation -name "*.md" | grep -v vendor`
 
 

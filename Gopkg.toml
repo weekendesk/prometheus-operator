@@ -51,3 +51,7 @@
 [[constraint]]
   branch = "master"
   name = "github.com/prometheus/client_golang"
+
+[[override]]
+  name = "github.com/ugorji/go"
+  revision = "f1f1a805ed361a0e078bb537e4ea78cd37dcf065"

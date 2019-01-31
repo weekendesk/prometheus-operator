@@ -25,12 +25,10 @@ import (
 	"github.com/coreos/prometheus-operator/pkg/k8sutil"
 	"github.com/coreos/prometheus-operator/pkg/listwatch"
 	prometheusoperator "github.com/coreos/prometheus-operator/pkg/prometheus"
-
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
-	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -53,10 +51,9 @@ const (
 // Operator manages life cycle of Alertmanager deployments and
 // monitoring configurations.
 type Operator struct {
-	kclient   kubernetes.Interface
-	mclient   monitoringclient.Interface
-	crdclient apiextensionsclient.Interface
-	logger    log.Logger
+	kclient kubernetes.Interface
+	mclient monitoringclient.Interface
+	logger  log.Logger
 
 	alrtInf cache.SharedIndexInformer
 	ssetInf cache.SharedIndexInformer
@@ -99,17 +96,11 @@ func New(c prometheusoperator.Config, logger log.Logger) (*Operator, error) {
 		return nil, errors.Wrap(err, "instantiating monitoring client failed")
 	}
 
-	crdclient, err := apiextensionsclient.NewForConfig(cfg)
-	if err != nil {
-		return nil, errors.Wrap(err, "instantiating apiextensions client failed")
-	}
-
 	o := &Operator{
-		kclient:   client,
-		mclient:   mclient,
-		crdclient: crdclient,
-		logger:    logger,
-		queue:     workqueue.NewNamedRateLimitingQueue(workqueue.DefaultControllerRateLimiter(), "alertmanager"),
+		kclient: client,
+		mclient: mclient,
+		logger:  logger,
+		queue:   workqueue.NewNamedRateLimitingQueue(workqueue.DefaultControllerRateLimiter(), "alertmanager"),
 		config: Config{
 			Host:                         c.Host,
 			LocalHost:                    c.LocalHost,
@@ -606,54 +597,26 @@ func (c *Operator) destroyAlertmanager(key string) error {
 }
 
 func (c *Operator) createCRDs() error {
-	crds := []*extensionsobj.CustomResourceDefinition{
-		k8sutil.NewCustomResourceDefinition(c.config.CrdKinds.Alertmanager, c.config.CrdGroup, c.config.Labels.LabelsMap, c.config.EnableValidation),
-	}
-
-	crdClient := c.crdclient.ApiextensionsV1beta1().CustomResourceDefinitions()
-
-	for _, crd := range crds {
-		oldCRD, err := crdClient.Get(crd.Name, metav1.GetOptions{})
-		if err != nil && !apierrors.IsNotFound(err) {
-			return errors.Wrapf(err, "getting CRD: %s", crd.Spec.Names.Kind)
-		}
-		if apierrors.IsNotFound(err) {
-			if _, err := crdClient.Create(crd); err != nil {
-				return errors.Wrapf(err, "creating CRD: %s", crd.Spec.Names.Kind)
-			}
-			level.Info(c.logger).Log("msg", "CRD created", "crd", crd.Spec.Names.Kind)
-		}
-		if err == nil {
-			crd.ResourceVersion = oldCRD.ResourceVersion
-			if _, err := crdClient.Update(crd); err != nil {
-				return errors.Wrapf(err, "creating CRD: %s", crd.Spec.Names.Kind)
-			}
-			level.Info(c.logger).Log("msg", "CRD updated", "crd", crd.Spec.Names.Kind)
-		}
-	}
-
-	crdListFuncs := []struct {
-		name     string
-		listFunc func(opts metav1.ListOptions) (runtime.Object, error)
-	}{
+	tprs := []*extensionsobj.ThirdPartyResource{
 		{
-			"Alertmanager",
-			listwatch.MultiNamespaceListerWatcher(c.config.Namespaces, func(namespace string) cache.ListerWatcher {
-				return &cache.ListWatch{
-					ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-						return c.mclient.MonitoringV1().Alertmanagers(namespace).List(options)
-					},
-				}
-			}).List,
+			ObjectMeta: metav1.ObjectMeta{
+				Name: monitoringv1.AlertManagerKindKey + "." + c.config.CrdGroup,
+			},
+			Versions: []extensionsobj.APIVersion{
+				{Name: monitoringv1.Version},
+			},
+			Description: "Managed Alertmanager cluster",
 		},
 	}
+	tprClient := c.kclient.Extensions().ThirdPartyResources()
 
-	for _, crdListFunc := range crdListFuncs {
-		err := k8sutil.WaitForCRDReady(crdListFunc.listFunc)
-		if err != nil {
-			return errors.Wrapf(err, "waiting for %v crd failed", crdListFunc.name)
+	for _, tpr := range tprs {
+		if _, err := tprClient.Create(tpr); err != nil && !apierrors.IsAlreadyExists(err) {
+			return err
 		}
+		level.Info(c.logger).Log("msg", "TPR created", "crd", tpr.Kind)
 	}
 
-	return nil
+	// We have to wait for the TPRs to be ready. Otherwise the initial watch may fail.
+	return k8sutil.WaitForTPRReady(c.kclient.CoreV1().RESTClient(), c.config.CrdGroup, monitoringv1.Version, c.config.CrdKinds.Alertmanager.Plural)
 }
