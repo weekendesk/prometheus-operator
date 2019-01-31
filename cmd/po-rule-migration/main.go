@@ -26,9 +26,9 @@ import (
 	monitoring "github.com/coreos/prometheus-operator/pkg/apis/monitoring"
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
 
-	"k8s.io/client-go/pkg/api/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	k8sYAML "k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/client-go/pkg/api/v1"
 
 	"github.com/ghodss/yaml"
 	"github.com/pkg/errors"

@@ -12,7 +12,7 @@ EMBEDMD_BINARY:=$(FIRST_GOPATH)/bin/embedmd
 
 TYPES_V1_TARGET:=pkg/apis/monitoring/v1/types.go
 
-K8S_GEN_VERSION:=release-1.8
+K8S_GEN_VERSION:=release-1.11
 K8S_GEN_BINARIES:=deepcopy-gen informer-gen lister-gen client-gen
 K8S_GEN_ARGS:=--go-header-file $(FIRST_GOPATH)/src/$(GO_PKG)/.header
 
@@ -50,8 +50,29 @@ prometheus-config-reloader:
 	-ldflags "-X $(GO_PKG)/pkg/version.Version=$(shell cat VERSION)" \
 	-o $@ cmd/$@/main.go
 
+COMPATIBILITY_DEEPCOPY_TARGET:=vendor/k8s.io/apimachinery/pkg/apis/meta/v1/compatibility_zz_generated.deepcop.go
+COMPATIBILITY_DEEPCOPY_TARGET+=vendor/k8s.io/client-go/pkg/api/v1/compatibility_zz_generated.deepcop.go
+$(COMPATIBILITY_DEEPCOPY_TARGET): $(K8S_GEN_DEPS)
+vendor/k8s.io/apimachinery/pkg/apis/meta/v1/compatibility_zz_generated.deepcop.go:
+	$(DEEPCOPY_GEN_BINARY) \
+	--input-dirs    "$(GO_PKG)/vendor/k8s.io/apimachinery/pkg/apis/meta/v1" \
+	--bounding-dirs "$(GO_PKG)/vendor/k8s.io/apimachinery/pkg/apis/meta" \
+	--output-file-base compatibility_zz_generated.deepcopy
+	
+PRESENT_DEEPCOPY_GEN_DIRECTIVES=$(shell grep -c "// +k8s:deepcopy-gen=package" vendor/k8s.io/client-go/pkg/api/v1/doc.go)
+vendor/k8s.io/client-go/pkg/api/v1/compatibility_zz_generated.deepcop.go:
+ifeq ("$(PRESENT_DEEPCOPY_GEN_DIRECTIVES)", "0")
+	echo "// +k8s:deepcopy-gen=package" >> vendor/k8s.io/client-go/pkg/api/v1/doc.go 2>&1
+endif
+
+	$(DEEPCOPY_GEN_BINARY) \
+	--input-dirs    "$(GO_PKG)/vendor/k8s.io/client-go/pkg/api/v1" \
+	--bounding-dirs "$(GO_PKG)/vendor/k8s.io/client-go/pkg/api" \
+	--v=2 \
+	--output-file-base compatibility_zz_generated.deepcopy
+
 DEEPCOPY_TARGET := pkg/apis/monitoring/v1/zz_generated.deepcopy.go
-$(DEEPCOPY_TARGET): $(K8S_GEN_DEPS)
+$(DEEPCOPY_TARGET): $(COMPATIBILITY_DEEPCOPY_TARGET) $(K8S_GEN_DEPS)
 	$(DEEPCOPY_GEN_BINARY) \
 	$(K8S_GEN_ARGS) \
 	--input-dirs    "$(GO_PKG)/pkg/apis/monitoring/v1" \
