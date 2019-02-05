@@ -30,6 +30,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/improbable-eng/thanos/pkg/query"
+	"github.com/improbable-eng/thanos/pkg/runutil"
 	"github.com/improbable-eng/thanos/pkg/tracing"
 	"github.com/opentracing/opentracing-go"
 	"github.com/pkg/errors"
@@ -96,20 +97,25 @@ type apiFunc func(r *http.Request) (interface{}, []error, *apiError)
 // API can register a set of endpoints in a router and handle
 // them using the provided storage and query engine.
 type API struct {
+	logger          log.Logger
 	queryableCreate query.QueryableCreator
 	queryEngine     *promql.Engine
 
-	instantQueryDuration prometheus.Histogram
-	rangeQueryDuration   prometheus.Histogram
-
-	now func() time.Time
+	instantQueryDuration   prometheus.Histogram
+	rangeQueryDuration     prometheus.Histogram
+	enableAutodownsampling bool
+	enablePartialResponse  bool
+	now                    func() time.Time
 }
 
 // NewAPI returns an initialized API type.
 func NewAPI(
+	logger log.Logger,
 	reg *prometheus.Registry,
 	qe *promql.Engine,
 	c query.QueryableCreator,
+	enableAutodownsampling bool,
+	enablePartialResponse bool,
 ) *API {
 	instantQueryDuration := prometheus.NewHistogram(prometheus.HistogramOpts{
 		Name: "thanos_query_api_instant_query_duration_seconds",
@@ -131,11 +137,15 @@ func NewAPI(
 		rangeQueryDuration,
 	)
 	return &API{
-		queryEngine:          qe,
-		queryableCreate:      c,
-		instantQueryDuration: instantQueryDuration,
-		rangeQueryDuration:   rangeQueryDuration,
-		now:                  time.Now,
+		logger:                 logger,
+		queryEngine:            qe,
+		queryableCreate:        c,
+		instantQueryDuration:   instantQueryDuration,
+		rangeQueryDuration:     rangeQueryDuration,
+		enableAutodownsampling: enableAutodownsampling,
+		enablePartialResponse:  enablePartialResponse,
+
+		now: time.Now,
 	}
 }
 
@@ -168,7 +178,60 @@ func (api *API) Register(r *route.Router, tracer opentracing.Tracer, logger log.
 type queryData struct {
 	ResultType promql.ValueType `json:"resultType"`
 	Result     promql.Value     `json:"result"`
-	Warnings   []error          `json:"warnings"`
+
+	// Additional Thanos Response field.
+	Warnings []error `json:"warnings,omitempty"`
+}
+
+func (api *API) parseEnableDedupParam(r *http.Request) (enableDeduplication bool, _ *apiError) {
+	const dedupParam = "dedup"
+	enableDeduplication = true
+
+	if val := r.FormValue(dedupParam); val != "" {
+		var err error
+		enableDeduplication, err = strconv.ParseBool(val)
+		if err != nil {
+			return false, &apiError{errorBadData, errors.Wrapf(err, "'%s' parameter", dedupParam)}
+		}
+	}
+	return enableDeduplication, nil
+}
+
+func (api *API) parseDownsamplingParam(r *http.Request, step time.Duration) (maxSourceResolution time.Duration, _ *apiError) {
+	const maxSourceResolutionParam = "max_source_resolution"
+	maxSourceResolution = 0 * time.Second
+
+	if api.enableAutodownsampling {
+		// If no max_source_resolution is specified fit at least 5 samples between steps.
+		maxSourceResolution = step / 5
+	}
+	if val := r.FormValue(maxSourceResolutionParam); val != "" {
+		var err error
+		maxSourceResolution, err = parseDuration(val)
+		if err != nil {
+			return 0, &apiError{errorBadData, errors.Wrapf(err, "'%s' parameter", maxSourceResolutionParam)}
+		}
+	}
+
+	if maxSourceResolution < 0 {
+		return 0, &apiError{errorBadData, errors.Errorf("negative '%s' is not accepted. Try a positive integer", maxSourceResolutionParam)}
+	}
+
+	return maxSourceResolution, nil
+}
+
+func (api *API) parsePartialResponseParam(r *http.Request) (enablePartialResponse bool, _ *apiError) {
+	const partialResponseParam = "partial_response"
+	enablePartialResponse = api.enablePartialResponse
+
+	if val := r.FormValue(partialResponseParam); val != "" {
+		var err error
+		enablePartialResponse, err = strconv.ParseBool(val)
+		if err != nil {
+			return false, &apiError{errorBadData, errors.Wrapf(err, "'%s' parameter", partialResponseParam)}
+		}
+	}
+	return enablePartialResponse, nil
 }
 
 func (api *API) options(r *http.Request) (interface{}, []error, *apiError) {
@@ -199,24 +262,24 @@ func (api *API) query(r *http.Request) (interface{}, []error, *apiError) {
 		defer cancel()
 	}
 
+	enableDedup, apiErr := api.parseEnableDedupParam(r)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
+	enablePartialResponse, apiErr := api.parsePartialResponseParam(r)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
 	var (
-		warnmtx             sync.Mutex
-		warnings            []error
-		enableDeduplication bool
+		warnmtx  sync.Mutex
+		warnings []error
 	)
-	partialErrReporter := func(err error) {
+	warningReporter := func(err error) {
 		warnmtx.Lock()
 		warnings = append(warnings, err)
 		warnmtx.Unlock()
-	}
-
-	// Allow disabling deduplication on demand.
-	if dedup := r.FormValue("dedup"); dedup != "" {
-		var err error
-		enableDeduplication, err = strconv.ParseBool(dedup)
-		if err != nil {
-			return nil, nil, &apiError{errorBadData, errors.Wrap(err, "'dedup' parameter")}
-		}
 	}
 
 	// We are starting promQL tracing span here, because we have no control over promQL code.
@@ -224,7 +287,7 @@ func (api *API) query(r *http.Request) (interface{}, []error, *apiError) {
 	defer span.Finish()
 
 	begin := api.now()
-	qry, err := api.queryEngine.NewInstantQuery(api.queryableCreate(enableDeduplication, partialErrReporter), r.FormValue("query"), ts)
+	qry, err := api.queryEngine.NewInstantQuery(api.queryableCreate(enableDedup, 0, enablePartialResponse, warningReporter), r.FormValue("query"), ts)
 	if err != nil {
 		return nil, nil, &apiError{errorBadData, err}
 	}
@@ -265,7 +328,7 @@ func (api *API) queryRange(r *http.Request) (interface{}, []error, *apiError) {
 
 	step, err := parseDuration(r.FormValue("step"))
 	if err != nil {
-		return nil, nil, &apiError{errorBadData, err}
+		return nil, nil, &apiError{errorBadData, errors.Wrap(err, "param step")}
 	}
 
 	if step <= 0 {
@@ -276,9 +339,10 @@ func (api *API) queryRange(r *http.Request) (interface{}, []error, *apiError) {
 	// For safety, limit the number of returned points per timeseries.
 	// This is sufficient for 60s resolution for a week or 1h resolution for a year.
 	if end.Sub(start)/step > 11000 {
-		err := errors.New("exceeded maximum resolution of 11,000 points per timeseries. Try decreasing the query resolution (?step=XX)")
+		err := errors.Errorf("exceeded maximum resolution of 11,000 points per timeseries. Try decreasing the query resolution (?step=XX)")
 		return nil, nil, &apiError{errorBadData, err}
 	}
+
 	ctx := r.Context()
 	if to := r.FormValue("timeout"); to != "" {
 		var cancel context.CancelFunc
@@ -291,24 +355,29 @@ func (api *API) queryRange(r *http.Request) (interface{}, []error, *apiError) {
 		defer cancel()
 	}
 
+	enableDedup, apiErr := api.parseEnableDedupParam(r)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
+	maxSourceResolution, apiErr := api.parseDownsamplingParam(r, step)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
+	enablePartialResponse, apiErr := api.parsePartialResponseParam(r)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
 	var (
-		warnmtx             sync.Mutex
-		warnings            []error
-		enableDeduplication bool
+		warnmtx  sync.Mutex
+		warnings []error
 	)
-	partialErrReporter := func(err error) {
+	warningReporter := func(err error) {
 		warnmtx.Lock()
 		warnings = append(warnings, err)
 		warnmtx.Unlock()
-	}
-
-	// Allow disabling deduplication on demand.
-	if dedup := r.FormValue("dedup"); dedup != "" {
-		var err error
-		enableDeduplication, err = strconv.ParseBool(dedup)
-		if err != nil {
-			return nil, nil, &apiError{errorBadData, errors.Wrap(err, "'dedup' parameter")}
-		}
 	}
 
 	// We are starting promQL tracing span here, because we have no control over promQL code.
@@ -316,7 +385,13 @@ func (api *API) queryRange(r *http.Request) (interface{}, []error, *apiError) {
 	defer span.Finish()
 
 	begin := api.now()
-	qry, err := api.queryEngine.NewRangeQuery(api.queryableCreate(enableDeduplication, partialErrReporter), r.FormValue("query"), start, end, step)
+	qry, err := api.queryEngine.NewRangeQuery(
+		api.queryableCreate(enableDedup, maxSourceResolution, enablePartialResponse, warningReporter),
+		r.FormValue("query"),
+		start,
+		end,
+		step,
+	)
 	if err != nil {
 		return nil, nil, &apiError{errorBadData, err}
 	}
@@ -347,21 +422,26 @@ func (api *API) labelValues(r *http.Request) (interface{}, []error, *apiError) {
 		return nil, nil, &apiError{errorBadData, fmt.Errorf("invalid label name: %q", name)}
 	}
 
+	enablePartialResponse, apiErr := api.parsePartialResponseParam(r)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
 	var (
 		warnmtx  sync.Mutex
 		warnings []error
 	)
-	partialErrReporter := func(err error) {
+	warningReporter := func(err error) {
 		warnmtx.Lock()
 		warnings = append(warnings, err)
 		warnmtx.Unlock()
 	}
 
-	q, err := api.queryableCreate(true, partialErrReporter).Querier(ctx, math.MinInt64, math.MaxInt64)
+	q, err := api.queryableCreate(true, 0, enablePartialResponse, warningReporter).Querier(ctx, math.MinInt64, math.MaxInt64)
 	if err != nil {
 		return nil, nil, &apiError{errorExec, err}
 	}
-	defer q.Close()
+	defer runutil.CloseWithLogOnErr(api.logger, q, "queryable labelValues")
 
 	// TODO(fabxc): add back request context.
 
@@ -379,7 +459,10 @@ var (
 )
 
 func (api *API) series(r *http.Request) (interface{}, []error, *apiError) {
-	r.ParseForm()
+	if err := r.ParseForm(); err != nil {
+		return nil, nil, &apiError{errorInternal, errors.Wrap(err, "parse form")}
+	}
+
 	if len(r.Form["match[]"]) == 0 {
 		return nil, nil, &apiError{errorBadData, fmt.Errorf("no match[] parameter provided")}
 	}
@@ -415,43 +498,45 @@ func (api *API) series(r *http.Request) (interface{}, []error, *apiError) {
 		matcherSets = append(matcherSets, matchers)
 	}
 
+	enableDedup, apiErr := api.parseEnableDedupParam(r)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
+	enablePartialResponse, apiErr := api.parsePartialResponseParam(r)
+	if apiErr != nil {
+		return nil, nil, apiErr
+	}
+
 	var (
-		warnmtx             sync.Mutex
-		warnings            []error
-		enableDeduplication bool
+		warnmtx  sync.Mutex
+		warnings []error
 	)
-	partialErrReporter := func(err error) {
+	warningReporter := func(err error) {
 		warnmtx.Lock()
 		warnings = append(warnings, err)
 		warnmtx.Unlock()
 	}
 
-	// Allow disabling deduplication on demand.
-	if dedup := r.FormValue("dedup"); dedup != "" {
-		var err error
-		enableDeduplication, err = strconv.ParseBool(dedup)
-		if err != nil {
-			return nil, nil, &apiError{errorBadData, errors.Wrap(err, "'dedup' parameter")}
-		}
-	}
-
-	q, err := api.queryableCreate(enableDeduplication, partialErrReporter).Querier(r.Context(), timestamp.FromTime(start), timestamp.FromTime(end))
+	// TODO(bwplotka): Support downsampling?
+	q, err := api.queryableCreate(enableDedup, 0, enablePartialResponse, warningReporter).Querier(r.Context(), timestamp.FromTime(start), timestamp.FromTime(end))
 	if err != nil {
 		return nil, nil, &apiError{errorExec, err}
 	}
-	defer q.Close()
+	defer runutil.CloseWithLogOnErr(api.logger, q, "queryable series")
 
 	var sets []storage.SeriesSet
 	for _, mset := range matcherSets {
-		s, err := q.Select(nil, mset...)
+		s, _, err := q.Select(&storage.SelectParams{}, mset...)
 		if err != nil {
 			return nil, nil, &apiError{errorExec, err}
 		}
 		sets = append(sets, s)
 	}
 
-	set := storage.NewMergeSeriesSet(sets)
-	metrics := []labels.Labels{}
+	set := storage.NewMergeSeriesSet(sets, nil)
+
+	var metrics []labels.Labels
 	for set.Next() {
 		metrics = append(metrics, set.At().Labels())
 	}
@@ -473,7 +558,7 @@ func respond(w http.ResponseWriter, data interface{}, warnings []error) {
 	for _, warn := range warnings {
 		resp.Warnings = append(resp.Warnings, warn.Error())
 	}
-	json.NewEncoder(w).Encode(resp)
+	_ = json.NewEncoder(w).Encode(resp)
 }
 
 func respondError(w http.ResponseWriter, apiErr *apiError, data interface{}) {
@@ -494,7 +579,7 @@ func respondError(w http.ResponseWriter, apiErr *apiError, data interface{}) {
 	}
 	w.WriteHeader(code)
 
-	json.NewEncoder(w).Encode(&response{
+	_ = json.NewEncoder(w).Encode(&response{
 		Status:    statusError,
 		ErrorType: apiErr.typ,
 		Error:     apiErr.err.Error(),

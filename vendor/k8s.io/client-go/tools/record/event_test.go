@@ -25,15 +25,15 @@ import (
 	"testing"
 	"time"
 
-	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	k8sruntime "k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/util/clock"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
-	"k8s.io/client-go/kubernetes/scheme"
+	"k8s.io/client-go/pkg/api"
+	_ "k8s.io/client-go/pkg/api/install" // To register api.Pod used in tests below
+	"k8s.io/client-go/pkg/api/v1"
 	restclient "k8s.io/client-go/rest"
-	ref "k8s.io/client-go/tools/reference"
+	"k8s.io/client-go/util/clock"
 )
 
 type testEventSink struct {
@@ -119,11 +119,8 @@ func TestEventf(t *testing.T) {
 			UID:       "differentUid",
 		},
 	}
-	testRef, err := ref.GetPartialReference(scheme.Scheme, testPod, "spec.containers[2]")
-	if err != nil {
-		t.Fatal(err)
-	}
-	testRef2, err := ref.GetPartialReference(scheme.Scheme, testPod2, "spec.containers[3]")
+	testRef, err := v1.GetPartialReference(api.Scheme, testPod, "spec.containers[2]")
+	testRef2, err := v1.GetPartialReference(api.Scheme, testPod2, "spec.containers[3]")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -378,7 +375,7 @@ func TestEventf(t *testing.T) {
 }
 
 func recorderWithFakeClock(eventSource v1.EventSource, eventBroadcaster EventBroadcaster, clock clock.Clock) EventRecorder {
-	return &recorderImpl{scheme.Scheme, eventSource, eventBroadcaster.(*eventBroadcasterImpl).Broadcaster, clock}
+	return &recorderImpl{api.Scheme, eventSource, eventBroadcaster.(*eventBroadcasterImpl).Broadcaster, clock}
 }
 
 func TestWriteEventError(t *testing.T) {
@@ -415,8 +412,7 @@ func TestWriteEventError(t *testing.T) {
 		},
 	}
 
-	clock := clock.IntervalClock{Time: time.Now(), Duration: time.Second}
-	eventCorrelator := NewEventCorrelator(&clock)
+	eventCorrelator := NewEventCorrelator(clock.RealClock{})
 	randGen := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	for caseName, ent := range table {
@@ -439,8 +435,7 @@ func TestWriteEventError(t *testing.T) {
 }
 
 func TestUpdateExpiredEvent(t *testing.T) {
-	clock := clock.IntervalClock{Time: time.Now(), Duration: time.Second}
-	eventCorrelator := NewEventCorrelator(&clock)
+	eventCorrelator := NewEventCorrelator(clock.RealClock{})
 	randGen := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	var createdEvent *v1.Event
@@ -501,16 +496,15 @@ func TestLotsOfEvents(t *testing.T) {
 	logWatcher := eventBroadcaster.StartLogging(func(formatter string, args ...interface{}) {
 		loggerCalled <- struct{}{}
 	})
-	recorder := eventBroadcaster.NewRecorder(scheme.Scheme, v1.EventSource{Component: "eventTest"})
+	recorder := eventBroadcaster.NewRecorder(api.Scheme, v1.EventSource{Component: "eventTest"})
+	ref := &v1.ObjectReference{
+		Kind:       "Pod",
+		Name:       "foo",
+		Namespace:  "baz",
+		UID:        "bar",
+		APIVersion: "version",
+	}
 	for i := 0; i < maxQueuedEvents; i++ {
-		// we want a unique object to stop spam filtering
-		ref := &v1.ObjectReference{
-			Kind:       "Pod",
-			Name:       fmt.Sprintf("foo-%v", i),
-			Namespace:  "baz",
-			UID:        "bar",
-			APIVersion: "version",
-		}
 		// we need to vary the reason to prevent aggregation
 		go recorder.Eventf(ref, v1.EventTypeNormal, "Reason-"+string(i), strconv.Itoa(i))
 	}
@@ -537,7 +531,7 @@ func TestEventfNoNamespace(t *testing.T) {
 			UID:      "bar",
 		},
 	}
-	testRef, err := ref.GetPartialReference(scheme.Scheme, testPod, "spec.containers[2]")
+	testRef, err := v1.GetPartialReference(api.Scheme, testPod, "spec.containers[2]")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -643,11 +637,8 @@ func TestMultiSinkCache(t *testing.T) {
 			UID:       "differentUid",
 		},
 	}
-	testRef, err := ref.GetPartialReference(scheme.Scheme, testPod, "spec.containers[2]")
-	if err != nil {
-		t.Fatal(err)
-	}
-	testRef2, err := ref.GetPartialReference(scheme.Scheme, testPod2, "spec.containers[3]")
+	testRef, err := v1.GetPartialReference(api.Scheme, testPod, "spec.containers[2]")
+	testRef2, err := v1.GetPartialReference(api.Scheme, testPod2, "spec.containers[3]")
 	if err != nil {
 		t.Fatal(err)
 	}

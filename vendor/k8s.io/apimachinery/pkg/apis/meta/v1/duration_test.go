@@ -1,19 +1,3 @@
-/*
-Copyright 2014 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package v1
 
 import (
@@ -30,8 +14,8 @@ type DurationHolder struct {
 
 func TestDurationMarshalYAML(t *testing.T) {
 	cases := []struct {
-		input  Duration
-		result string
+		input	Duration
+		result	string
 	}{
 		{Duration{5 * time.Second}, "d: 5s\n"},
 		{Duration{2 * time.Minute}, "d: 2m0s\n"},
@@ -52,15 +36,14 @@ func TestDurationMarshalYAML(t *testing.T) {
 
 func TestDurationUnmarshalYAML(t *testing.T) {
 	cases := []struct {
-		input  string
-		result Duration
+		input	string
+		result	Duration
 	}{
 		{"d: 0s\n", Duration{}},
 		{"d: 5s\n", Duration{5 * time.Second}},
 		{"d: 2m0s\n", Duration{2 * time.Minute}},
 		{"d: 1h0m0.003s\n", Duration{time.Hour + 3*time.Millisecond}},
 
-		// Units with zero values can optionally be dropped
 		{"d: 2m\n", Duration{2 * time.Minute}},
 		{"d: 1h0.003s\n", Duration{time.Hour + 3*time.Millisecond}},
 	}
@@ -78,8 +61,8 @@ func TestDurationUnmarshalYAML(t *testing.T) {
 
 func TestDurationMarshalJSON(t *testing.T) {
 	cases := []struct {
-		input  Duration
-		result string
+		input	Duration
+		result	string
 	}{
 		{Duration{5 * time.Second}, `{"d":"5s"}`},
 		{Duration{2 * time.Minute}, `{"d":"2m0s"}`},
@@ -100,15 +83,14 @@ func TestDurationMarshalJSON(t *testing.T) {
 
 func TestDurationUnmarshalJSON(t *testing.T) {
 	cases := []struct {
-		input  string
-		result Duration
+		input	string
+		result	Duration
 	}{
 		{`{"d":"0s"}`, Duration{}},
 		{`{"d":"5s"}`, Duration{5 * time.Second}},
 		{`{"d":"2m0s"}`, Duration{2 * time.Minute}},
 		{`{"d":"1h0m0.003s"}`, Duration{time.Hour + 3*time.Millisecond}},
 
-		// Units with zero values can optionally be dropped
 		{`{"d":"2m"}`, Duration{2 * time.Minute}},
 		{`{"d":"1h0.003s"}`, Duration{time.Hour + 3*time.Millisecond}},
 	}

@@ -14,26 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package discovery
+package discovery_test
 
 import (
 	"encoding/json"
-	"fmt"
-	"mime"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 
-	"github.com/gogo/protobuf/proto"
-	"github.com/googleapis/gnostic/OpenAPIv2"
-	"github.com/stretchr/testify/assert"
+	"github.com/emicklei/go-restful/swagger"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/util/diff"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/version"
+	. "k8s.io/client-go/discovery"
+	"k8s.io/client-go/pkg/api/v1"
 	restclient "k8s.io/client-go/rest"
 )
 
@@ -75,17 +72,6 @@ func TestGetServerGroupsWithV1Server(t *testing.T) {
 					"v1",
 				},
 			}
-		case "/apis":
-			obj = &metav1.APIGroupList{
-				Groups: []metav1.APIGroup{
-					{
-						Name: "extensions",
-						Versions: []metav1.GroupVersionForDiscovery{
-							{GroupVersion: "extensions/v1beta1"},
-						},
-					},
-				},
-			}
 		default:
 			w.WriteHeader(http.StatusNotFound)
 			return
@@ -107,8 +93,8 @@ func TestGetServerGroupsWithV1Server(t *testing.T) {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	groupVersions := metav1.ExtractGroupVersions(apiGroupList)
-	if !reflect.DeepEqual(groupVersions, []string{"v1", "extensions/v1beta1"}) {
-		t.Errorf("expected: %q, got: %q", []string{"v1", "extensions/v1beta1"}, groupVersions)
+	if !reflect.DeepEqual(groupVersions, []string{"v1"}) {
+		t.Errorf("expected: %q, got: %q", []string{"v1"}, groupVersions)
 	}
 }
 
@@ -129,12 +115,6 @@ func TestGetServerGroupsWithBrokenServer(t *testing.T) {
 			t.Errorf("expected empty list, got: %q", groupVersions)
 		}
 	}
-}
-
-func TestTimeoutIsSet(t *testing.T) {
-	cfg := &restclient.Config{}
-	setDiscoveryDefaults(cfg)
-	assert.Equal(t, defaultTimeout, cfg.Timeout)
 }
 
 func TestGetServerResourcesWithV1Server(t *testing.T) {
@@ -190,14 +170,6 @@ func TestGetServerResources(t *testing.T) {
 			{Name: "jobs", Namespaced: true, Kind: "Job"},
 		},
 	}
-	beta2 := metav1.APIResourceList{
-		GroupVersion: "extensions/v1beta2",
-		APIResources: []metav1.APIResource{
-			{Name: "deployments", Namespaced: true, Kind: "Deployment"},
-			{Name: "ingresses", Namespaced: true, Kind: "Ingress"},
-			{Name: "jobs", Namespaced: true, Kind: "Job"},
-		},
-	}
 	tests := []struct {
 		resourcesList *metav1.APIResourceList
 		path          string
@@ -230,8 +202,6 @@ func TestGetServerResources(t *testing.T) {
 			list = &stable
 		case "/apis/extensions/v1beta1":
 			list = &beta
-		case "/apis/extensions/v1beta2":
-			list = &beta2
 		case "/api":
 			list = &metav1.APIVersions{
 				Versions: []string{
@@ -242,10 +212,8 @@ func TestGetServerResources(t *testing.T) {
 			list = &metav1.APIGroupList{
 				Groups: []metav1.APIGroup{
 					{
-						Name: "extensions",
 						Versions: []metav1.GroupVersionForDiscovery{
-							{GroupVersion: "extensions/v1beta1", Version: "v1beta1"},
-							{GroupVersion: "extensions/v1beta2", Version: "v1beta2"},
+							{GroupVersion: "extensions/v1beta1"},
 						},
 					},
 				},
@@ -287,183 +255,73 @@ func TestGetServerResources(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
-	serverGroupVersions := groupVersions(serverResources)
-	expectedGroupVersions := []string{"v1", "extensions/v1beta1", "extensions/v1beta2"}
-	if !reflect.DeepEqual(expectedGroupVersions, serverGroupVersions) {
-		t.Errorf("unexpected group versions: %v", diff.ObjectReflectDiff(expectedGroupVersions, serverGroupVersions))
+	serverGroupVersions := sets.NewString(groupVersions(serverResources)...)
+	for _, api := range []string{"v1", "extensions/v1beta1"} {
+		if !serverGroupVersions.Has(api) {
+			t.Errorf("missing expected api %q in %v", api, serverResources)
+		}
 	}
 }
 
-var returnedOpenAPI = openapi_v2.Document{
-	Definitions: &openapi_v2.Definitions{
-		AdditionalProperties: []*openapi_v2.NamedSchema{
-			{
-				Name: "fake.type.1",
-				Value: &openapi_v2.Schema{
-					Properties: &openapi_v2.Properties{
-						AdditionalProperties: []*openapi_v2.NamedSchema{
-							{
-								Name: "count",
-								Value: &openapi_v2.Schema{
-									Type: &openapi_v2.TypeItem{
-										Value: []string{"integer"},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			{
-				Name: "fake.type.2",
-				Value: &openapi_v2.Schema{
-					Properties: &openapi_v2.Properties{
-						AdditionalProperties: []*openapi_v2.NamedSchema{
-							{
-								Name: "count",
-								Value: &openapi_v2.Schema{
-									Type: &openapi_v2.TypeItem{
-										Value: []string{"array"},
-									},
-									Items: &openapi_v2.ItemsItem{
-										Schema: []*openapi_v2.Schema{
-											{
-												Type: &openapi_v2.TypeItem{
-													Value: []string{"string"},
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-	},
-}
-
-func openapiSchemaDeprecatedFakeServer(status int) (*httptest.Server, error) {
+func swaggerSchemaFakeServer() (*httptest.Server, error) {
+	request := 1
 	var sErr error
+
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		if req.URL.Path == "/openapi/v2" {
-			// write the error status for the new endpoint request
-			w.WriteHeader(status)
-			return
+		var resp interface{}
+		if request == 1 {
+			resp = metav1.APIVersions{Versions: []string{"v1", "v2", "v3"}}
+			request++
+		} else {
+			resp = swagger.ApiDeclaration{}
 		}
-		if req.URL.Path != "/swagger-2.0.0.pb-v1" {
-			sErr = fmt.Errorf("Unexpected url %v", req.URL)
-		}
-		if req.Method != "GET" {
-			sErr = fmt.Errorf("Unexpected method %v", req.Method)
-		}
-
-		mime.AddExtensionType(".pb-v1", "application/com.github.googleapis.gnostic.OpenAPIv2@68f4ded+protobuf")
-
-		output, err := proto.Marshal(&returnedOpenAPI)
+		output, err := json.Marshal(resp)
 		if err != nil {
 			sErr = err
 			return
 		}
+		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write(output)
 	}))
 	return server, sErr
 }
 
-func openapiSchemaFakeServer() (*httptest.Server, error) {
-	var sErr error
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		if req.URL.Path != "/openapi/v2" {
-			sErr = fmt.Errorf("Unexpected url %v", req.URL)
-		}
-		if req.Method != "GET" {
-			sErr = fmt.Errorf("Unexpected method %v", req.Method)
-		}
-		decipherableFormat := req.Header.Get("Accept")
-		if decipherableFormat != "application/com.github.proto-openapi.spec.v2@v1.0+protobuf" {
-			sErr = fmt.Errorf("Unexpected accept mime type %v", decipherableFormat)
-		}
+func TestGetSwaggerSchema(t *testing.T) {
+	expect := swagger.ApiDeclaration{}
 
-		mime.AddExtensionType(".pb-v1", "application/com.github.googleapis.gnostic.OpenAPIv2@68f4ded+protobuf")
-
-		output, err := proto.Marshal(&returnedOpenAPI)
-		if err != nil {
-			sErr = err
-			return
-		}
-		w.WriteHeader(http.StatusOK)
-		w.Write(output)
-	}))
-	return server, sErr
-}
-
-func TestGetOpenAPISchema(t *testing.T) {
-	server, err := openapiSchemaFakeServer()
+	server, err := swaggerSchemaFakeServer()
 	if err != nil {
-		t.Errorf("unexpected error starting fake server: %v", err)
+		t.Errorf("unexpected encoding error: %v", err)
 	}
 	defer server.Close()
 
 	client := NewDiscoveryClientForConfigOrDie(&restclient.Config{Host: server.URL})
-	got, err := client.OpenAPISchema()
+	got, err := client.SwaggerSchema(v1.SchemeGroupVersion)
 	if err != nil {
-		t.Fatalf("unexpected error getting openapi: %v", err)
+		t.Fatalf("unexpected encoding error: %v", err)
 	}
-	if e, a := returnedOpenAPI, *got; !reflect.DeepEqual(e, a) {
+	if e, a := expect, *got; !reflect.DeepEqual(e, a) {
 		t.Errorf("expected %v, got %v", e, a)
 	}
 }
 
-func TestGetOpenAPISchemaForbiddenFallback(t *testing.T) {
-	server, err := openapiSchemaDeprecatedFakeServer(http.StatusForbidden)
+func TestGetSwaggerSchemaFail(t *testing.T) {
+	expErr := "API version: api.group/v4 is not supported by the server. Use one of: [v1 v2 v3]"
+
+	server, err := swaggerSchemaFakeServer()
 	if err != nil {
-		t.Errorf("unexpected error starting fake server: %v", err)
+		t.Errorf("unexpected encoding error: %v", err)
 	}
 	defer server.Close()
 
 	client := NewDiscoveryClientForConfigOrDie(&restclient.Config{Host: server.URL})
-	got, err := client.OpenAPISchema()
-	if err != nil {
-		t.Fatalf("unexpected error getting openapi: %v", err)
+	got, err := client.SwaggerSchema(schema.GroupVersion{Group: "api.group", Version: "v4"})
+	if got != nil {
+		t.Fatalf("unexpected response: %v", got)
 	}
-	if e, a := returnedOpenAPI, *got; !reflect.DeepEqual(e, a) {
-		t.Errorf("expected %v, got %v", e, a)
-	}
-}
-
-func TestGetOpenAPISchemaNotFoundFallback(t *testing.T) {
-	server, err := openapiSchemaDeprecatedFakeServer(http.StatusNotFound)
-	if err != nil {
-		t.Errorf("unexpected error starting fake server: %v", err)
-	}
-	defer server.Close()
-
-	client := NewDiscoveryClientForConfigOrDie(&restclient.Config{Host: server.URL})
-	got, err := client.OpenAPISchema()
-	if err != nil {
-		t.Fatalf("unexpected error getting openapi: %v", err)
-	}
-	if e, a := returnedOpenAPI, *got; !reflect.DeepEqual(e, a) {
-		t.Errorf("expected %v, got %v", e, a)
-	}
-}
-
-func TestGetOpenAPISchemaNotAcceptableFallback(t *testing.T) {
-	server, err := openapiSchemaDeprecatedFakeServer(http.StatusNotAcceptable)
-	if err != nil {
-		t.Errorf("unexpected error starting fake server: %v", err)
-	}
-	defer server.Close()
-
-	client := NewDiscoveryClientForConfigOrDie(&restclient.Config{Host: server.URL})
-	got, err := client.OpenAPISchema()
-	if err != nil {
-		t.Fatalf("unexpected error getting openapi: %v", err)
-	}
-	if e, a := returnedOpenAPI, *got; !reflect.DeepEqual(e, a) {
-		t.Errorf("expected %v, got %v", e, a)
+	if err.Error() != expErr {
+		t.Errorf("expected an error, got %v", err)
 	}
 }
 
@@ -636,7 +494,7 @@ func TestServerPreferredResourcesRetries(t *testing.T) {
 						{
 							Name: "extensions",
 							Versions: []metav1.GroupVersionForDiscovery{
-								{GroupVersion: "extensions/v1beta1", Version: "v1beta1"},
+								{GroupVersion: "extensions/v1beta1"},
 							},
 							PreferredVersion: metav1.GroupVersionForDiscovery{
 								GroupVersion: "extensions/v1beta1",
@@ -759,8 +617,8 @@ func TestServerPreferredNamespacedResources(t *testing.T) {
 				w.Write(output)
 			},
 			expected: map[schema.GroupVersionResource]struct{}{
-				{Group: "", Version: "v1", Resource: "pods"}:     {},
-				{Group: "", Version: "v1", Resource: "services"}: {},
+				schema.GroupVersionResource{Group: "", Version: "v1", Resource: "pods"}:     {},
+				schema.GroupVersionResource{Group: "", Version: "v1", Resource: "services"}: {},
 			},
 		},
 		{
@@ -802,8 +660,8 @@ func TestServerPreferredNamespacedResources(t *testing.T) {
 				w.Write(output)
 			},
 			expected: map[schema.GroupVersionResource]struct{}{
-				{Group: "batch", Version: "v1", Resource: "jobs"}:           {},
-				{Group: "batch", Version: "v2alpha1", Resource: "cronjobs"}: {},
+				schema.GroupVersionResource{Group: "batch", Version: "v1", Resource: "jobs"}:           {},
+				schema.GroupVersionResource{Group: "batch", Version: "v2alpha1", Resource: "cronjobs"}: {},
 			},
 		},
 		{
@@ -845,8 +703,8 @@ func TestServerPreferredNamespacedResources(t *testing.T) {
 				w.Write(output)
 			},
 			expected: map[schema.GroupVersionResource]struct{}{
-				{Group: "batch", Version: "v2alpha1", Resource: "jobs"}:     {},
-				{Group: "batch", Version: "v2alpha1", Resource: "cronjobs"}: {},
+				schema.GroupVersionResource{Group: "batch", Version: "v2alpha1", Resource: "jobs"}:     {},
+				schema.GroupVersionResource{Group: "batch", Version: "v2alpha1", Resource: "cronjobs"}: {},
 			},
 		},
 	}

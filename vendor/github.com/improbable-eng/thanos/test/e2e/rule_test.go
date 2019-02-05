@@ -3,13 +3,12 @@ package e2e_test
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
-	"os"
 	"sort"
 	"testing"
 	"time"
 
+	"github.com/improbable-eng/thanos/pkg/promclient"
 	"github.com/improbable-eng/thanos/pkg/runutil"
 	"github.com/improbable-eng/thanos/pkg/testutil"
 	"github.com/pkg/errors"
@@ -17,16 +16,7 @@ import (
 	"github.com/prometheus/prometheus/pkg/timestamp"
 )
 
-// TestRuleComponent tests the basic interaction between the rule component
-// and the querying layer.
-// Rules are evaluated against the query layer and the query layer in return
-// can access data written by the rules.
-func TestRuleComponent(t *testing.T) {
-	dir, err := ioutil.TempDir("", "test_rule")
-	testutil.Ok(t, err)
-	defer os.RemoveAll(dir)
-
-	const alwaysFireRule = `
+const alwaysFireRule = `
 groups:
 - name: example
   rules:
@@ -38,20 +28,65 @@ groups:
       summary: "I always complain"
 `
 
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
-	defer cancel()
+var (
+	ruleGossipSuite = newSpinupSuite().
+			Add(querier(1, ""), queryCluster(1)).
+			Add(ruler(1, alwaysFireRule)).
+			Add(ruler(2, alwaysFireRule)).
+			Add(alertManager(1), "")
 
-	unexpectedExit, err := spinup(t, ctx, config{
-		workDir:          dir,
-		numQueries:       1,
-		numRules:         2,
-		numAlertmanagers: 1,
-		rules:            alwaysFireRule,
-	})
+	ruleStaticFlagsSuite = newSpinupSuite().
+				Add(querierWithStoreFlags(1, "", rulerGRPC(1), rulerGRPC(2)), "").
+				Add(rulerWithQueryFlags(1, alwaysFireRule, queryHTTP(1))).
+				Add(rulerWithQueryFlags(2, alwaysFireRule, queryHTTP(1))).
+				Add(alertManager(1), "")
+
+	ruleFileSDSuite = newSpinupSuite().
+			Add(querierWithFileSD(1, "", rulerGRPC(1), rulerGRPC(2)), "").
+			Add(rulerWithFileSD(1, alwaysFireRule, queryHTTP(1))).
+			Add(rulerWithFileSD(2, alwaysFireRule, queryHTTP(1))).
+			Add(alertManager(1), "")
+)
+
+func TestRule(t *testing.T) {
+	for _, tt := range []testConfig{
+		{
+			"gossip",
+			ruleGossipSuite,
+		},
+		{
+			"staticFlag",
+			ruleStaticFlagsSuite,
+		},
+		{
+			"fileSD",
+			ruleFileSDSuite,
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			testRuleComponent(t, tt)
+		})
+	}
+}
+
+// testRuleComponent tests the basic interaction between the rule component
+// and the querying layer.
+// Rules are evaluated against the query layer and the query layer in return
+// can access data written by the rules.
+func testRuleComponent(t *testing.T, conf testConfig) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
+
+	exit, err := conf.suite.Exec(t, ctx, "test_rule_component")
 	if err != nil {
 		t.Errorf("spinup failed: %v", err)
+		cancel()
 		return
 	}
+
+	defer func() {
+		cancel()
+		<-exit
+	}()
 
 	expMetrics := []model.Metric{
 		{
@@ -81,10 +116,11 @@ groups:
 			"replica":   "2",
 		},
 	}
-	err = runutil.Retry(5*time.Second, ctx.Done(), func() error {
+
+	testutil.Ok(t, runutil.Retry(5*time.Second, ctx.Done(), func() error {
 		select {
-		case err := <-unexpectedExit:
-			t.Errorf("Some process exited unexpectedly: %v", err)
+		case <-exit:
+			cancel()
 			return nil
 		default:
 		}
@@ -92,7 +128,7 @@ groups:
 		qtime := time.Now()
 
 		// The time series written for the firing alerting rule must be queryable.
-		res, err := queryPrometheus(ctx, "http://"+queryHTTP(1), time.Now(), "ALERTS", false)
+		res, err := promclient.QueryInstant(ctx, nil, urlParse(t, "http://"+queryHTTP(1)), "ALERTS", time.Now(), false)
 		if err != nil {
 			return err
 		}
@@ -124,10 +160,10 @@ groups:
 			}
 		}
 		return nil
-	})
-	testutil.Ok(t, err)
+	}))
 }
 
+// TODO(bwplotka): Move to promclient.
 func queryAlertmanagerAlerts(ctx context.Context, url string) ([]*model.Alert, error) {
 	req, err := http.NewRequest("GET", url+"/api/v1/alerts", nil)
 	if err != nil {
@@ -139,7 +175,7 @@ func queryAlertmanagerAlerts(ctx context.Context, url string) ([]*model.Alert, e
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer runutil.CloseWithLogOnErr(nil, resp.Body, "close body query alertmanager")
 
 	var v struct {
 		Data []*model.Alert `json:"data"`

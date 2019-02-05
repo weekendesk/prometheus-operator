@@ -1,19 +1,3 @@
-/*
-Copyright 2015 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package v1
 
 import (
@@ -25,14 +9,14 @@ import (
 // that matches Time. Do not use in Go structs.
 type Timestamp struct {
 	// Represents seconds of UTC time since Unix epoch
-	// 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
+	// 1970-01-01T00:00:00Z. Must be from from 0001-01-01T00:00:00Z to
 	// 9999-12-31T23:59:59Z inclusive.
-	Seconds int64 `json:"seconds" protobuf:"varint,1,opt,name=seconds"`
+	Seconds	int64	`json:"seconds" protobuf:"varint,1,opt,name=seconds"`
 	// Non-negative fractions of a second at nanosecond resolution. Negative
 	// second values with fractions must still have non-negative nanos values
 	// that count forward in time. Must be from 0 to 999,999,999
 	// inclusive. This field may be limited in precision depending on context.
-	Nanos int32 `json:"nanos" protobuf:"varint,2,opt,name=nanos"`
+	Nanos	int32	`json:"nanos" protobuf:"varint,2,opt,name=nanos"`
 }
 
 // Timestamp returns the Time as a new Timestamp value.
@@ -41,11 +25,8 @@ func (m *Time) ProtoTime() *Timestamp {
 		return &Timestamp{}
 	}
 	return &Timestamp{
-		Seconds: m.Time.Unix(),
-		// leaving this here for the record.  our JSON only handled seconds, so this results in writes by
-		// protobuf clients storing values that aren't read by json clients, which results in unexpected
-		// field mutation, which fails various validation and equality code.
-		// Nanos:   int32(m.Time.Nanosecond()),
+		Seconds:	m.Time.Unix(),
+		Nanos:		int32(m.Time.Nanosecond()),
 	}
 }
 
@@ -67,11 +48,7 @@ func (m *Time) Unmarshal(data []byte) error {
 	if err := p.Unmarshal(data); err != nil {
 		return err
 	}
-	// leaving this here for the record.  our JSON only handled seconds, so this results in writes by
-	// protobuf clients storing values that aren't read by json clients, which results in unexpected
-	// field mutation, which fails various validation and equality code.
-	// m.Time = time.Unix(p.Seconds, int64(p.Nanos)).Local()
-	m.Time = time.Unix(p.Seconds, int64(0)).Local()
+	m.Time = time.Unix(p.Seconds, int64(p.Nanos)).Local()
 	return nil
 }
 

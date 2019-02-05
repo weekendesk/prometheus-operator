@@ -3,95 +3,136 @@
 package block
 
 import (
+	"context"
 	"encoding/json"
-	"io/ioutil"
 	"os"
+	"path"
 	"path/filepath"
 
+	"github.com/improbable-eng/thanos/pkg/block/metadata"
+
+	"fmt"
+
+	"github.com/go-kit/kit/log"
+	"github.com/improbable-eng/thanos/pkg/objstore"
+	"github.com/improbable-eng/thanos/pkg/runutil"
+	"github.com/oklog/ulid"
 	"github.com/pkg/errors"
-	"github.com/prometheus/tsdb"
-	"github.com/prometheus/tsdb/fileutil"
 )
 
-// Meta describes the a block's meta. It wraps the known TSDB meta structure and
-// extends it by Thanos-specific fields.
-type Meta struct {
-	Version int `json:"version"`
+const (
+	// MetaFilename is the known JSON filename for meta information.
+	MetaFilename = "meta.json"
+	// IndexFilename is the known index file for block index.
+	IndexFilename = "index"
+	// ChunksDirname is the known dir name for chunks with compressed samples.
+	ChunksDirname = "chunks"
 
-	tsdb.BlockMeta
+	// DebugMetas is a directory for debug meta files that happen in the past. Useful for debugging.
+	DebugMetas = "debug/metas"
+)
 
-	Thanos ThanosMeta `json:"thanos"`
-}
+// Download downloads directory that is mean to be block directory.
+func Download(ctx context.Context, logger log.Logger, bucket objstore.Bucket, id ulid.ULID, dst string) error {
+	if err := objstore.DownloadDir(ctx, logger, bucket, id.String(), dst); err != nil {
+		return err
+	}
 
-// ThanosMeta holds block meta information specific to Thanos.
-type ThanosMeta struct {
-	Labels     map[string]string `json:"labels"`
-	Downsample struct {
-		Resolution int64 `json:"resolution"`
-	} `json:"downsample"`
-}
+	chunksDir := filepath.Join(dst, ChunksDirname)
+	_, err := os.Stat(chunksDir)
+	if os.IsNotExist(err) {
+		// This can happen if block is empty. We cannot easily upload empty directory, so create one here.
+		return os.Mkdir(chunksDir, os.ModePerm)
+	}
 
-// MetaFilename is the known JSON filename for meta information.
-const MetaFilename = "meta.json"
-
-// WriteMetaFile writes the given meta into <dir>/meta.json.
-func WriteMetaFile(dir string, meta *Meta) error {
-	// Make any changes to the file appear atomic.
-	path := filepath.Join(dir, MetaFilename)
-	tmp := path + ".tmp"
-
-	f, err := os.Create(tmp)
 	if err != nil {
-		return err
+		return errors.Wrapf(err, "stat %s", chunksDir)
 	}
 
-	enc := json.NewEncoder(f)
-	enc.SetIndent("", "\t")
-
-	if err := enc.Encode(meta); err != nil {
-		f.Close()
-		return err
-	}
-	if err := f.Close(); err != nil {
-		return err
-	}
-	return renameFile(tmp, path)
+	return nil
 }
 
-// ReadMetaFile reads the given meta from <dir>/meta.json.
-func ReadMetaFile(dir string) (*Meta, error) {
-	b, err := ioutil.ReadFile(filepath.Join(dir, MetaFilename))
+// Upload uploads block from given block dir that ends with block id.
+// It makes sure cleanup is done on error to avoid partial block uploads.
+// It also verifies basic features of Thanos block.
+// TODO(bplotka): Ensure bucket operations have reasonable backoff retries.
+func Upload(ctx context.Context, logger log.Logger, bkt objstore.Bucket, bdir string) error {
+	df, err := os.Stat(bdir)
 	if err != nil {
-		return nil, err
+		return errors.Wrap(err, "stat bdir")
 	}
-	var m Meta
+	if !df.IsDir() {
+		return errors.Errorf("%s is not a directory", bdir)
+	}
 
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, err
+	// Verify dir.
+	id, err := ulid.Parse(df.Name())
+	if err != nil {
+		return errors.Wrap(err, "not a block dir")
 	}
-	if m.Version != 1 {
-		return nil, errors.Errorf("unexpected meta file version %d", m.Version)
+
+	meta, err := metadata.Read(bdir)
+	if err != nil {
+		// No meta or broken meta file.
+		return errors.Wrap(err, "read meta")
 	}
-	return &m, nil
+
+	if meta.Thanos.Labels == nil || len(meta.Thanos.Labels) == 0 {
+		return errors.Errorf("empty external labels are not allowed for Thanos block.")
+	}
+
+	if err := objstore.UploadFile(ctx, logger, bkt, path.Join(bdir, MetaFilename), path.Join(DebugMetas, fmt.Sprintf("%s.json", id))); err != nil {
+		return errors.Wrap(err, "upload meta file to debug dir")
+	}
+
+	if err := objstore.UploadDir(ctx, logger, bkt, path.Join(bdir, ChunksDirname), path.Join(id.String(), ChunksDirname)); err != nil {
+		return cleanUp(bkt, id, errors.Wrap(err, "upload chunks"))
+	}
+
+	if err := objstore.UploadFile(ctx, logger, bkt, path.Join(bdir, IndexFilename), path.Join(id.String(), IndexFilename)); err != nil {
+		return cleanUp(bkt, id, errors.Wrap(err, "upload index"))
+	}
+
+	// Meta.json always need to be uploaded as a last item. This will allow to assume block directories without meta file
+	// to be pending uploads.
+	if err := objstore.UploadFile(ctx, logger, bkt, path.Join(bdir, MetaFilename), path.Join(id.String(), MetaFilename)); err != nil {
+		return cleanUp(bkt, id, errors.Wrap(err, "upload meta file"))
+	}
+
+	return nil
 }
 
-func renameFile(from, to string) error {
-	if err := os.RemoveAll(to); err != nil {
-		return err
+func cleanUp(bkt objstore.Bucket, id ulid.ULID, err error) error {
+	// Cleanup the dir with an uncancelable context.
+	cleanErr := Delete(context.Background(), bkt, id)
+	if cleanErr != nil {
+		return errors.Wrapf(err, "failed to clean block after upload issue. Partial block in system. Err: %s", err.Error())
 	}
-	if err := os.Rename(from, to); err != nil {
-		return err
-	}
+	return err
+}
 
-	// Directory was renamed; sync parent dir to persist rename.
-	pdir, err := fileutil.OpenDir(filepath.Dir(to))
+// Delete removes directory that is mean to be block directory.
+// NOTE: Prefer this method instead of objstore.Delete to avoid deleting empty dir (whole bucket) by mistake.
+func Delete(ctx context.Context, bucket objstore.Bucket, id ulid.ULID) error {
+	return objstore.DeleteDir(ctx, bucket, id.String())
+}
+
+// DownloadMeta downloads only meta file from bucket by block ID.
+func DownloadMeta(ctx context.Context, logger log.Logger, bkt objstore.Bucket, id ulid.ULID) (metadata.Meta, error) {
+	rc, err := bkt.Get(ctx, path.Join(id.String(), MetaFilename))
 	if err != nil {
-		return err
+		return metadata.Meta{}, errors.Wrapf(err, "meta.json bkt get for %s", id.String())
 	}
+	defer runutil.CloseWithLogOnErr(logger, rc, "download meta bucket client")
 
-	if err = fileutil.Fsync(pdir); err != nil {
-		pdir.Close()
-		return err
+	var m metadata.Meta
+	if err := json.NewDecoder(rc).Decode(&m); err != nil {
+		return metadata.Meta{}, errors.Wrapf(err, "decode meta.json for block %s", id.String())
 	}
-	return pdir.Close()
+	return m, nil
+}
+
+func IsBlockDir(path string) (id ulid.ULID, ok bool) {
+	id, err := ulid.Parse(filepath.Base(path))
+	return id, err == nil
 }

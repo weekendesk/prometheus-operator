@@ -2,6 +2,7 @@ package block
 
 import (
 	"encoding/json"
+	"fmt"
 	"hash/crc32"
 	"math/rand"
 	"os"
@@ -10,6 +11,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/improbable-eng/thanos/pkg/block/metadata"
+
+	"github.com/prometheus/tsdb/fileutil"
+
+	"github.com/go-kit/kit/log"
+	"github.com/improbable-eng/thanos/pkg/runutil"
 	"github.com/oklog/ulid"
 	"github.com/pkg/errors"
 	"github.com/prometheus/tsdb"
@@ -33,23 +40,84 @@ type indexCache struct {
 	Postings    []postingsRange
 }
 
+type realByteSlice []byte
+
+func (b realByteSlice) Len() int {
+	return len(b)
+}
+
+func (b realByteSlice) Range(start, end int) []byte {
+	return b[start:end]
+}
+
+func (b realByteSlice) Sub(start, end int) index.ByteSlice {
+	return b[start:end]
+}
+
+func getSymbolTable(b index.ByteSlice) (map[uint32]string, error) {
+	version := int(b.Range(4, 5)[0])
+
+	if version != 1 && version != 2 {
+		return nil, errors.Errorf("unknown index file version %d", version)
+	}
+
+	toc, err := index.NewTOCFromByteSlice(b)
+	if err != nil {
+		return nil, errors.Wrap(err, "read TOC")
+	}
+
+	symbolsV2, symbolsV1, err := index.ReadSymbols(b, version, int(toc.Symbols))
+	if err != nil {
+		return nil, errors.Wrap(err, "read symbols")
+	}
+
+	symbolsTable := make(map[uint32]string, len(symbolsV1)+len(symbolsV2))
+	for o, s := range symbolsV1 {
+		symbolsTable[o] = s
+	}
+	for o, s := range symbolsV2 {
+		symbolsTable[uint32(o)] = s
+	}
+
+	return symbolsTable, nil
+}
+
 // WriteIndexCache writes a cache file containing the first lookup stages
 // for an index file.
-func WriteIndexCache(fn string, r *index.Reader) error {
+func WriteIndexCache(logger log.Logger, indexFn string, fn string) error {
+	indexFile, err := fileutil.OpenMmapFile(indexFn)
+	if err != nil {
+		return errors.Wrapf(err, "open mmap index file %s", indexFn)
+	}
+	defer runutil.CloseWithLogOnErr(logger, indexFile, "close index cache mmap file from %s", indexFn)
+
+	b := realByteSlice(indexFile.Bytes())
+	indexr, err := index.NewReader(b)
+	if err != nil {
+		return errors.Wrap(err, "open index reader")
+	}
+	defer runutil.CloseWithLogOnErr(logger, indexr, "load index cache reader")
+
+	// We assume reader verified index already.
+	symbols, err := getSymbolTable(b)
+	if err != nil {
+		return err
+	}
+
 	f, err := os.Create(fn)
 	if err != nil {
-		return errors.Wrap(err, "create file")
+		return errors.Wrap(err, "create index cache file")
 	}
-	defer f.Close()
+	defer runutil.CloseWithLogOnErr(logger, f, "index cache writer")
 
 	v := indexCache{
-		Version:     r.Version(),
-		Symbols:     r.SymbolTable(),
+		Version:     indexr.Version(),
+		Symbols:     symbols,
 		LabelValues: map[string][]string{},
 	}
 
 	// Extract label value indices.
-	lnames, err := r.LabelIndices()
+	lnames, err := indexr.LabelIndices()
 	if err != nil {
 		return errors.Wrap(err, "read label indices")
 	}
@@ -59,7 +127,7 @@ func WriteIndexCache(fn string, r *index.Reader) error {
 		}
 		ln := lns[0]
 
-		tpls, err := r.LabelValues(ln)
+		tpls, err := indexr.LabelValues(ln)
 		if err != nil {
 			return errors.Wrap(err, "get label values")
 		}
@@ -79,7 +147,7 @@ func WriteIndexCache(fn string, r *index.Reader) error {
 	}
 
 	// Extract postings ranges.
-	pranges, err := r.PostingsRanges()
+	pranges, err := indexr.PostingsRanges()
 	if err != nil {
 		return errors.Wrap(err, "read postings ranges")
 	}
@@ -99,7 +167,7 @@ func WriteIndexCache(fn string, r *index.Reader) error {
 }
 
 // ReadIndexCache reads an index cache file.
-func ReadIndexCache(fn string) (
+func ReadIndexCache(logger log.Logger, fn string) (
 	version int,
 	symbols map[uint32]string,
 	lvals map[string][]string,
@@ -110,7 +178,7 @@ func ReadIndexCache(fn string) (
 	if err != nil {
 		return 0, nil, nil, nil, errors.Wrap(err, "open file")
 	}
-	defer f.Close()
+	defer runutil.CloseWithLogOnErr(logger, f, "index reader")
 
 	var v indexCache
 	if err := json.NewDecoder(f).Decode(&v); err != nil {
@@ -151,83 +219,208 @@ func ReadIndexCache(fn string) (
 }
 
 // VerifyIndex does a full run over a block index and verifies that it fulfills the order invariants.
-func VerifyIndex(fn string) error {
+func VerifyIndex(logger log.Logger, fn string, minTime int64, maxTime int64) error {
+	stats, err := GatherIndexIssueStats(logger, fn, minTime, maxTime)
+	if err != nil {
+		return err
+	}
+
+	return stats.AnyErr()
+}
+
+type Stats struct {
+	// TotalSeries represents total number of series in block.
+	TotalSeries int
+	// OutOfOrderSeries represents number of series that have out of order chunks.
+	OutOfOrderSeries int
+
+	// OutOfOrderChunks represents number of chunks that are out of order (older time range is after younger one)
+	OutOfOrderChunks int
+	// DuplicatedChunks represents number of chunks with same time ranges within same series, potential duplicates.
+	DuplicatedChunks int
+	// OutsideChunks represents number of all chunks that are before or after time range specified in block meta.
+	OutsideChunks int
+	// CompleteOutsideChunks is subset of OutsideChunks that will be never accessed. They are completely out of time range specified in block meta.
+	CompleteOutsideChunks int
+	// Issue347OutsideChunks represents subset of OutsideChunks that are outsiders caused by https://github.com/prometheus/tsdb/issues/347
+	// and is something that Thanos handle.
+	//
+	// Specifically we mean here chunks with minTime == block.maxTime and maxTime > block.MaxTime. These are
+	// are segregated into separate counters. These chunks are safe to be deleted, since they are duplicated across 2 blocks.
+	Issue347OutsideChunks int
+}
+
+// Issue347OutsideChunksErr returns error if stats indicates issue347 block issue, that is repaired explicitly before compaction (on plan block).
+func (i Stats) Issue347OutsideChunksErr() error {
+	if i.Issue347OutsideChunks > 0 {
+		return errors.Errorf("found %d chunks outside the block time range introduced by https://github.com/prometheus/tsdb/issues/347", i.Issue347OutsideChunks)
+	}
+	return nil
+}
+
+// CriticalErr returns error if stats indicates critical block issue, that might solved only by manual repair procedure.
+func (i Stats) CriticalErr() error {
+	var errMsg []string
+
+	if i.OutOfOrderSeries > 0 {
+		errMsg = append(errMsg, fmt.Sprintf(
+			"%d/%d series have an average of %.3f out-of-order chunks: "+
+				"%.3f of these are exact duplicates (in terms of data and time range)",
+			i.OutOfOrderSeries,
+			i.TotalSeries,
+			float64(i.OutOfOrderChunks)/float64(i.OutOfOrderSeries),
+			float64(i.DuplicatedChunks)/float64(i.OutOfOrderChunks),
+		))
+	}
+
+	n := i.OutsideChunks - (i.CompleteOutsideChunks + i.Issue347OutsideChunks)
+	if n > 0 {
+		errMsg = append(errMsg, fmt.Sprintf("found %d chunks non-completely outside the block time range", n))
+	}
+
+	if i.CompleteOutsideChunks > 0 {
+		errMsg = append(errMsg, fmt.Sprintf("found %d chunks completely outside the block time range", i.CompleteOutsideChunks))
+	}
+
+	if len(errMsg) > 0 {
+		return errors.New(strings.Join(errMsg, ", "))
+	}
+
+	return nil
+}
+
+// AnyErr returns error if stats indicates any block issue.
+func (i Stats) AnyErr() error {
+	var errMsg []string
+
+	if err := i.CriticalErr(); err != nil {
+		errMsg = append(errMsg, err.Error())
+	}
+
+	if err := i.Issue347OutsideChunksErr(); err != nil {
+		errMsg = append(errMsg, err.Error())
+	}
+
+	if len(errMsg) > 0 {
+		return errors.New(strings.Join(errMsg, ", "))
+	}
+
+	return nil
+}
+
+// GatherIndexIssueStats returns useful counters as well as outsider chunks (chunks outside of block time range) that
+// helps to assess index health.
+// It considers https://github.com/prometheus/tsdb/issues/347 as something that Thanos can handle.
+// See Stats.Issue347OutsideChunks for details.
+func GatherIndexIssueStats(logger log.Logger, fn string, minTime int64, maxTime int64) (stats Stats, err error) {
 	r, err := index.NewFileReader(fn)
 	if err != nil {
-		return errors.Wrap(err, "open index file")
+		return stats, errors.Wrap(err, "open index file")
 	}
-	defer r.Close()
+	defer runutil.CloseWithErrCapture(logger, &err, r, "gather index issue file reader")
 
 	p, err := r.Postings(index.AllPostingsKey())
 	if err != nil {
-		return errors.Wrap(err, "get all postings")
+		return stats, errors.Wrap(err, "get all postings")
 	}
 	var (
 		lastLset labels.Labels
 		lset     labels.Labels
 		chks     []chunks.Meta
-
-		total            int
-		outOfCorderCount int
-		outOfOrderSum    int
 	)
+
+	// Per series.
 	for p.Next() {
 		lastLset = append(lastLset[:0], lset...)
 
 		id := p.At()
-		total++
+		stats.TotalSeries++
 
 		if err := r.Series(id, &lset, &chks); err != nil {
-			return errors.Wrap(err, "read series")
+			return stats, errors.Wrap(err, "read series")
 		}
 		if len(lset) == 0 {
-			return errors.Errorf("empty label set detected for series %d", id)
+			return stats, errors.Errorf("empty label set detected for series %d", id)
 		}
 		if lastLset != nil && labels.Compare(lastLset, lset) >= 0 {
-			return errors.Errorf("series %v out of order; previous %v", lset, lastLset)
+			return stats, errors.Errorf("series %v out of order; previous %v", lset, lastLset)
 		}
 		l0 := lset[0]
 		for _, l := range lset[1:] {
 			if l.Name <= l0.Name {
-				return errors.Errorf("out-of-order label set %s for series %d", lset, id)
+				return stats, errors.Errorf("out-of-order label set %s for series %d", lset, id)
 			}
 			l0 = l
 		}
 		if len(chks) == 0 {
-			return errors.Errorf("empty chunks for series %d", id)
+			return stats, errors.Errorf("empty chunks for series %d", id)
 		}
-		c0 := chks[0]
-		ooo := 0
 
-		for _, c := range chks[1:] {
-			if c.MinTime <= c0.MaxTime {
-				ooo++
+		ooo := 0
+		// Per chunk in series.
+		for i, c := range chks {
+			// Chunk vs the block ranges.
+			if c.MinTime < minTime || c.MaxTime > maxTime {
+				stats.OutsideChunks++
+				if c.MinTime > maxTime || c.MaxTime < minTime {
+					stats.CompleteOutsideChunks++
+				} else if c.MinTime == maxTime {
+					stats.Issue347OutsideChunks++
+				}
 			}
-			c0 = c
+
+			if i == 0 {
+				continue
+			}
+
+			c0 := chks[i-1]
+
+			// Chunk order within block.
+			if c.MinTime > c0.MaxTime {
+				continue
+			}
+
+			if c.MinTime == c0.MinTime && c.MaxTime == c0.MaxTime {
+				// TODO(bplotka): Calc and check checksum from chunks itself.
+				// The chunks can overlap 1:1 in time, but does not have same data.
+				// We assume same data for simplicity, but it can be a symptom of error.
+				stats.DuplicatedChunks++
+				continue
+			}
+			// Chunks partly overlaps or out of order.
+			ooo++
 		}
 		if ooo > 0 {
-			outOfCorderCount++
-			outOfOrderSum += ooo
+			stats.OutOfOrderSeries++
+			stats.OutOfOrderChunks += ooo
 		}
 	}
 	if p.Err() != nil {
-		return errors.Wrap(err, "walk postings")
+		return stats, errors.Wrap(err, "walk postings")
 	}
-	if outOfCorderCount > 0 {
-		return errors.Errorf("%d/%d series have an average of %.3f out-of-order chunks",
-			outOfCorderCount, total, float64(outOfOrderSum)/float64(outOfCorderCount))
-	}
-	return nil
+
+	return stats, nil
 }
 
-// Repair open the block with given id in dir and creates a new one with the same data.
+type ignoreFnType func(mint, maxt int64, prev *chunks.Meta, curr *chunks.Meta) (bool, error)
+
+// Repair open the block with given id in dir and creates a new one with fixed data.
+// It:
+// - removes out of order duplicates
+// - all "complete" outsiders (they will not accessed anyway)
+// - removes all near "complete" outside chunks introduced by https://github.com/prometheus/tsdb/issues/347.
 // Fixable inconsistencies are resolved in the new block.
-func Repair(dir string, id ulid.ULID) (resid ulid.ULID, err error) {
+// TODO(bplotka): https://github.com/improbable-eng/thanos/issues/378
+func Repair(logger log.Logger, dir string, id ulid.ULID, source metadata.SourceType, ignoreChkFns ...ignoreFnType) (resid ulid.ULID, err error) {
+	if len(ignoreChkFns) == 0 {
+		return resid, errors.New("no ignore chunk function specified")
+	}
+
 	bdir := filepath.Join(dir, id.String())
 	entropy := rand.New(rand.NewSource(time.Now().UnixNano()))
 	resid = ulid.MustNew(ulid.Now(), entropy)
 
-	meta, err := ReadMetaFile(bdir)
+	meta, err := metadata.Read(bdir)
 	if err != nil {
 		return resid, errors.Wrap(err, "read meta file")
 	}
@@ -235,46 +428,49 @@ func Repair(dir string, id ulid.ULID) (resid ulid.ULID, err error) {
 		return resid, errors.New("cannot repair downsampled block")
 	}
 
-	b, err := tsdb.OpenBlock(bdir, nil)
+	b, err := tsdb.OpenBlock(logger, bdir, nil)
 	if err != nil {
 		return resid, errors.Wrap(err, "open block")
 	}
+	defer runutil.CloseWithErrCapture(logger, &err, b, "repair block reader")
+
 	indexr, err := b.Index()
 	if err != nil {
 		return resid, errors.Wrap(err, "open index")
 	}
-	defer indexr.Close()
+	defer runutil.CloseWithErrCapture(logger, &err, indexr, "repair index reader")
 
 	chunkr, err := b.Chunks()
 	if err != nil {
 		return resid, errors.Wrap(err, "open chunks")
 	}
-	defer chunkr.Close()
+	defer runutil.CloseWithErrCapture(logger, &err, chunkr, "repair chunk reader")
 
 	resdir := filepath.Join(dir, resid.String())
 
-	chunkw, err := chunks.NewWriter(filepath.Join(resdir, "chunks"))
+	chunkw, err := chunks.NewWriter(filepath.Join(resdir, ChunksDirname))
 	if err != nil {
 		return resid, errors.Wrap(err, "open chunk writer")
 	}
-	defer chunkw.Close()
+	defer runutil.CloseWithErrCapture(logger, &err, chunkw, "repair chunk writer")
 
-	indexw, err := index.NewWriter(filepath.Join(resdir, "index"))
+	indexw, err := index.NewWriter(filepath.Join(resdir, IndexFilename))
 	if err != nil {
 		return resid, errors.Wrap(err, "open index writer")
 	}
-	defer indexw.Close()
+	defer runutil.CloseWithErrCapture(logger, &err, indexw, "repair index writer")
 
 	// TODO(fabxc): adapt so we properly handle the version once we update to an upstream
 	// that has multiple.
 	resmeta := *meta
 	resmeta.ULID = resid
 	resmeta.Stats = tsdb.BlockStats{} // reset stats
+	resmeta.Thanos.Source = source    // update source
 
-	if err := rewrite(indexr, chunkr, indexw, chunkw, &resmeta); err != nil {
+	if err := rewrite(indexr, chunkr, indexw, chunkw, &resmeta, ignoreChkFns); err != nil {
 		return resid, errors.Wrap(err, "rewrite block")
 	}
-	if err := WriteMetaFile(resdir, &resmeta); err != nil {
+	if err := metadata.Write(logger, resdir, &resmeta); err != nil {
 		return resid, err
 	}
 	return resid, nil
@@ -282,9 +478,50 @@ func Repair(dir string, id ulid.ULID) (resid ulid.ULID, err error) {
 
 var castagnoli = crc32.MakeTable(crc32.Castagnoli)
 
+func IgnoreCompleteOutsideChunk(mint int64, maxt int64, _ *chunks.Meta, curr *chunks.Meta) (bool, error) {
+	if curr.MinTime > maxt || curr.MaxTime < mint {
+		// "Complete" outsider. Ignore.
+		return true, nil
+	}
+	return false, nil
+}
+
+func IgnoreIssue347OutsideChunk(_ int64, maxt int64, _ *chunks.Meta, curr *chunks.Meta) (bool, error) {
+	if curr.MinTime == maxt {
+		// "Near" outsider from issue https://github.com/prometheus/tsdb/issues/347. Ignore.
+		return true, nil
+	}
+	return false, nil
+}
+
+func IgnoreDuplicateOutsideChunk(_ int64, _ int64, last *chunks.Meta, curr *chunks.Meta) (bool, error) {
+	if last == nil {
+		return false, nil
+	}
+
+	if curr.MinTime > last.MaxTime {
+		return false, nil
+	}
+
+	// Verify that the overlapping chunks are exact copies so we can safely discard
+	// the current one.
+	if curr.MinTime != last.MinTime || curr.MaxTime != last.MaxTime {
+		return false, errors.Errorf("non-sequential chunks not equal: [%d, %d] and [%d, %d]",
+			last.MaxTime, last.MaxTime, curr.MinTime, curr.MaxTime)
+	}
+	ca := crc32.Checksum(last.Chunk.Bytes(), castagnoli)
+	cb := crc32.Checksum(curr.Chunk.Bytes(), castagnoli)
+
+	if ca != cb {
+		return false, errors.Errorf("non-sequential chunks not equal: %x and %x", ca, cb)
+	}
+
+	return true, nil
+}
+
 // sanitizeChunkSequence ensures order of the input chunks and drops any duplicates.
 // It errors if the sequence contains non-dedupable overlaps.
-func sanitizeChunkSequence(chks []chunks.Meta) ([]chunks.Meta, error) {
+func sanitizeChunkSequence(chks []chunks.Meta, mint int64, maxt int64, ignoreChkFns []ignoreFnType) ([]chunks.Meta, error) {
 	if len(chks) == 0 {
 		return nil, nil
 	}
@@ -292,30 +529,28 @@ func sanitizeChunkSequence(chks []chunks.Meta) ([]chunks.Meta, error) {
 	sort.Slice(chks, func(i, j int) bool {
 		return chks[i].MinTime < chks[j].MinTime
 	})
+
+	// Remove duplicates, complete outsiders and near outsiders.
 	repl := make([]chunks.Meta, 0, len(chks))
-	last := chks[0]
+	var last *chunks.Meta
 
-	repl = append(repl, last)
+OUTER:
+	for _, c := range chks {
+		for _, ignoreChkFn := range ignoreChkFns {
+			ignore, err := ignoreChkFn(mint, maxt, last, &c)
+			if err != nil {
+				return nil, errors.Wrap(err, "ignore function")
+			}
 
-	for _, c := range chks[1:] {
-		if c.MinTime > last.MaxTime {
-			repl = append(repl, c)
-			last = c
-			continue
+			if ignore {
+				continue OUTER
+			}
 		}
-		// Verify that the overlapping chunks are exact copies so we can safely discard
-		// the current one.
-		if c.MinTime != last.MinTime || c.MaxTime != last.MaxTime {
-			return nil, errors.Errorf("non-sequential chunks not equal: [%d, %d] and [%d, %d]",
-				last.MaxTime, last.MaxTime, c.MinTime, c.MaxTime)
-		}
-		ca := crc32.Checksum(last.Chunk.Bytes(), castagnoli)
-		cb := crc32.Checksum(c.Chunk.Bytes(), castagnoli)
 
-		if ca != cb {
-			return nil, errors.Errorf("non-sequential chunks not equal: %x and %x", ca, cb)
-		}
+		last = &c
+		repl = append(repl, c)
 	}
+
 	return repl, nil
 }
 
@@ -324,7 +559,8 @@ func sanitizeChunkSequence(chks []chunks.Meta) ([]chunks.Meta, error) {
 func rewrite(
 	indexr tsdb.IndexReader, chunkr tsdb.ChunkReader,
 	indexw tsdb.IndexWriter, chunkw tsdb.ChunkWriter,
-	meta *Meta,
+	meta *metadata.Meta,
+	ignoreChkFns []ignoreFnType,
 ) error {
 	symbols, err := indexr.Symbols()
 	if err != nil {
@@ -362,10 +598,16 @@ func rewrite(
 				return err
 			}
 		}
-		chks, err := sanitizeChunkSequence(chks)
+
+		chks, err := sanitizeChunkSequence(chks, meta.MinTime, meta.MaxTime, ignoreChkFns)
 		if err != nil {
 			return err
 		}
+
+		if len(chks) == 0 {
+			continue
+		}
+
 		if err := chunkw.WriteChunks(chks...); err != nil {
 			return errors.Wrap(err, "write chunks")
 		}

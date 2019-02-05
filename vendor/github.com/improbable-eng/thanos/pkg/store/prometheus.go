@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"math"
 	"net/http"
@@ -13,13 +14,14 @@ import (
 	"sync"
 
 	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/log/level"
 	"github.com/gogo/protobuf/proto"
 	"github.com/golang/snappy"
+	"github.com/improbable-eng/thanos/pkg/runutil"
 	"github.com/improbable-eng/thanos/pkg/store/prompb"
 	"github.com/improbable-eng/thanos/pkg/store/storepb"
 	"github.com/improbable-eng/thanos/pkg/tracing"
 	"github.com/pkg/errors"
-	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/tsdb/chunkenc"
 	"github.com/prometheus/tsdb/labels"
 	"google.golang.org/grpc/codes"
@@ -33,6 +35,7 @@ type PrometheusStore struct {
 	client         *http.Client
 	buffers        sync.Pool
 	externalLabels func() labels.Labels
+	timestamps     func() (mint int64, maxt int64)
 }
 
 // NewPrometheusStore returns a new PrometheusStore that uses the given HTTP client
@@ -40,10 +43,10 @@ type PrometheusStore struct {
 // It attaches the provided external labels to all results.
 func NewPrometheusStore(
 	logger log.Logger,
-	reg prometheus.Registerer,
 	client *http.Client,
 	baseURL *url.URL,
 	externalLabels func() labels.Labels,
+	timestamps func() (mint int64, maxt int64),
 ) (*PrometheusStore, error) {
 	if logger == nil {
 		logger = log.NewNopLogger()
@@ -58,6 +61,7 @@ func NewPrometheusStore(
 		base:           baseURL,
 		client:         client,
 		externalLabels: externalLabels,
+		timestamps:     timestamps,
 	}
 	return p, nil
 }
@@ -67,10 +71,11 @@ func NewPrometheusStore(
 // This is fine for now, but might be needed in future.
 func (p *PrometheusStore) Info(ctx context.Context, r *storepb.InfoRequest) (*storepb.InfoResponse, error) {
 	lset := p.externalLabels()
+	mint, maxt := p.timestamps()
 
 	res := &storepb.InfoResponse{
-		MinTime: 0,
-		MaxTime: math.MaxInt64,
+		MinTime: mint,
+		MaxTime: maxt,
 		Labels:  make([]storepb.Label, 0, len(lset)),
 	}
 	for _, l := range lset {
@@ -137,25 +142,63 @@ func (p *PrometheusStore) Series(r *storepb.SeriesRequest, s storepb.Store_Serie
 
 	for _, e := range resp.Results[0].Timeseries {
 		lset := p.translateAndExtendLabels(e.Labels, ext)
-		// We generally expect all samples of the requested range to be traversed
-		// so we just encode all samples into one big chunk regardless of size.
-		enc, cb, err := p.encodeChunk(e.Samples)
-		if err != nil {
-			return status.Error(codes.Unknown, err.Error())
+
+		if len(e.Samples) == 0 {
+			// As found in https://github.com/improbable-eng/thanos/issues/381
+			// Prometheus can give us completely empty time series. Ignore these with log until we figure out that
+			// this is expected from Prometheus perspective.
+			level.Warn(p.logger).Log(
+				"msg",
+				"found timeseries without any chunk. See https://github.com/improbable-eng/thanos/issues/381 for details",
+				"lset",
+				fmt.Sprintf("%v", lset),
+			)
+			continue
 		}
+
+		// XOR encoding supports a max size of 2^16 - 1 samples, so we need
+		// to chunk all samples into groups of no more than 2^16 - 1
+		aggregatedChunks, err := p.chunkSamples(e, math.MaxUint16)
+		if err != nil {
+			return err
+		}
+
 		resp := storepb.NewSeriesResponse(&storepb.Series{
 			Labels: lset,
-			Chunks: []storepb.AggrChunk{{
-				MinTime: int64(e.Samples[0].Timestamp),
-				MaxTime: int64(e.Samples[len(e.Samples)-1].Timestamp),
-				Raw:     &storepb.Chunk{Type: enc, Data: cb},
-			}},
+			Chunks: aggregatedChunks,
 		})
 		if err := s.Send(resp); err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func (p *PrometheusStore) chunkSamples(series prompb.TimeSeries, samplesPerChunk int) ([]storepb.AggrChunk, error) {
+	var aggregatedChunks []storepb.AggrChunk
+	samples := series.Samples
+
+	for len(samples) > 0 {
+		chunkSize := len(samples)
+		if chunkSize > samplesPerChunk {
+			chunkSize = samplesPerChunk
+		}
+
+		enc, cb, err := p.encodeChunk(samples[:chunkSize])
+		if err != nil {
+			return nil, status.Error(codes.Unknown, err.Error())
+		}
+
+		aggregatedChunks = append(aggregatedChunks, storepb.AggrChunk{
+			MinTime: int64(samples[0].Timestamp),
+			MaxTime: int64(samples[chunkSize-1].Timestamp),
+			Raw:     &storepb.Chunk{Type: enc, Data: cb},
+		})
+
+		samples = samples[chunkSize:]
+	}
+
+	return aggregatedChunks, nil
 }
 
 func (p *PrometheusStore) promSeries(ctx context.Context, q prompb.Query) (*prompb.ReadResponse, error) {
@@ -168,7 +211,7 @@ func (p *PrometheusStore) promSeries(ctx context.Context, q prompb.Query) (*prom
 	}
 
 	u := *p.base
-	u.Path = "/api/v1/read"
+	u.Path = path.Join(u.Path, "api/v1/read")
 
 	preq, err := http.NewRequest("POST", u.String(), bytes.NewReader(snappy.Encode(nil, reqb)))
 	if err != nil {
@@ -184,7 +227,7 @@ func (p *PrometheusStore) promSeries(ctx context.Context, q prompb.Query) (*prom
 	if err != nil {
 		return nil, errors.Wrap(err, "send request")
 	}
-	defer presp.Body.Close()
+	defer runutil.CloseWithLogOnErr(p.logger, presp.Body, "prom series request body")
 
 	if presp.StatusCode/100 != 2 {
 		return nil, errors.Errorf("request failed with code %s", presp.Status)
@@ -214,6 +257,10 @@ func (p *PrometheusStore) promSeries(ctx context.Context, q prompb.Query) (*prom
 }
 
 func labelsMatches(lset labels.Labels, ms []storepb.LabelMatcher) (bool, []storepb.LabelMatcher, error) {
+	if len(lset) == 0 {
+		return true, ms, nil
+	}
+
 	var newMatcher []storepb.LabelMatcher
 	for _, m := range ms {
 		// Validate all matchers.
@@ -291,9 +338,14 @@ func (p *PrometheusStore) LabelNames(ctx context.Context, r *storepb.LabelNamesR
 }
 
 // LabelValues returns all known label values for a given label name.
-func (p *PrometheusStore) LabelValues(ctx context.Context, r *storepb.LabelValuesRequest) (
-	*storepb.LabelValuesResponse, error,
-) {
+func (p *PrometheusStore) LabelValues(ctx context.Context, r *storepb.LabelValuesRequest) (*storepb.LabelValuesResponse, error) {
+	externalLset := p.externalLabels()
+
+	// First check for matching external label which has priority.
+	if l := externalLset.Get(r.Label); l != "" {
+		return &storepb.LabelValuesResponse{Values: []string{l}}, nil
+	}
+
 	u := *p.base
 	u.Path = path.Join(u.Path, "/api/v1/label/", r.Label, "/values")
 
@@ -309,7 +361,7 @@ func (p *PrometheusStore) LabelValues(ctx context.Context, r *storepb.LabelValue
 	if err != nil {
 		return nil, status.Error(codes.Unknown, err.Error())
 	}
-	defer resp.Body.Close()
+	defer runutil.CloseWithLogOnErr(p.logger, resp.Body, "label values request body")
 
 	var m struct {
 		Data []string `json:"data"`

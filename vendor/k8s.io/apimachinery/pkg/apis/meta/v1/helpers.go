@@ -1,19 +1,3 @@
-/*
-Copyright 2016 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package v1
 
 import (
@@ -84,7 +68,7 @@ func LabelSelectorAsMap(ps *LabelSelector) (map[string]string, error) {
 			if len(expr.Values) != 1 {
 				return selector, fmt.Errorf("operator %q without a single value cannot be converted into the old label selector format", expr.Operator)
 			}
-			// Should we do anything in case this will override a previous key-value pair?
+
 			selector[expr.Key] = expr.Values[0]
 		case LabelSelectorOpNotIn, LabelSelectorOpExists, LabelSelectorOpDoesNotExist:
 			return selector, fmt.Errorf("operator %q cannot be converted into the old label selector format", expr.Operator)
@@ -104,8 +88,8 @@ func ParseToLabelSelector(selector string) (*LabelSelector, error) {
 	}
 
 	labelSelector := &LabelSelector{
-		MatchLabels:      map[string]string{},
-		MatchExpressions: []LabelSelectorRequirement{},
+		MatchLabels:		map[string]string{},
+		MatchExpressions:	[]LabelSelectorRequirement{},
 	}
 	for _, req := range reqs {
 		var op LabelSelectorOperator
@@ -130,15 +114,15 @@ func ParseToLabelSelector(selector string) (*LabelSelector, error) {
 		case selection.DoesNotExist:
 			op = LabelSelectorOpDoesNotExist
 		case selection.GreaterThan, selection.LessThan:
-			// Adding a separate case for these operators to indicate that this is deliberate
+
 			return nil, fmt.Errorf("%q isn't supported in label selectors", req.Operator())
 		default:
 			return nil, fmt.Errorf("%q is not a valid label selector operator", req.Operator())
 		}
 		labelSelector.MatchExpressions = append(labelSelector.MatchExpressions, LabelSelectorRequirement{
-			Key:      req.Key(),
-			Operator: op,
-			Values:   req.Values().List(),
+			Key:		req.Key(),
+			Operator:	op,
+			Values:		req.Values().List(),
 		})
 	}
 	return labelSelector, nil
@@ -201,8 +185,8 @@ func SetMetaDataAnnotation(obj *ObjectMeta, ann string, value string) {
 // SingleObject returns a ListOptions for watching a single object.
 func SingleObject(meta ObjectMeta) ListOptions {
 	return ListOptions{
-		FieldSelector:   fields.OneTermEqualSelector("metadata.name", meta.Name).String(),
-		ResourceVersion: meta.ResourceVersion,
+		FieldSelector:		fields.OneTermEqualSelector("metadata.name", meta.Name).String(),
+		ResourceVersion:	meta.ResourceVersion,
 	}
 }
 
@@ -228,7 +212,7 @@ func NewUIDPreconditions(uid string) *Preconditions {
 }
 
 // HasObjectMetaSystemFieldValues returns true if fields that are managed by the system on ObjectMeta have values.
-func HasObjectMetaSystemFieldValues(meta Object) bool {
-	return !meta.GetCreationTimestamp().Time.IsZero() ||
-		len(meta.GetUID()) != 0
+func HasObjectMetaSystemFieldValues(meta *ObjectMeta) bool {
+	return !meta.CreationTimestamp.Time.IsZero() ||
+		len(meta.UID) != 0
 }

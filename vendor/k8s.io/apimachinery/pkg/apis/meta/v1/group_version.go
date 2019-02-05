@@ -1,19 +1,3 @@
-/*
-Copyright 2015 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package v1
 
 import (
@@ -29,8 +13,8 @@ import (
 //
 // +protobuf.options.(gogoproto.goproto_stringer)=false
 type GroupResource struct {
-	Group    string `json:"group" protobuf:"bytes,1,opt,name=group"`
-	Resource string `json:"resource" protobuf:"bytes,2,opt,name=resource"`
+	Group		string	`protobuf:"bytes,1,opt,name=group"`
+	Resource	string	`protobuf:"bytes,2,opt,name=resource"`
 }
 
 func (gr *GroupResource) String() string {
@@ -45,9 +29,9 @@ func (gr *GroupResource) String() string {
 //
 // +protobuf.options.(gogoproto.goproto_stringer)=false
 type GroupVersionResource struct {
-	Group    string `json:"group" protobuf:"bytes,1,opt,name=group"`
-	Version  string `json:"version" protobuf:"bytes,2,opt,name=version"`
-	Resource string `json:"resource" protobuf:"bytes,3,opt,name=resource"`
+	Group		string	`protobuf:"bytes,1,opt,name=group"`
+	Version		string	`protobuf:"bytes,2,opt,name=version"`
+	Resource	string	`protobuf:"bytes,3,opt,name=resource"`
 }
 
 func (gvr *GroupVersionResource) String() string {
@@ -59,8 +43,8 @@ func (gvr *GroupVersionResource) String() string {
 //
 // +protobuf.options.(gogoproto.goproto_stringer)=false
 type GroupKind struct {
-	Group string `json:"group" protobuf:"bytes,1,opt,name=group"`
-	Kind  string `json:"kind" protobuf:"bytes,2,opt,name=kind"`
+	Group	string	`protobuf:"bytes,1,opt,name=group"`
+	Kind	string	`protobuf:"bytes,2,opt,name=kind"`
 }
 
 func (gk *GroupKind) String() string {
@@ -75,9 +59,9 @@ func (gk *GroupKind) String() string {
 //
 // +protobuf.options.(gogoproto.goproto_stringer)=false
 type GroupVersionKind struct {
-	Group   string `json:"group" protobuf:"bytes,1,opt,name=group"`
-	Version string `json:"version" protobuf:"bytes,2,opt,name=version"`
-	Kind    string `json:"kind" protobuf:"bytes,3,opt,name=kind"`
+	Group	string	`protobuf:"bytes,1,opt,name=group"`
+	Version	string	`protobuf:"bytes,2,opt,name=version"`
+	Kind	string	`protobuf:"bytes,3,opt,name=kind"`
 }
 
 func (gvk GroupVersionKind) String() string {
@@ -88,8 +72,8 @@ func (gvk GroupVersionKind) String() string {
 //
 // +protobuf.options.(gogoproto.goproto_stringer)=false
 type GroupVersion struct {
-	Group   string `json:"group" protobuf:"bytes,1,opt,name=group"`
-	Version string `json:"version" protobuf:"bytes,2,opt,name=version"`
+	Group	string	`protobuf:"bytes,1,opt,name=group"`
+	Version	string	`protobuf:"bytes,2,opt,name=version"`
 }
 
 // Empty returns true if group and version are empty
@@ -100,12 +84,11 @@ func (gv GroupVersion) Empty() bool {
 // String puts "group" and "version" into a single "group/version" string. For the legacy v1
 // it returns "v1".
 func (gv GroupVersion) String() string {
-	// special case the internal apiVersion for the legacy kube types
+
 	if gv.Empty() {
 		return ""
 	}
 
-	// special case of "v1" for backward compatibility
 	if len(gv.Group) == 0 && gv.Version == "v1" {
 		return gv.Version
 	}

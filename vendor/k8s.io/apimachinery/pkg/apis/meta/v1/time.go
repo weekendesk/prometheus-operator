@@ -1,25 +1,12 @@
-/*
-Copyright 2014 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package v1
 
 import (
 	"encoding/json"
 	"time"
 
+	"k8s.io/apimachinery/pkg/openapi"
+
+	"github.com/go-openapi/spec"
 	"github.com/google/gofuzz"
 )
 
@@ -34,11 +21,11 @@ type Time struct {
 	time.Time `protobuf:"-"`
 }
 
-// DeepCopyInto creates a deep-copy of the Time value.  The underlying time.Time
+// DeepCopy returns a deep-copy of the Time value.  The underlying time.Time
 // type is effectively immutable in the time API, so it is safe to
 // copy-by-assign, despite the presence of (unexported) Pointer fields.
-func (t *Time) DeepCopyInto(out *Time) {
-	*out = *t
+func (t Time) DeepCopy() Time {
+	return t
 }
 
 // String returns the representation of the time.
@@ -71,19 +58,13 @@ func (t *Time) IsZero() bool {
 }
 
 // Before reports whether the time instant t is before u.
-func (t *Time) Before(u *Time) bool {
+func (t Time) Before(u Time) bool {
 	return t.Time.Before(u.Time)
 }
 
 // Equal reports whether the time instant t is equal to u.
-func (t *Time) Equal(u *Time) bool {
-	if t == nil && u == nil {
-		return true
-	}
-	if t != nil && u != nil {
-		return t.Time.Equal(u.Time)
-	}
-	return false
+func (t Time) Equal(u Time) bool {
+	return t.Time.Equal(u.Time)
 }
 
 // Unix returns the local time corresponding to the given Unix time
@@ -106,10 +87,7 @@ func (t *Time) UnmarshalJSON(b []byte) error {
 	}
 
 	var str string
-	err := json.Unmarshal(b, &str)
-	if err != nil {
-		return err
-	}
+	json.Unmarshal(b, &str)
 
 	pt, err := time.Parse(time.RFC3339, str)
 	if err != nil {
@@ -126,7 +104,7 @@ func (t *Time) UnmarshalQueryParameter(str string) error {
 		t.Time = time.Time{}
 		return nil
 	}
-	// Tolerate requests from older clients that used JSON serialization to build query params
+
 	if len(str) == 4 && str == "null" {
 		t.Time = time.Time{}
 		return nil
@@ -144,27 +122,28 @@ func (t *Time) UnmarshalQueryParameter(str string) error {
 // MarshalJSON implements the json.Marshaler interface.
 func (t Time) MarshalJSON() ([]byte, error) {
 	if t.IsZero() {
-		// Encode unset/nil objects as JSON's "null".
+
 		return []byte("null"), nil
 	}
 
 	return json.Marshal(t.UTC().Format(time.RFC3339))
 }
 
-// OpenAPISchemaType is used by the kube-openapi generator when constructing
-// the OpenAPI spec of this type.
-//
-// See: https://github.com/kubernetes/kube-openapi/tree/master/pkg/generators
-func (_ Time) OpenAPISchemaType() []string { return []string{"string"} }
-
-// OpenAPISchemaFormat is used by the kube-openapi generator when constructing
-// the OpenAPI spec of this type.
-func (_ Time) OpenAPISchemaFormat() string { return "date-time" }
+func (_ Time) OpenAPIDefinition() openapi.OpenAPIDefinition {
+	return openapi.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type:	[]string{"string"},
+				Format:	"date-time",
+			},
+		},
+	}
+}
 
 // MarshalQueryParameter converts to a URL query parameter value
 func (t Time) MarshalQueryParameter() (string, error) {
 	if t.IsZero() {
-		// Encode unset/nil objects as an empty string
+
 		return "", nil
 	}
 
@@ -176,9 +155,7 @@ func (t *Time) Fuzz(c fuzz.Continue) {
 	if t == nil {
 		return
 	}
-	// Allow for about 1000 years of randomness.  Leave off nanoseconds
-	// because JSON doesn't represent them so they can't round-trip
-	// properly.
+
 	t.Time = time.Unix(c.Rand.Int63n(1000*365*24*60*60), 0)
 }
 

@@ -15,6 +15,21 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/alecthomas/template"
+  packages = [
+    ".",
+    "parse"
+  ]
+  revision = "a0175ee3bccc567396460bf5acd36800cb10c49c"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/alecthomas/units"
+  packages = ["."]
+  revision = "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a"
+
+[[projects]]
+  branch = "master"
   name = "github.com/beorn7/perks"
   packages = ["quantile"]
   revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
@@ -49,6 +64,12 @@
   ]
   revision = "777bb3f19bcafe2575ffb2a3e46af92509ae9594"
   version = "v1.2"
+
+[[projects]]
+  name = "github.com/fsnotify/fsnotify"
+  packages = ["."]
+  revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
+  version = "v1.4.7"
 
 [[projects]]
   name = "github.com/ghodss/yaml"
@@ -129,6 +150,15 @@
   version = "v1.1.0"
 
 [[projects]]
+  branch = "dependabot/dep/github.com/go-kit/kit-0.8.0"
+  name = "github.com/improbable-eng/thanos"
+  packages = [
+    "pkg/reloader",
+    "pkg/runutil"
+  ]
+  revision = "d955ebf7abd0e61261a2aa50c43a48d769e42332"
+
+[[projects]]
   name = "github.com/juju/ratelimit"
   packages = ["."]
   revision = "59fac5042749a5afb9af70e813da1dd5474f0167"
@@ -169,6 +199,12 @@
   name = "github.com/mitchellh/hashstructure"
   packages = ["."]
   revision = "a38c50148365edc8df43c1580c48fb2b3a1e9cd7"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/oklog/run"
+  packages = ["."]
+  revision = "4dadeb3030eda0273a12382bb2348ffc7c9d1a39"
   version = "v1.0.0"
 
 [[projects]]
@@ -264,6 +300,12 @@
   revision = "37e7f081c4d4c64e13b10787722085407fe5d15f"
 
 [[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  revision = "41f3e6584952bb034a481797859f6ab34b6803bd"
+
+[[projects]]
   name = "golang.org/x/text"
   packages = [
     "collate",
@@ -284,6 +326,12 @@
   ]
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
+
+[[projects]]
+  name = "gopkg.in/alecthomas/kingpin.v2"
+  packages = ["."]
+  revision = "947dcec5ba9c011838740e680966fd7087a71d0d"
+  version = "v2.2.6"
 
 [[projects]]
   name = "gopkg.in/inf.v0"
@@ -429,6 +477,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f350b77b934bbd33c0d8ed946777cbac47f29c0087bdb0a7c1d4146c18db8965"
+  inputs-digest = "c912a3716e33373b3447f28fb42971a28f9fc894812413ca169b9d72d0b52526"
   solver-name = "gps-cdcl"
   solver-version = 1
