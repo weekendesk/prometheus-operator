@@ -28,6 +28,7 @@ import (
 
 	"github.com/blang/semver"
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
+
 	"github.com/coreos/prometheus-operator/pkg/k8sutil"
 	"github.com/pkg/errors"
 )
@@ -777,12 +778,8 @@ func makeStatefulSetSpec(p monitoringv1.Prometheus, c *Config, ruleConfigMapName
 	}
 
 	return &appsv1.StatefulSetSpec{
-		ServiceName:         governingServiceName,
-		Replicas:            p.Spec.Replicas,
-		PodManagementPolicy: appsv1.ParallelPodManagement,
-		UpdateStrategy: appsv1.StatefulSetUpdateStrategy{
-			Type: appsv1.RollingUpdateStatefulSetStrategyType,
-		},
+		ServiceName: governingServiceName,
+		Replicas:    p.Spec.Replicas,
 		Selector: &metav1.LabelSelector{
 			MatchLabels: finalLabels,
 		},
@@ -827,7 +824,6 @@ func makeStatefulSetSpec(p monitoringv1.Prometheus, c *Config, ruleConfigMapName
 				SecurityContext:               securityContext,
 				ServiceAccountName:            p.Spec.ServiceAccountName,
 				NodeSelector:                  p.Spec.NodeSelector,
-				PriorityClassName:             p.Spec.PriorityClassName,
 				TerminationGracePeriodSeconds: &terminationGracePeriod,
 				Volumes:     volumes,
 				Tolerations: p.Spec.Tolerations,

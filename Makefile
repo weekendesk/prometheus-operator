@@ -2,7 +2,6 @@ SHELL=/bin/bash -o pipefail
 
 GO_PKG=github.com/coreos/prometheus-operator
 REPO?=quay.io/coreos/prometheus-operator
-REPO_PROMETHEUS_CONFIG_RELOADER?=quay.io/coreos/prometheus-config-reloader
 TAG?=$(shell git rev-parse --short HEAD)
 
 FIRST_GOPATH:=$(firstword $(subst :, ,$(shell go env GOPATH)))
@@ -36,7 +35,7 @@ clean:
 ############
 
 .PHONY: build
-build: operator prometheus-config-reloader k8s-gen
+build: k8s-gen operator
 
 .PHONY: operator
 operator: $(GOLANG_FILES)
@@ -44,35 +43,72 @@ operator: $(GOLANG_FILES)
 	-ldflags "-X $(GO_PKG)/pkg/version.Version=$(shell cat VERSION)" \
 	-o $@ cmd/operator/main.go
 
-.PHONY: prometheus-config-reloader
-prometheus-config-reloader:
-	GOOS=linux CGO_ENABLED=0 go build \
-	-ldflags "-X $(GO_PKG)/pkg/version.Version=$(shell cat VERSION)" \
-	-o $@ cmd/$@/main.go
+ANNOTATE_TYPE_BINARY=cmd/po-annotate-types/po-annotate-types
+cmd/po-annotate-types/po-annotate-types:
+	go build -o $(ANNOTATE_TYPE_BINARY) cmd/po-annotate-types/main.go
 
-COMPATIBILITY_DEEPCOPY_TARGET:=vendor/k8s.io/apimachinery/pkg/apis/meta/v1/compatibility_zz_generated.deepcop.go
-COMPATIBILITY_DEEPCOPY_TARGET+=vendor/k8s.io/client-go/pkg/api/v1/compatibility_zz_generated.deepcop.go
-$(COMPATIBILITY_DEEPCOPY_TARGET): $(K8S_GEN_DEPS)
-vendor/k8s.io/apimachinery/pkg/apis/meta/v1/compatibility_zz_generated.deepcop.go:
+annotate-apimachinery: $(ANNOTATE_TYPE_BINARY)
+	$(ANNOTATE_TYPE_BINARY) --annotation="+k8s:deepcopy-gen=true" \
+	--path-to-package="vendor/k8s.io/apimachinery/pkg/apis/meta/v1" \
+	--type="ObjectMeta" \
+	--type="OwnerReference" \
+	--type="LabelSelectorRequirement" \
+	--type="VolumeClaimTemplate" \
+	--type="ListOptions" \
+	--type="LabelSelector"
+
+annotate-v1: $(ANNOTATE_TYPE_BINARY)
+	$(ANNOTATE_TYPE_BINARY) --annotation="+k8s:deepcopy-gen=true" \
+	--path-to-package="vendor/k8s.io/client-go/pkg/api/v1" \
+	--type="Affinity" \
+	--type="ConfigMapEnvSource" \
+	--type="Container" \
+	--type="EnvFromSource" \
+	--type="EnvVar" \
+	--type="EnvVarSource" \
+	--type="Handler" \
+	--type="Lifecycle" \
+	--type="NodeAffinity" \
+	--type="NodeSelector" \
+	--type="PodAffinity" \
+	--type="PodAffinityTerm" \
+	--type="PodAntiAffinity" \
+	--type="PodSecurityContext" \
+	--type="PreferredSchedulingTerm" \
+	--type="Probe" \
+	--type="ResourceRequirements" \
+	--type="SecretEnvSource" \
+	--type="SecretKeySelector" \
+	--type="SecurityContext" \
+	--type="Toleration" \
+	--type="WeightedPodAffinityTerm" \
+	--type="ResourceFieldSelector" \
+	--type="ConfigMapKeySelector" \
+	--type="ExecAction" \
+	--type="HTTPGetAction" \
+	--type="NodeSelectorTerm" \
+	--type="Capabilities" \
+	--type="NodeSelectorRequirement" \
+	--type="PersistentVolumeClaim" \
+	--type="PersistentVolumeClaimSpec" \
+	--type="PersistentVolumeClaimStatus"
+
+vendor/k8s.io/apimachinery/pkg/apis/meta/v1/compat_zz_generated.deepcopy.go: $(DEEPCOPY_GEN_BINARY) annotate-apimachinery
 	$(DEEPCOPY_GEN_BINARY) \
+	$(K8S_GEN_ARGS) \
 	--input-dirs    "$(GO_PKG)/vendor/k8s.io/apimachinery/pkg/apis/meta/v1" \
 	--bounding-dirs "$(GO_PKG)/vendor/k8s.io/apimachinery/pkg/apis/meta" \
-	--output-file-base compatibility_zz_generated.deepcopy
-	
-PRESENT_DEEPCOPY_GEN_DIRECTIVES=$(shell grep -c "// +k8s:deepcopy-gen=package" vendor/k8s.io/client-go/pkg/api/v1/doc.go)
-vendor/k8s.io/client-go/pkg/api/v1/compatibility_zz_generated.deepcop.go:
-ifeq ("$(PRESENT_DEEPCOPY_GEN_DIRECTIVES)", "0")
-	echo "// +k8s:deepcopy-gen=package" >> vendor/k8s.io/client-go/pkg/api/v1/doc.go 2>&1
-endif
+	--output-file-base compat_zz_generated.deepcopy
 
+vendor/k8s.io/client-go/pkg/api/v1/compat_zz_generated.deepcopy.go: $(DEEPCOPY_GEN_BINARY) annotate-v1 vendor/k8s.io/apimachinery/pkg/apis/meta/v1/compat_zz_generated.deepcopy.go
 	$(DEEPCOPY_GEN_BINARY) \
+	$(K8S_GEN_ARGS) \
 	--input-dirs    "$(GO_PKG)/vendor/k8s.io/client-go/pkg/api/v1" \
 	--bounding-dirs "$(GO_PKG)/vendor/k8s.io/client-go/pkg/api" \
-	--v=2 \
-	--output-file-base compatibility_zz_generated.deepcopy
+	--output-file-base compat_zz_generated.deepcopy
 
 DEEPCOPY_TARGET := pkg/apis/monitoring/v1/zz_generated.deepcopy.go
-$(DEEPCOPY_TARGET): $(COMPATIBILITY_DEEPCOPY_TARGET) $(K8S_GEN_DEPS)
+$(DEEPCOPY_TARGET): $(K8S_GEN_DEPS) vendor/k8s.io/client-go/pkg/api/v1/compat_zz_generated.deepcopy.go
 	$(DEEPCOPY_GEN_BINARY) \
 	$(K8S_GEN_ARGS) \
 	--input-dirs    "$(GO_PKG)/pkg/apis/monitoring/v1" \
@@ -112,20 +148,13 @@ k8s-gen: \
  $(INFORMER_TARGET) \
 
 .PHONY: image
-image: hack/operator-image hack/prometheus-config-reloader-image
+image: hack/operator-image
 
 hack/operator-image: Dockerfile operator
 # Create empty target file, for the sole purpose of recording when this target
 # was last executed via the last-modification timestamp on the file. See
 # https://www.gnu.org/software/make/manual/make.html#Empty-Targets
 	docker build -t $(REPO):$(TAG) .
-	touch $@
-
-hack/prometheus-config-reloader-image: cmd/prometheus-config-reloader/Dockerfile prometheus-config-reloader
-# Create empty target file, for the sole purpose of recording when this target
-# was last executed via the last-modification timestamp on the file. See
-# https://www.gnu.org/software/make/manual/make.html#Empty-Targets
-	docker build -t $(REPO_PROMETHEUS_CONFIG_RELOADER):$(TAG) -f cmd/prometheus-config-reloader/Dockerfile .
 	touch $@
 
 

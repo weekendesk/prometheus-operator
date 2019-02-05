@@ -22,18 +22,15 @@ import (
 	"strings"
 	"time"
 
-	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
 	version "github.com/hashicorp/go-version"
 	"github.com/pkg/errors"
-	"k8s.io/client-go/pkg/api/v1"
-	extensionsobj "k8s.io/client-go/pkg/apis/extensions/v1beta1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/validation"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/discovery"
 	clientv1 "k8s.io/client-go/kubernetes/typed/core/v1"
+	"k8s.io/client-go/pkg/api/v1"
 	"k8s.io/client-go/rest"
 )
 
@@ -48,7 +45,7 @@ var CustomResourceDefinitionTypeMeta metav1.TypeMeta = metav1.TypeMeta{
 // WaitForTPRReady waits for a third party resource to be available
 // for use.
 func WaitForTPRReady(restClient rest.Interface, tprGroup, tprVersion, tprName string) error {
-	err := wait.Poll(3*time.Second, 5*time.Minute, func() (bool, error) {
+	err := wait.Poll(3*time.Second, 10*time.Minute, func() (bool, error) {
 		res := restClient.Get().AbsPath("apis", tprGroup, tprVersion, tprName).Do()
 		err := res.Error()
 		if err != nil {
@@ -72,24 +69,6 @@ func WaitForTPRReady(restClient rest.Interface, tprGroup, tprVersion, tprName st
 	})
 
 	return errors.Wrap(err, fmt.Sprintf("timed out waiting for TPR %s", tprName))
-}
-
-// WaitForCRDReady waits for a custom resource definition to be available for use.
-func WaitForCRDReady(listFunc func(opts metav1.ListOptions) (runtime.Object, error)) error {
-	err := wait.Poll(3*time.Second, 10*time.Minute, func() (bool, error) {
-		_, err := listFunc(metav1.ListOptions{})
-		if err != nil {
-			if se, ok := err.(*apierrors.StatusError); ok {
-				if se.Status().Code == http.StatusNotFound {
-					return false, nil
-				}
-			}
-			return false, errors.Wrap(err, "failed to list CRD")
-		}
-		return true, nil
-	})
-
-	return errors.Wrap(err, fmt.Sprintf("timed out waiting for Custom Resource"))
 }
 
 // PodRunningAndReady returns whether a pod is running and each container has
@@ -206,32 +185,6 @@ func GetMinorVersion(dclient discovery.DiscoveryInterface) (int, error) {
 	}
 
 	return ver.Segments()[1], nil
-}
-
-func NewCustomResourceDefinition(crdKind monitoringv1.CrdKind, group string, labels map[string]string, validation bool) *extensionsobj.ThirdPartyResource {
-
-	return *extensionsobj.ThirdPartyResource{
-		{
-			ObjectMeta: metav1.ObjectMeta{
-				Name: tprServiceMonitor,
-			},
-			Versions: []extensionsobj.APIVersion{
-				{Name: monitoringv1.Version},
-			},
-			Description: "Prometheus monitoring for a service",
-		}
-
-	return crdutils.NewCustomResourceDefinition(crdutils.Config{
-		SpecDefinitionName:    crdKind.SpecName,
-		EnableValidation:      validation,
-		Labels:                crdutils.Labels{LabelsMap: labels},
-		ResourceScope:         string(extensionsobj.NamespaceScoped),
-		Group:                 group,
-		Kind:                  crdKind.Kind,
-		Version:               monitoringv1.Version,
-		Plural:                crdKind.Plural,
-		GetOpenAPIDefinitions: monitoringv1.GetOpenAPIDefinitions,
-	})
 }
 
 // SanitizeVolumeName ensures that the given volume name is a valid DNS-1123 label

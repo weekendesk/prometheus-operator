@@ -23,7 +23,6 @@ import (
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/apis/monitoring/v1"
 	monitoringclient "github.com/coreos/prometheus-operator/pkg/client/versioned"
 	"github.com/coreos/prometheus-operator/pkg/k8sutil"
-	"github.com/coreos/prometheus-operator/pkg/listwatch"
 	prometheusoperator "github.com/coreos/prometheus-operator/pkg/prometheus"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -71,7 +70,7 @@ type Config struct {
 	LocalHost                    string
 	ConfigReloaderImage          string
 	AlertmanagerDefaultBaseImage string
-	Namespaces                   []string
+	Namespace                    string
 	Labels                       prometheusoperator.Labels
 	CrdKinds                     monitoringv1.CrdKinds
 	CrdGroup                     string
@@ -106,7 +105,7 @@ func New(c prometheusoperator.Config, logger log.Logger) (*Operator, error) {
 			LocalHost:                    c.LocalHost,
 			ConfigReloaderImage:          c.ConfigReloaderImage,
 			AlertmanagerDefaultBaseImage: c.AlertmanagerDefaultBaseImage,
-			Namespaces:                   c.Namespaces,
+			Namespace:                    c.Namespace,
 			CrdGroup:                     c.CrdGroup,
 			CrdKinds:                     c.CrdKinds,
 			Labels:                       c.Labels,
@@ -116,20 +115,16 @@ func New(c prometheusoperator.Config, logger log.Logger) (*Operator, error) {
 	}
 
 	o.alrtInf = cache.NewSharedIndexInformer(
-		listwatch.MultiNamespaceListerWatcher(o.config.Namespaces, func(namespace string) cache.ListerWatcher {
-			return &cache.ListWatch{
-				ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-					return o.mclient.MonitoringV1().Alertmanagers(namespace).List(options)
-				},
-				WatchFunc: o.mclient.MonitoringV1().Alertmanagers(namespace).Watch,
-			}
-		}),
+		&cache.ListWatch{
+			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
+				return o.mclient.MonitoringV1().Alertmanagers(o.config.Namespace).List(options)
+			},
+			WatchFunc: o.mclient.MonitoringV1().Alertmanagers(o.config.Namespace).Watch,
+		},
 		&monitoringv1.Alertmanager{}, resyncPeriod, cache.Indexers{},
 	)
 	o.ssetInf = cache.NewSharedIndexInformer(
-		listwatch.MultiNamespaceListerWatcher(o.config.Namespaces, func(namespace string) cache.ListerWatcher {
-			return cache.NewListWatchFromClient(o.kclient.AppsV1beta1().RESTClient(), "statefulsets", namespace, fields.Everything())
-		}),
+		cache.NewListWatchFromClient(o.kclient.AppsV1beta1().RESTClient(), "statefulsets", o.config.Namespace, fields.Everything()),
 		&appsv1.StatefulSet{}, resyncPeriod, cache.Indexers{},
 	)
 
